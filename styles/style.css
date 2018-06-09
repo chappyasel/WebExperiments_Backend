@@ -23,20 +23,20 @@ aside {
 	position: fixed;
 	height: 100%;
 	width: 300px;
-	transition: 0.2s;
-	transition-timing-function: ease-out;
+	transition: 0.3s;
+	transition-timing-function: ease-in-out;
 }
 
 aside ul {
 	margin-top: 50%;
 	list-style: none;
-	font-size: 35px;
-	line-height: 70px;
-	font-weight: 800;
 }
 
 aside li {
 	color: #A7FFEB;
+	font-size: 35px;
+	line-height: 70px;
+	font-weight: 800;
 	transition: 0.2s;
 	transition-timing-function: ease-in;
 }
@@ -45,18 +45,32 @@ aside li:hover {
 	color: white;
 }
 
+@media only screen and (min-width: 1200px) {
+	aside {
+		width: 35%;
+	}
+	
+	aside li {
+		font-size: 4vw;
+		line-height: 6vw;
+		transition-duration: 0s;
+	}
+}
+
 @media only screen and (max-width: 750px) {
 	aside {
-		height: 60px;
-		width: 60px;
+		height: 40px;
+		width: 100%;
 		background-image: url(../img/general/nav/menu.png);
-		background-size: 40px;
+		background-size: 24px;
 		background-repeat: no-repeat;
-		background-position: 10px 10px;
+		background-position: 8px 8px;
 	}
 
 	aside ul {
-		display: none;
+		opacity: 0;
+		transition: .2s;
+		transition-delay: 0s;
 	}
 	
 	.full {
@@ -66,9 +80,11 @@ aside li:hover {
 	}
 	
 	.full ul {
-		display: block;
 		margin: 60px 0px;
 		height:100%;
+		opacity: 1;
+		transition: .3s;
+		transition-delay: .2s;
 	}
 }
 
@@ -77,26 +93,40 @@ aside li:hover {
 main {
 	margin-left: 300px;
 	overflow-y: scroll;
+	background-color: #F6F6F6;
 }
 
-header h1 {
+article {
+	margin: 20px;
+	height: 800px;
+	background-color: white;
+}
+
+article h1 {
 	text-align: center;
 	color: #1DE9B6;
 	font-size: 50px;
 }
 
-section {
-	margin: 20px;
-	height: 800px;
-	background-color: gray;
-}
-
-footer {
-	height: 100px;
+@media only screen and (min-width: 1200px) {
+	main {
+		margin-left: 35%;
+	}
 }
 
 @media only screen and (max-width: 750px) {
 	main {
+		padding-top: 40px;
 		margin-left: 0px;
 	}
+}
+
+/* general */
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* IE, Edge */
+            user-select: none; /* Chrome, Opera */
 }
