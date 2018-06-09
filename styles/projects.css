@@ -1,0 +1,61 @@
+
+.projects section {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.projects section > div {
+	width: 47%;
+	margin: 10px;
+	height: 20vw;
+}
+
+.projects section > div, .blur {
+  background-image: url('../img/projects/placeholder.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+	background-position: center bottom;
+	overflow: hidden;
+}
+
+.container {
+  position: relative;
+	height: 30%;
+	top: 70%;
+}
+
+.blur {
+	position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  z-index: 9;
+	background-position: center bottom;
+}
+
+.content {
+	position: relative;
+  z-index: 10;
+	padding: 5px;
+}
+
+.projects h3 {
+	width: 100%;
+	text-align: center;
+	color: white;
+	margin-top: 0;
+	padding-top: 0;
+	font-size: 30px;
+}
+
+@media only screen and (max-width: 1050px) {
+	.projects section > div {
+		width: 90%;
+		height: 40vw;
+		min-height: 250px;
+		max-height: 300px;
+	}
+}

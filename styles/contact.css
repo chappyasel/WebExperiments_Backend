@@ -1,0 +1,21 @@
+
+.contact section {
+	margin: auto;
+	max-width: 600px;
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-around;
+}
+
+.contact div {
+	margin: 10px;
+	width: 40%;
+	height: 100px;
+	background-color: #1DE9B6;
+}
+
+.contact h3 {
+	color: white;
+	text-align: center;
+	font-size: 25px;
+}
