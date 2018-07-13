@@ -28,26 +28,25 @@
         return $db->query($query)->rowCount() > 0;
     }
 
-    function has_user($db, $id) {
-        return found_row($db, "SELECT * FROM users WHERE id='$id'");
-    }
-
-    function delete_user($db, $id) {
-        return found_row($db, "DELETE FROM users WHERE id='$id'");
-    }
-
-    function insert_user($db, $id) {
-        date_default_timezone_set('America/Los_Angeles');
-        $date = date('y-m-d');
-        $time = date('y-m-d H:i:s');
-        $db->query("INSERT INTO users (id, date_created, date_updated) " .
-                   "VALUES ('$id', '$date', '$time')");
-    }
-
-    function success($msg) {
+	function success($msg) {
         header('Content-Type: application/json');
         print json_encode(array('success'=>$msg));
     }
+
+	function error_param($param) {
+		error_params([$param]);
+	}
+
+	function error_params($params) {
+		$msg = 'Missing params, one of:';
+		for ($i = 0; $i < count($params); $i++) {
+            $msg .= ' ' . $params[$i];
+            if ($i != count($params) - 1) {
+                $msg .= ',';
+            }
+        }
+        error($msg);
+	}
 
     function error($msg) {
         header('Content-Type: application/json');
