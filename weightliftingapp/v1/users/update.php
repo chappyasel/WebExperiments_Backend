@@ -1,24 +1,18 @@
 <?php
 
-    include('common.php');
+    include($_SERVER['DOCUMENT_ROOT'] . '/weightliftingapp/v1/shared.php');
+	include('user_shared.php');
     
     update(get_PDO());
     
     function update($db) {
-        if (!isset($_GET["id"])) {
-            error_params("missing param: id");
-        }
-        $id = $_GET["id"];
-		
-        if (!isset($_GET["online"])) {
-            error_params("missing param: online");
-        }
-		$online = $_GET["online"];
+       	$id = get_param('id');
+		$online = get_param('online');
 		
 		date_default_timezone_set('America/Los_Angeles');
         $time = date('y-m-d H:i:s');
 		
-        if (!found_row($db, "UPDATE users SET date_updated='$time' WHERE id='$id'")) {
+        if (!found_row($db, "UPDATE users SET date_updated='$time', logged_in='$online' WHERE id='$id'")) {
             error("user $id not found");
         }
         success("$id has been updated");

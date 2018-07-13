@@ -1,10 +1,11 @@
 <?php
     
-    include('common.php');
+    include($_SERVER['DOCUMENT_ROOT'] . '/weightliftingapp/v1/shared.php');
+	include('user_shared.php');
     
-    select(get_PDO());
+    query(get_PDO());
     
-    function select($db) {
+    function query($db) {
         header('Content-type: application/json');
         $rows = $db->query('SELECT id, date_created FROM users');
         $users = $rows->fetchAll(PDO::FETCH_ASSOC);

@@ -28,6 +28,13 @@
         return $db->query($query)->rowCount() > 0;
     }
 
+	function get_param($param) {
+		if (!isset($_GET[$param])) {
+            error_param($param);
+        }
+        return $_GET[$param];
+	}
+
 	function success($msg) {
         header('Content-Type: application/json');
         print json_encode(array('success'=>$msg));
@@ -38,7 +45,7 @@
 	}
 
 	function error_params($params) {
-		$msg = 'Missing params, one of:';
+		$msg = 'Missing required param. One of:';
 		for ($i = 0; $i < count($params); $i++) {
             $msg .= ' ' . $params[$i];
             if ($i != count($params) - 1) {
