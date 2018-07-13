@@ -1,7 +1,7 @@
 <?php
     
     include($_SERVER['DOCUMENT_ROOT'] . '/weightliftingapp/v1/shared.php');
-	include('user_shared.php');
+	include('shared.php');
     
     query(get_PDO());
     
