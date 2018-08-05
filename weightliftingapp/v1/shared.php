@@ -18,6 +18,7 @@
         try {
             $db = new PDO($ds, $auth['username'], $auth['password']);
             $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			date_default_timezone_set('UTC'); //UTC for all server interactions
             return $db;
         } catch (PDOException $ex) {
             error("Cannot connect to database. details:$ex");
@@ -40,7 +41,6 @@
 			error_body('NO_BODY');
 		}
 		$body = json_decode(file_get_contents('php://input'), true);
-		echo $body;
 		if (!isset($body[$param])) {
             error_body($param);
         }

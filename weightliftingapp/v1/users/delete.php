@@ -6,7 +6,7 @@
     delete(get_PDO());
     
     function delete($db) {
-		$id = get_param('id');
+		$id = get_param('username');
         if(!delete_user($db, $id)) {
          	error("user $id not found"); 
 		}
