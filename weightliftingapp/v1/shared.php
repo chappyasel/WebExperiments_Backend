@@ -35,10 +35,27 @@
         return $_GET[$param];
 	}
 
+	function get_body($param) {
+		if (!file_get_contents('php://input')) {
+			error_body('NO_BODY');
+		}
+		$body = json_decode(file_get_contents('php://input'), true);
+		echo $body;
+		if (!isset($body[$param])) {
+            error_body($param);
+        }
+        return $body[$param];
+	}
+
 	function success($msg) {
         header('Content-Type: application/json');
         print json_encode(array('success'=>$msg));
     }
+
+	function error_body($body) {
+		$msg = "Missing required body element: $body";
+		error($msg);
+	}
 
 	function error_param($param) {
 		error_params([$param]);
