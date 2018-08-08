@@ -7,15 +7,12 @@
     
     function update($db) {
 		$user = get_body('user');
-		if (!array_key_exists('username', $user)) {
-			error("missing required field: user.username");
-		}
-		$id = $user['username'];
+		$id = dict_require($user, 'username');
 		if (!has_user($db, $id)) {
-			insert_user($db, $id);
+			error("user $id not found");
 		}
 		foreach($user as $key => $value) {
-			if($value != $id) {
+			if($value !== $id) {
 				update_user($db, $id, $key, $value);
 			}
     	}

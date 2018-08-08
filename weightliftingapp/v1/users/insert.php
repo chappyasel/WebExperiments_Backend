@@ -6,9 +6,9 @@
     insert(get_PDO());
 
     function insert($db) {
-        $id = get_param('id');
+        $id = get_param('username');
         if(has_user($db, $id)) {
-            error("User $id already exists");
+            error("user $id already exists");
         }
         insert_user($db, $id);
         success("$id added to users");

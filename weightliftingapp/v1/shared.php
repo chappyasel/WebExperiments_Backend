@@ -29,8 +29,26 @@
         return $db->query($query)->rowCount() > 0;
     }
 
+	function dict_optional($dict, $key, $default) {
+		if (!array_key_exists($key, $dict)) {
+			return $default;
+		}
+		return $dict[$key];
+	}
+
+	function dict_require($dict, $key) {
+		if (!array_key_exists($key, $dict)) {
+			error("object missing required field: $dict.$key");
+		}
+		return $dict[$key];
+	}
+
+	function has_param($param) {
+		return (isset($_GET[$param]));
+	}
+
 	function get_param($param) {
-		if (!isset($_GET[$param])) {
+		if (!has_param($param)) {
             error_param($param);
         }
         return $_GET[$param];
