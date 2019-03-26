@@ -21,7 +21,7 @@ body {
 
 aside {
 	z-index: 11;
-	background-color: #1DE9B6;
+	background-color: #FFAAAA;
 	position: fixed;
 	height: 100%;
 	width: 300px;
@@ -109,7 +109,7 @@ article {
 article h1 {
 	margin: 0 0 20px 0;
 	text-align: center;
-	color: #1DE9B6;
+	color: #FFAAAA;
 	font-size: 50px;
 }
 

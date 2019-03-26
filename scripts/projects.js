@@ -16,7 +16,7 @@
 	});
 	
 	function processProjects(response) {
-		alert(response);
+		//alert(response);
 	}
 	
 	function checkStatus(response) {
