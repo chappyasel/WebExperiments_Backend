@@ -4,6 +4,7 @@ const app = express();
 const server = require('http').Server(app);
 const port = 3000;
 const helmet = require('helmet');
+var path = require('path');
 
 app.use(helmet());
 app.use(bodyParser.json());
@@ -21,6 +22,8 @@ app.options('*', function(req, res) {
 	res.send(200);
 });
 
+app.use('/', express.static(__dirname + '/public'));
+
 server.listen(port, (err) => {
 	if (err) {
 		throw err;
@@ -28,8 +31,6 @@ server.listen(port, (err) => {
 	/* eslint-disable no-console */
 	console.log('Node Endpoints working :)');
 });
-
-module.exports = server;
 
 var x = 0;
 
@@ -39,3 +40,5 @@ app.get('/nodetest/', (err, res) => {
 	res.json({ viewers: x });
 	res.end();
 });
+
+module.exports = server;

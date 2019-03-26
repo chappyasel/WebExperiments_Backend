@@ -1,2 +1,4 @@
 RewriteEngine on
 RewriteRule  (.*)  http://localhost:3000/$1  [P,L]
+
+DirectoryIndex disabled
