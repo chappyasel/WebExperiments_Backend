@@ -8,12 +8,16 @@ const con = mysql.createConnection({
     password: keys.password
 })
 
-function query() {
-    con.connect((err) => {
-        if (err) throw err
-        con.query('FROM users SELECT *', (err, result) => {
-            if (err) throw err
-            console.log(result)
+module.exports = {
+
+    query: function(callback) {
+        con.connect((err) => {
+            if (err) callback(err, null)
+            con.query('SELECT * FROM users', (err, result) => {
+                callback(err, result)
+            })
         })
-    })
+    }
+
 }
+

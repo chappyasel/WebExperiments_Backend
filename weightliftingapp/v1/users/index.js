@@ -1,10 +1,14 @@
 const express = require('express')
+const mysql = require('../mysql')
 const users = express.Router()
 
 // get a user
 users.get('/:userID', (req, res) => {
-    res.json({ userID: req.params.userID })
-    res.end()
+    mysql.query((err, users) => {
+        if (err) console.log(err)
+        res.json({ userID: users })
+        res.end()
+    })
 })
 
 // create a user
