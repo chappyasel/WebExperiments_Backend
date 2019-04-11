@@ -1,7 +1,7 @@
 const mysql = require('mysql')
 const keys = require('./keys')
 
-const con = mysql.createConnection({
+const pool = mysql.createPool({
     host: 'localhost',
     database: keys.database,
     user: keys.user,
@@ -11,11 +11,19 @@ const con = mysql.createConnection({
 module.exports = {
 
     query: function(callback) {
-        con.connect((err) => {
-            if (err) callback(err, null)
-            con.query('SELECT * FROM users', (err, result) => {
-                callback(err, result)
-            })
+        pool.getConnection((err, con) => {
+            try {
+                if (con) {
+                    con.query('SELECT * FROM users', (err, result) => {
+                        callback(err, result)
+                    })
+                    con.release()
+                }
+            }
+            catch (err) {
+                callback(err, null)
+            }
+            callback(err, null)
         })
     }
 

@@ -1,4 +1,5 @@
 const express = require('express')
+const boom = require('boom')
 const mysql = require('../mysql')
 const users = express.Router()
 
@@ -16,9 +17,8 @@ const users = express.Router()
  **/
 users.post('/', (req, res) => {
     mysql.query((err, users) => {
-        if (err) console.log(err)
+        if (err) return next(boom.serverUnavailable("DatabaseConnection"))
         res.json({ userID: users })
-        res.end()
     })
 })
 
@@ -32,11 +32,10 @@ users.post('/', (req, res) => {
  * @apiSuccess {Object} user The specified user
  * @apiError UserNotFound The user with the given id was not found
  **/
-users.get('/:userID', (req, res) => {
+users.get('/:userID', (req, res, next) => {
     mysql.query((err, users) => {
-        if (err) console.log(err)
+        if (err) return next(boom.serverUnavailable("DatabaseConnection"))
         res.json({ userID: users })
-        res.end()
     })
 })
 

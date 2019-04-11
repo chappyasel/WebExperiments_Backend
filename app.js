@@ -24,9 +24,19 @@ server.listen(3000, (err) => {
 
 // before every endpoint
 app.options('*', (req, res) => {
-	res.send(200)
+	//res.send(200)
 })
 
 app.use('/', express.static(__dirname + '/public'))
 
-app.use('/users', users)
+const version = 'v1'
+const basePath = '/weightliftingapp/' + version
+
+app.use(basePath + '/users', users)
+
+// error handling
+app.use((err, req, res, next) => {
+	console.error(err)
+	res.status(err.output.statusCode)
+	   .json({ error: err.output.payload })
+})
