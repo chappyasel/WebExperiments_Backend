@@ -23,7 +23,6 @@ module.exports = {
             catch (err) {
                 callback(err, null)
             }
-            callback(err, null)
         })
     }
 
