@@ -4,8 +4,16 @@ const server = require('http').Server(app)
 const bodyParser = require('body-parser')
 const helmet = require('helmet')
 
-const path = './weightliftingapp/v1/'
-const users = require(path + 'users')
+const waPath = './api/weightliftingapp/v1/'
+const users = require(waPath + 'users')
+const waBasePath = '/weightliftingapp/v1'
+
+const fPath = './api/fantasy/v1/'
+const fantasy = require(fPath)
+const fBasePath = '/fantasy/v1'
+
+
+// MARK - SETUP
 
 app.use(helmet())
 app.use(bodyParser.json())
@@ -16,16 +24,17 @@ server.listen(8081, (err) => {
 	console.log('Web Experiments activated!')
 })
 
-app.use('/', express.static(__dirname + '/public'))
-
-const version = 'v1'
-const basePath = '/weightliftingapp/' + version
-
-app.use(basePath + '/users', users)
-
-// error handling
 app.use((err, req, res, next) => {
 	console.error(err)
 	res.status(err.output.statusCode)
 	   .json({ error: err.output.payload })
 })
+
+
+// MARK - ROUTES
+
+app.use('/', express.static(__dirname + '/public'))
+
+app.use(waBasePath + '/users', users)
+
+app.use(fBasePath + '/', fantasy)
