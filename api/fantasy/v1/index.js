@@ -34,8 +34,7 @@ fantasy.get('/projections', async (req, res, next) => {
                             actual: processPlayerStats(p.playerPoolEntry.player.stats[1])
                         }
                     }
-                }),
-                points: t.totalPoints
+                })
             }
         }
 
@@ -96,13 +95,43 @@ fantasy.get('/projections', async (req, res, next) => {
             .then(ps => processPlayerProjections(ps)))
         const projs = await Promise.all(calls)
 
+        const proGames = await getProGames()
+
         res.json({ 
             games: games, 
+            proGames: proGames,
             projections: projs.filter(p => p != null),
             statMap: statMap
         })
     } 
     catch (err) { next(err) }
 })
+
+async function getProGames() {
+    const res =
+            await fetch(`https://site.api.espn.com/apis/fantasy/v2/games/ffl/` +
+                        `games?useMap=true&dates=20190905-20190910&pbpOnly=true`)
+            .then(r => r.json())
+            .then(r => r.events)
+    
+    return res.map(g => {
+        return {
+            date: g.date,
+            summary: g.summary,
+            percentComplete: g.percentComplete,
+            broadcast: g.broadcast,
+            competitors: g.competitors.map(c => {
+                return {
+                    id: c.id,
+                    abbrev: c.abbreviation,
+                    name: c.name,
+                    record: c.record,
+                    score: c.score,
+                    isHome: c.homeAway === "home"
+                }
+            })
+        }
+    })
+}
 
 module.exports = fantasy
