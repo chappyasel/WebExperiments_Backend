@@ -13,11 +13,16 @@
 }
 
 .projects section > div, .blur {
-	background-image: url('../img/projects/placeholder.jpg');
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: center bottom;
 	overflow: hidden;
+	cursor: pointer;
+	transition: all .3s ease-in-out;
+}
+
+.projects section > div:hover {
+	transform: scale(1.03);
 }
 
 .container {

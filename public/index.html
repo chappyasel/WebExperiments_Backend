@@ -33,9 +33,12 @@
 		<article class="projects">
 			<h1>Projects</h1>
 			<section>
-				<div class="shadow" v-for="p in projects.list">
+				<div class="shadow" v-for="p in projects.list"
+					 @click="openLink(p.link);"
+					 v-bind:style="{ backgroundImage: 'url(../img/projects/' + p.image + ')' }">
 					<div class="container">
-						<div class="blur"></div>
+						<div class="blur"
+							 v-bind:style="{ backgroundImage: 'url(../img/projects/' + p.image + ')' }"></div>
 						<div class="content">
 							<h3>{{p.name}}</h3>
 						</div>

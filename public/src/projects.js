@@ -3,56 +3,46 @@ export default {
       'HTML',
       'CSS',
       'JavaScript',
-      'Objective C'
+      'Objective C',
+      'Python',
+      'Node.js'
    ],
    list: [
       {
-         name: 'Orange Twist',
-         description: `Orange Twist Jewelry's company website utilizing JavaScript and JSON for easy website modification. Takes advantage of shared CSS and HTML template-driven design to reduce redundancy and file sizes.`,
-         link: 'http://myorangetwist.com',
-         image: 'orangetwist.jpg',
-         date: 'June 2013',
-         languages: ['HTML', 'CSS', 'JavaScript']
+         name: 'Weightlifting App',
+         link: 'https://apps.apple.com/us/app/weightlifting-app/id1266077653',
+         image: 'placeholder.jpg',
+         languages: ['Objective C']
       },
       {
-         name: 'Orange Twist',
-         description: `Orange Twist Jewelry's company website utilizing JavaScript and JSON for easy website modification. Takes advantage of shared CSS and HTML template-driven design to reduce redundancy and file sizes.`,
-         link: 'http://myorangetwist.com',
-         image: 'orangetwist.jpg',
-         date: 'June 2013',
-         languages: ['HTML', 'CSS', 'JavaScript']
+         name: 'Homework App',
+         link: 'https://apps.apple.com/us/app/homework-app/id1097438761',
+         image: 'placeholder.jpg',
+         languages: ['Objective C']
       },
       {
-         name: 'Orange Twist',
-         description: `Orange Twist Jewelry's company website utilizing JavaScript and JSON for easy website modification. Takes advantage of shared CSS and HTML template-driven design to reduce redundancy and file sizes.`,
-         link: 'http://myorangetwist.com',
-         image: 'orangetwist.jpg',
-         date: 'June 2013',
-         languages: ['HTML', 'CSS', 'JavaScript']
+         name: 'Web Experiments',
+         link: 'https://github.com/ChappyA12/WebExperiments_Backend',
+         image: 'placeholder.jpg',
+         languages: ['HTML', 'CSS', 'JavaScript', 'Node.js']
       },
       {
-         name: 'Orange Twist',
-         description: `Orange Twist Jewelry's company website utilizing JavaScript and JSON for easy website modification. Takes advantage of shared CSS and HTML template-driven design to reduce redundancy and file sizes.`,
-         link: 'http://myorangetwist.com',
-         image: 'orangetwist.jpg',
-         date: 'June 2013',
-         languages: ['HTML', 'CSS', 'JavaScript']
+         name: 'Fantasy Basketball',
+         link: 'https://github.com/ChappyA12/FantasyBasketball_iOS',
+         image: 'placeholder.jpg',
+         languages: ['Objective C']
       },
       {
-         name: 'Orange Twist',
-         description: `Orange Twist Jewelry's company website utilizing JavaScript and JSON for easy website modification. Takes advantage of shared CSS and HTML template-driven design to reduce redundancy and file sizes.`,
-         link: 'http://myorangetwist.com',
-         image: 'orangetwist.jpg',
-         date: 'June 2013',
-         languages: ['HTML', 'CSS', 'JavaScript']
+         name: 'Weightlifting App ML',
+         link: 'https://github.com/ChappyA12/WeightliftingAppML_Python',
+         image: 'placeholder.jpg',
+         languages: ['Python']
       },
       {
-         name: 'Orange Twist',
-         description: `Orange Twist Jewelry's company website utilizing JavaScript and JSON for easy website modification. Takes advantage of shared CSS and HTML template-driven design to reduce redundancy and file sizes.`,
-         link: 'http://myorangetwist.com',
-         image: 'orangetwist.jpg',
-         date: 'June 2013',
-         languages: ['HTML', 'CSS', 'JavaScript']
+         name: 'Rotoworld ML',
+         link: 'https://github.com/ChappyA12/RotoworldML_Python',
+         image: 'placeholder.jpg',
+         languages: ['Python']
       }
    ]
 }
