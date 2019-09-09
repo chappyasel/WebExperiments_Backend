@@ -94,13 +94,31 @@ fantasy.get('/projections', async (req, res, next) => {
             })
             .then(ps => processPlayerProjections(ps)))
         const projs = await Promise.all(calls)
+            
+        const projDict = projs
+            .filter(p => p)
+            .reduce(function(obj, item) {
+                obj[item.id] = item
+                return obj
+            }, {})
+
+        const gamesWithProjs = games.map(g => {
+            g.home.roster.map(p => {
+                p.projections = projDict[p.id]
+                return p
+            })
+            g.away.roster.map(p => {
+                p.projections = projDict[p.id]
+                return p
+            })
+            return g
+        })
 
         const proGames = await getProGames()
 
         res.json({ 
-            games: games, 
+            games: gamesWithProjs, 
             proGames: proGames,
-            projections: projs.filter(p => p != null),
             statMap: statMap
         })
     } 
