@@ -1,12 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Heebo:300,400,500,800');
 
-/*
-	l1  : #A7FFEB
-	l2  : #64FFDA
-	med : #1DE9B6
-	dark: #00BFA5
-*/
-
 html {
 	font-family: 'Heebo', sans-serif;
 	height: 100%;
@@ -21,7 +14,7 @@ body {
 
 aside {
 	z-index: 11;
-	background-color: #FFAAAA;
+	background-color: #81D4FA;
 	position: fixed;
 	height: 100%;
 	width: 300px;
@@ -35,7 +28,7 @@ aside ul {
 }
 
 aside li {
-	color: #A7FFEB;
+	color: #FFF;
 	font-size: 35px;
 	line-height: 70px;
 	font-weight: 800;
@@ -109,7 +102,7 @@ article {
 article h1 {
 	margin: 0 0 20px 0;
 	text-align: center;
-	color: #FFAAAA;
+	color: #90CAF9;
 	font-size: 50px;
 }
 
@@ -137,11 +130,11 @@ article h1 {
 /* general */
 
 .noselect {
-  -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-       -moz-user-select: none; /* Firefox */
-        -ms-user-select: none; /* IE, Edge */
-            user-select: none; /* Chrome, Opera */
+  	-webkit-touch-callout: none; /* iOS Safari */
+	-webkit-user-select: none; /* Safari */
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* IE, Edge */
+	user-select: none; /* Chrome, Opera */
 }
 
 .shadow {
@@ -151,8 +144,8 @@ article h1 {
 
 .blur {
 	-webkit-filter: blur(5px);
-		 -moz-filter: blur(5px);
-			-ms-filter: blur(5px);
-			 -o-filter: blur(5px);
-			  	filter: blur(5px);
+	-moz-filter: blur(5px);
+	-ms-filter: blur(5px);
+	-o-filter: blur(5px);
+	filter: blur(5px);
 }

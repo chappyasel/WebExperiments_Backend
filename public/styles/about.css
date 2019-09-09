@@ -6,14 +6,14 @@
 	min-width: 140px;
 	max-width: 300px;
 	border-radius: 50%;
-	border: 5px solid #1DE9B6;
+	border: 5px solid #90CAF9;
 }
 
 .about p {
 	font-size: 2vw;
 	text-align: justify;
 	min-height: 300px;
-	color: #444444;
+	color: #777;
 }
 
 @media only screen and (min-width: 1200px) {

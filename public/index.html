@@ -1,118 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link href="styles/style.css" rel="stylesheet" type="text/css" />
-		<link href="styles/about.css" rel="stylesheet" type="text/css" />
-		<link href="styles/projects.css" rel="stylesheet" type="text/css" />
-		<link href="styles/resume.css" rel="stylesheet" type="text/css" />
-		<link href="styles/contact.css" rel="stylesheet" type="text/css" />
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-		<script src="scripts/index.js"></script>
-		<script src="scripts/projects.js"></script>
-		<title>Chappy Asel</title>
-	</head>
-	<body>
-		<aside class="noselect">
-			<ul>
-				<li class="menu-btn" id="about">About Me</li>
-				<li class="menu-btn" id="projects">Projects</li>
-				<li class="menu-btn" id="resume">Resume</li>
-				<li class="menu-btn" id="contact">Contact</li>
-			</ul>
-		</aside>
-		<main>
-			<article class="about">
-				<h1>About Me</h1>
-				<p>
-					<img src="img/about/profile.png"/>
-					Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-				</p>
-			</article>
-			<article class="projects">
-				<h1>Projects</h1>
-				<section>
-					<div class="shadow">
-						<div class="container">
-							<div class="blur"></div>
-							<div class="content">
-								<h3>Test Title</h3>
-							</div>
+
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="styles/style.css" rel="stylesheet" type="text/css" />
+	<link href="styles/about.css" rel="stylesheet" type="text/css" />
+	<link href="styles/projects.css" rel="stylesheet" type="text/css" />
+	<link href="styles/resume.css" rel="stylesheet" type="text/css" />
+	<link href="styles/contact.css" rel="stylesheet" type="text/css" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<title>Chappy Asel</title>
+</head>
+
+<body>
+	<aside id="app-menu" class="noselect" @click="dropMenu">
+		<ul>
+			<li class="menu-btn" @click="menuClicked('about')">About Me</li>
+			<li class="menu-btn" @click="menuClicked('projects')">Projects</li>
+			<li class="menu-btn" @click="menuClicked('resume')">Resume</li>
+			<li class="menu-btn" @click="menuClicked('contact')">Contact</li>
+		</ul>
+	</aside>
+	<main id="app-index">
+		<article class="about">
+			<h1>About Me</h1>
+			<p>
+				<img src="img/about/profile.jpg"/>
+				{{about.description}}
+			</p>
+		</article>
+		<article class="projects">
+			<h1>Projects</h1>
+			<section>
+				<div class="shadow" v-for="p in projects.list">
+					<div class="container">
+						<div class="blur"></div>
+						<div class="content">
+							<h3>{{p.name}}</h3>
 						</div>
 					</div>
-					<div class="shadow">
-						<div class="container">
-							<div class="blur"></div>
-							<div class="content">
-								<h3>Test Title</h3>
-							</div>
-						</div>
-					</div>
-					<div class="shadow">
-						<div class="container">
-							<div class="blur"></div>
-							<div class="content">
-								<h3>Test Title</h3>
-							</div>
-						</div>
-					</div>
-					<div class="shadow">
-						<div class="container">
-							<div class="blur"></div>
-							<div class="content">
-								<h3>Test Title</h3>
-							</div>
-						</div>
-					</div>
-					<div class="shadow">
-						<div class="container">
-							<div class="blur"></div>
-							<div class="content">
-								<h3>Test Title</h3>
-							</div>
-						</div>
-					</div>
-					<div class="shadow">
-						<div class="container">
-							<div class="blur"></div>
-							<div class="content">
-								<h3>Test Title</h3>
-							</div>
-						</div>
-					</div>
-				</section>
-			</article>
-			<article class="resume">
-				<h1>Resume</h1>
-				<section>
-					<div>
-						<h3>Download</h3>
-					</div>
-				</section>
-			</article>
-			<article class="contact">
-				<h1>Contact</h1>
-				<section>
-					<div class="shadow">
-						<h3>Phone</h3>
-					</div>
-					<div class="shadow">
-						<h3>Email</h3>
-					</div>
-					<div class="shadow">
-						<h3>Facebook</h3>
-					</div>
-					<div class="shadow">
-						<h3>Twitter</h3>
-					</div>
-					<div class="shadow">
-						<h3>Instagram</h3>
-					</div>
-					<div class="shadow">
-						<h3>Linkedin</h3>
-					</div>
-				</section>
-			</article>
-		</main>
-	</body>
+				</div>
+			</section>
+		</article>
+		<article class="resume">
+			<h1>Resume</h1>
+			<section>
+				<div>
+					<h3>Download</h3>
+				</div>
+			</section>
+		</article>
+		<article class="contact">
+			<h1>Contact</h1>
+			<section>
+				<div class="shadow">
+					<h3>Phone</h3>
+				</div>
+				<div class="shadow">
+					<h3>Email</h3>
+				</div>
+				<div class="shadow">
+					<h3>Facebook</h3>
+				</div>
+				<div class="shadow">
+					<h3>Twitter</h3>
+				</div>
+				<div class="shadow">
+					<h3>Instagram</h3>
+				</div>
+				<div class="shadow">
+					<h3>Linkedin</h3>
+				</div>
+			</section>
+		</article>
+	</main>
+</body>
+
+<script type="module" src="scripts/index.js"></script>
 </html>
