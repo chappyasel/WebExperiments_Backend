@@ -15,7 +15,8 @@
     "express": "^4.16.4",
     "helmet": "^3.16.0",
     "http": "0.0.0",
-    "mysql": "^2.16.0"
+    "mysql": "^2.16.0",
+    "node-fetch": "^2.6.0"
   },
   "scripts": {
     "start": "node app.js"

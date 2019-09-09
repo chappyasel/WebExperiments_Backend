@@ -26,8 +26,7 @@ server.listen(8081, (err) => {
 
 app.use((err, req, res, next) => {
 	console.error(err)
-	res.status(err.output.statusCode)
-	   .json({ error: err.output.payload })
+	res.status(500).render('error', { error: err })
 })
 
 

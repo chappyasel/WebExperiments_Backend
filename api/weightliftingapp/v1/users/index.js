@@ -50,7 +50,7 @@ users.get('/:userID', (req, res, next) => {
  * @apiSuccess {Object} user The new user
  * @apiError UserAlreadyExists The user with the given id already exists
  **/
-users.post('/new', (req, res) => {
+users.post('/new', (req, res, next) => {
     res.json({ userID: req.body.userID });
     res.end()
 })
