@@ -14,12 +14,13 @@
 </head>
 
 <body>
-	<aside id="app-menu" class="noselect" @click="dropMenu">
+	<aside id="app-menu" @click="showMenu = !showMenu"
+		   v-bind:class="{ full: showMenu }">
 		<ul>
-			<li class="menu-btn" @click="menuClicked('about')">About Me</li>
-			<li class="menu-btn" @click="menuClicked('projects')">Projects</li>
-			<li class="menu-btn" @click="menuClicked('resume')">Resume</li>
-			<li class="menu-btn" @click="menuClicked('contact')">Contact</li>
+			<li @click="menuClicked('about')">About Me</li>
+			<li @click="menuClicked('projects')">Projects</li>
+			<li @click="menuClicked('resume')">Resume</li>
+			<li @click="menuClicked('contact')">Contact</li>
 		</ul>
 	</aside>
 	<main id="app-index">
@@ -56,26 +57,11 @@
 		</article>
 		<article class="contact">
 			<h1>Contact</h1>
-			<section>
-				<div class="shadow">
-					<h3>Phone</h3>
+			<v-flex v-for="c in contact.list">
+				<div class="shadow" @click="openLink(c.link)" v-bind:title="c.name"
+					 v-bind:style="{ backgroundImage: 'url(../img/contact/' + c.image + ')' }">
 				</div>
-				<div class="shadow">
-					<h3>Email</h3>
-				</div>
-				<div class="shadow">
-					<h3>Facebook</h3>
-				</div>
-				<div class="shadow">
-					<h3>Twitter</h3>
-				</div>
-				<div class="shadow">
-					<h3>Instagram</h3>
-				</div>
-				<div class="shadow">
-					<h3>Linkedin</h3>
-				</div>
-			</section>
+			</v-flex>
 		</article>
 	</main>
 </body>

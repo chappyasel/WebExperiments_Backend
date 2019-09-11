@@ -1,17 +1,16 @@
 import about from '../src/about.js'
 import projects from '../src/projects.js'
+import contact from '../src/contact.js'
 
 const MOBILE_SIZE = 750
 
 
 new Vue({
 	el: '#app-menu',
+	data: {
+		showMenu: false
+	},
 	methods: {
-		dropMenu: function() {
-			if (isMobile()) {
-				$('aside').toggleClass('full')
-			}
-		},
 		menuClicked: function(segment) {
 			let offset = 20 + (isMobile() ? 40 : 0)
 			$('html, body').animate({
@@ -26,7 +25,8 @@ new Vue({
 	el: '#app-index',
 	data: {
 		about: about,
-		projects: projects
+		projects: projects,
+		contact: contact
 	},
 	methods: {
 		openLink: function(link) {
