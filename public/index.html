@@ -48,18 +48,19 @@
 		<article class="resume">
 			<h1>Resume</h1>
 			<section>
-				<div>
+				<div @click="openLink(resume.link)">
 					<h3>Download</h3>
 				</div>
 			</section>
 		</article>
 		<article class="contact">
 			<h1>Contact</h1>
-			<v-flex v-for="c in contact.list">
-				<div class="shadow" @click="openLink(c.link)" v-bind:title="c.name"
+			<section>
+				<div class="shadow" v-for="c in contact.list"
+				     @click="openLink(c.link)" v-bind:title="c.name"
 					 v-bind:style="{ backgroundImage: 'url(../img/contact/' + c.image + ')' }">
 				</div>
-			</v-flex>
+			</section>
 		</article>
 	</main>
 </body>

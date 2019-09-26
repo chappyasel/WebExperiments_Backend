@@ -12,13 +12,14 @@
 	margin: 10px;
 	height: 20vw;
 	border-radius: 20px;
-	box-shadow: 0px 5px 20px 2px #BBB;
+	box-shadow: 0px 5px 20px 2px #CCC;
 	transition: all .3s ease-in-out;
 	cursor: pointer;
 	overflow: hidden;
 }
 
 .projects section > div:hover {
+	box-shadow: 0px 5px 30px 0px #DDD;
 	transform: scale(1.03);
 }
 
