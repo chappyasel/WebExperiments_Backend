@@ -1,6 +1,6 @@
 
 .contact v-flex {
-	display: grid;
+	display: inline-flex;
 	flex-flow: row wrap;
 	justify-content: space-around;
 	align-items: center;

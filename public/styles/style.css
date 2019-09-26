@@ -106,7 +106,7 @@ article {
 article h1 {
 	margin: 0 0 20px 0;
 	text-align: center;
-	color: #90CAF9;
+	color: rgb(144, 202, 249);
 	font-size: 50px;
 }
 
@@ -134,5 +134,5 @@ article h1 {
 /* general */
 
 .blur {
-	filter: blur(5px);
+	filter: blur(2px);
 }
