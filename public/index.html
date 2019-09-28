@@ -26,10 +26,8 @@
 	<main id="app-index">
 		<article class="about">
 			<h1>About Me</h1>
-			<p>
-				<img src="img/about/profile.jpg"/>
-				{{about.description}}
-			</p>
+			<img src="img/about/profile.jpg"/>
+			<p v-html="about.description"> </p>
 		</article>
 		<article class="projects">
 			<h1>Projects</h1>
