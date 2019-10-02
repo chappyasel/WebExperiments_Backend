@@ -1,3 +1,3 @@
 export default {
-    link: '../src/docs/resume.pdf'
+    link: '../src/docs/gabriel-asel-resume.pdf'
 }

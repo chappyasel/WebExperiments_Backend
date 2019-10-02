@@ -56,5 +56,9 @@
 		height: 40vw;
 		min-height: 250px;
 		max-height: 300px;
-	}
+    }
+
+    .projects h3 {
+        font-size: 18px;
+    }
 }

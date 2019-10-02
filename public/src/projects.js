@@ -10,13 +10,13 @@ export default {
    list: [
       {
          name: 'Weightlifting App',
-         link: 'https://apps.apple.com/us/app/weightlifting-app/id1266077653',
+         link: 'https://apps.apple.com/us/app/id1266077653',
          image: 'weightlifting.jpg',
          languages: ['Objective C']
       },
       {
          name: 'Homework App',
-         link: 'https://apps.apple.com/us/app/homework-app/id1097438761',
+         link: 'https://apps.apple.com/us/app/id1097438761',
          image: 'homework.jpg',
          languages: ['Objective C']
       },
