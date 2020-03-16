@@ -4,17 +4,7 @@ const server = require('http').Server(app)
 const bodyParser = require('body-parser')
 const helmet = require('helmet')
 
-const waPath = './api/weightliftingapp/v1/'
-const users = require(waPath + 'users')
-const waBasePath = '/weightliftingapp/v1'
-
-const fPath = './api/fantasy/v1/'
-const fantasy = require(fPath)
-const fBasePath = '/fantasy/v1'
-
-
 // MARK - SETUP
-
 app.use(helmet())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -29,11 +19,16 @@ app.use((err, req, res, next) => {
 	res.status(500).render('error', { error: err })
 })
 
-
-// MARK - ROUTES
-
+// MARK - Public paths
 app.use('/', express.static(__dirname + '/public'))
 
-app.use(waBasePath + '/users', users)
+// MARK - Weightlifting app paths
+const waPath = './api/weightliftingapp/v1/'
+const waBasePath = '/weightliftingapp/v1'
+app.use(waBasePath + '/users', require(waPath + 'users'))
+app.use(waBasePath + '/feedback', require(waPath + 'feedback'))
 
-app.use(fBasePath + '/', fantasy)
+// MARK - Fantasy paths
+const fPath = './api/fantasy/v1/'
+const fBasePath = '/fantasy/v1'
+app.use(fBasePath + '/', require(fPath))

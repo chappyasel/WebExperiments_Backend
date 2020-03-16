@@ -2,7 +2,7 @@
 
 ## Intro
 
-Web Experiments backend is a monorepo for my [AWS EB](https://aws.amazon.com/elasticbeanstalk)-hosted online portfolio website along with MySQL / PHP / Node.js backends for various other personal projects including [Weightlifting App](https://apps.apple.com/us/app/id1266077653) and ESPN Fantasy Football stats. 
+Web Experiments backend is a monorepo for my [AWS EB](https://aws.amazon.com/elasticbeanstalk)-hosted online portfolio website along with MySQL / PHP / Node.js backends for various other personal projects including [Weightlifting App](https://apps.apple.com/us/app/id1266077653) and ESPN Fantasy Football stats.
 
 Currently, I am in the process of deprecating my PHP / MySQL backend in favor of a AWS EB app running Node.js with DynamoDB and S3 as my storage components. I previously had my backend running on a Linux instance managed by GoDaddy but I decided to convert to AWS due to the reliability benefits.
 
@@ -22,7 +22,7 @@ Eventually, I plan to support a variety of features in my Weightlifting API, inc
 
 The ESPN Fantasy Football season has recently begun and I've been interested in all the [IBM Watson](https://www.ibm.com/sports/fantasy) fantasy football insights ESPN has integrated in the past two years. While they have integrated these insignts to some extent, I think there is a lot of comparative and predictive funcationality that is still missing. [Example](http://chappyasel.com/fantasy/v1/projections)
 
-```
+``` www
 http://chappyasel.com/fantasy/v1/projections
 ```
 
@@ -30,4 +30,19 @@ Becuase of this, I have decided to start working on a web app / API that can be 
 
 ## Installation
 
-This repo is relatively easy to get running locally since it runs as a [Node.js](https://nodejs.org/en/) backend. To install the repo's dependencies, run `npm install`. Then, to run the app locally, simply run `node app.js` on the command line. 
+This repo is relatively easy to get running locally since it runs as a [Node.js](https://nodejs.org/en/) backend. To install the repo's dependencies, run `npm install`. Then, to run the app locally, simply run `node app.js` on the command line.
+
+## Deployment
+
+### Production
+
+``` bash
+eb deploy
+```
+
+### Development
+
+``` bash
+npm install nodemon -g
+nodemon app.js
+```
