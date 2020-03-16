@@ -1,6 +1,9 @@
 const express = require('express')
 const boom = require('boom')
 const feedback = express.Router()
+const { requireParam } = require('../util')
+const db = require('./db')
+const { v4: uuid } = require('uuid')
 
 /**
  * @api {post} /feedback
@@ -27,7 +30,7 @@ feedback.post('/', (req, res) => {
  * @apiGroup Feedback
  * @apiDescription Get a user by id
  *
- * @apiParam (param) {String} feedbackID the feedback item's ID
+ * @apiParam (param) {String} feedbackID  The feedback item's ID
  *
  * @apiSuccess {Object} feedback The specified feedback item
  * @apiError FeedbackNotFound The feedback item with the given id was not found
@@ -47,22 +50,32 @@ feedback.get('/:feedbackID', (req, res, next) => {
  * @apiGroup Feedback
  * @apiDescription Create a new feedback item
  *
- * @apiParam (body) {String} user_id The user's ID
- * @apiParam (body) {String} deviceUUID The device UUID
- * @apiParam (body) {String} title The feedback item's title
- * @apiParam (body) {String} body The feedback item's body
+ * @apiParam (body) {String} user_id    The user's ID
+ * @apiParam (body) {String} device_id  The device's UUID
+ * @apiParam (body) {String} title      The feedback item's title
+ * @apiParam (body) {String} body       The feedback item's body
  *
- * @apiSuccess {Object} user The feedback item
- * @apiError FeedbackAlreadyExists The feedback item with the given ID already
- *                                 exists
+ * @apiSuccess {Object} feedback        The feedback item
  **/
-feedback.post('/new', (req, res, next) => {
-  res.json({
-    uid: 'abc',
-    user_uuid: 'uuid',
-    name: 'name',
+feedback.post('/new', async (req, res, _) => {
+  const user_id = requireParam(req, res, 'user_id')
+  const device_id = requireParam(req, res, 'device_id')
+  const title = requireParam(req, res, 'title')
+  const body = requireParam(req, res, 'body')
+
+  const feedback = {
+    id: uuid(),
+    user_id,
+    device_id,
     timestamp: new Date().getTime(),
-  })
+    title,
+    body,
+    upvotes: 1,
+    upvote_device_ids: [device_id],
+  }
+
+  const dbRes = await db.putFeedbackItem(res, feedback)
+  res.json(dbRes)
   res.end()
 })
 
