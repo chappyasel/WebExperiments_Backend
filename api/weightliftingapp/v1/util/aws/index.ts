@@ -1,5 +1,5 @@
-const dynamodb = require('./dynamodb')
+import dynamodb = require('./dynamodb')
 
-module.exports = {
+export = {
   dynamodb,
 }

@@ -1,8 +1,8 @@
-export {}
-const express = require('express')
+import express = require('express')
 const feedback = express.Router()
 const { requireParam, requireBody } = require('../util')
-const db = require('./db')
+import db = require('./db')
+import * as t from './types'
 const { v4: uuid } = require('uuid')
 
 /**
@@ -37,7 +37,7 @@ feedback.post('/', async (req: any, res: any) => {
  * @apiError FeedbackNotFound The feedback item with the given id was not found
  **/
 feedback.get('/:feedbackID', async (req: any, res: any) => {
-  const feedback_id: Number = requireParam(req, res, 'feedbackID')
+  const feedback_id: string = requireParam(req, res, 'feedbackID')
   const dbRes = await db.getFeedbackItem(res, feedback_id)
   res.json({
     item: dbRes,
@@ -57,12 +57,12 @@ feedback.get('/:feedbackID', async (req: any, res: any) => {
  * @apiSuccess {Object} feedback        The feedback item
  **/
 feedback.post('/new', async (req: any, res: any) => {
-  const user_id = requireBody(req, res, 'user_id')
-  const device_id = requireBody(req, res, 'device_id')
-  const title = requireBody(req, res, 'title')
-  const body = requireBody(req, res, 'body')
+  const user_id: string = requireBody(req, res, 'user_id')
+  const device_id: string = requireBody(req, res, 'device_id')
+  const title: string = requireBody(req, res, 'title')
+  const body: string = requireBody(req, res, 'body')
 
-  const feedback: Feedback = {
+  const feedback: t.Feedback = {
     id: uuid(),
     user_id,
     device_id,
@@ -78,4 +78,4 @@ feedback.post('/new', async (req: any, res: any) => {
   res.end()
 })
 
-module.exports = feedback
+export = feedback

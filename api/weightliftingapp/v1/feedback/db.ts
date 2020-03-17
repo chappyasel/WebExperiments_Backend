@@ -1,35 +1,20 @@
-const aws = require('../util/aws')
-const keys = require('../util/aws/keys')
+import aws = require('../util/aws')
+import keys = require('../util/aws/keys')
+import * as t from './types'
 
-type Feedback = {
-  id: String
-  user_id: String
-  device_id: String
-  timestamp: Number
-  title: String
-  body: String
-  upvotes: Number
-  upvote_device_ids: String[]
-}
-
-type FeedbackQuery = {
-  success: Boolean
-  items: Feedback[]
-}
-
-async function putFeedbackItem(res: any, feedback: Feedback) {
+async function putFeedbackItem(res: any, feedback: t.Feedback) {
   return await aws.dynamodb.put(res, keys.TABLES.FEEDBACK_TABLE, feedback)
 }
 
-async function getFeedbackItem(res: any, id: String): Promise<Feedback> {
+async function getFeedbackItem(res: any, id: string): Promise<t.Feedback> {
   return await aws.dynamodb.get(res, keys.TABLES.FEEDBACK_TABLE, 'id', id)
 }
 
-async function queryFeedbackItems(res: any): Promise<FeedbackQuery> {
+async function queryFeedbackItems(res: any): Promise<t.FeedbackQuery> {
   return await aws.dynamodb.query(res, keys.TABLES.FEEDBACK_TABLE)
 }
 
-module.exports = {
+export = {
   putFeedbackItem,
   getFeedbackItem,
   queryFeedbackItems,

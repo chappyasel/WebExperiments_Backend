@@ -1,6 +1,4 @@
-export {}
-const express = require('express')
-const boom = require('boom')
+import express = require('express')
 const users = express.Router()
 
 /**
@@ -33,7 +31,7 @@ users.post('/', (req: any, res: any) => {
  * @apiError UserNotFound The user with the given id was not found
  **/
 users.get('/:userID', (req: any, res: any) => {
-  res.json({ test: req.params.userID })
+  // res.json({ test: req.params.userID })
   // mysql.query((err, users) => {
   //     if (err) return next(boom.serverUnavailable("DatabaseConnection"))
   //     res.json({ userID: users })
@@ -52,8 +50,8 @@ users.get('/:userID', (req: any, res: any) => {
  * @apiError UserAlreadyExists The user with the given id already exists
  **/
 users.post('/new', (req: any, res: any) => {
-  res.json({ userID: req.body.userID })
-  res.end()
+  // res.json({ userID: req.body.userID })
+  // res.end()
 })
 
-module.exports = users
+export = users

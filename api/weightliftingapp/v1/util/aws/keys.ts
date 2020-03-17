@@ -1,4 +1,4 @@
-module.exports = {
+export = {
   TABLES: {
     FEEDBACK_TABLE: 'benchTrackerFeedback',
   },

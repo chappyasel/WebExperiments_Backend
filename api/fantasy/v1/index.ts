@@ -1,4 +1,3 @@
-export {}
 const express = require('express')
 const fetch = require('node-fetch')
 const statMap = require('./statMap')
@@ -159,4 +158,4 @@ function processPlayerProjections(ps: any) {
   }
 }
 
-module.exports = fantasy
+export = fantasy

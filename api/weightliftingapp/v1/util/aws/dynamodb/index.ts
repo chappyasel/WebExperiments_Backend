@@ -1,7 +1,6 @@
-export {}
-const boom = require('boom')
-const AWS = require('aws-sdk')
-const keys = require('../keys')
+import boom = require('boom')
+import AWS = require('aws-sdk')
+import keys = require('../keys')
 AWS.config.update(keys.AWS_REMOTE_CONFIG)
 const db = new AWS.DynamoDB.DocumentClient()
 
@@ -78,7 +77,7 @@ async function query(res: any, table: string) {
   }
 }
 
-module.exports = {
+export = {
   put,
   get,
   query,

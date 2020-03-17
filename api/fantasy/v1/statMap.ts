@@ -1,4 +1,3 @@
-export {}
 const express = require('express')
 
 // From: https://fantasy.espn.com/football/league/settings?leagueId=1084973&view=scoring
@@ -17,7 +16,7 @@ const express = require('express')
 // ))
 // res.json(x)
 
-module.exports = {
+export = {
   '0': {
     id: 0,
     abbrev: 'PA',

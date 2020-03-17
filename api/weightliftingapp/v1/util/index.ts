@@ -1,5 +1,4 @@
-const express = require('express')
-const boom = require('boom')
+import boom = require('boom')
 
 function requireParam(req: any, res: any, param: string): any {
   return (
@@ -15,7 +14,7 @@ function requireBody(req: any, res: any, param: string): any {
   )
 }
 
-module.exports = {
+export = {
   requireParam,
   requireBody,
 }
