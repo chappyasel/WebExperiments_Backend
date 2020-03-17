@@ -1,7 +1,6 @@
-const express = require('express')
+const fantasy = require('express').Router()
 const fetch = require('node-fetch')
 const statMap = require('./statMap')
-const fantasy = express.Router()
 
 const BASE_URL = 'https://fantasy.espn.com/apis/v3/games/ffl'
 

@@ -1,9 +1,11 @@
-import express = require('express')
-const feedback = express.Router()
-const { requireParam, requireBody } = require('../util')
+const feedback = require('express').Router()
+const { requireParam, requireBody } = require('../../util')
 import db = require('./db')
 import * as t from './types'
 const { v4: uuid } = require('uuid')
+
+// MARK - child routes
+feedback.use('/comments', require('./comments'))
 
 /**
  * @api {post} /feedback

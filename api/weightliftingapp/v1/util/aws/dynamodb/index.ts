@@ -1,7 +1,6 @@
 import boom = require('boom')
 import AWS = require('aws-sdk')
 import keys = require('../keys')
-import e = require('express')
 AWS.config.update(keys.AWS_REMOTE_CONFIG)
 const db = new AWS.DynamoDB.DocumentClient()
 

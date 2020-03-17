@@ -1,5 +1,4 @@
-import express = require('express')
-const users = express.Router()
+const users = require('express').Router()
 
 /**
  * @api {post} /users

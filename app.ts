@@ -1,4 +1,3 @@
-export {}
 const express = require('express')
 const app = express()
 const server = require('http').Server(app)
@@ -27,13 +26,11 @@ if (__dirname.includes('/.build')) {
   app.use('/', express.static(__dirname + '/public'))
 }
 
-// MARK - Weightlifting app paths
-const waPath = './api/weightliftingapp/v1/'
-const waBasePath = '/weightliftingapp/v1'
-app.use(waBasePath + '/users', require(waPath + 'users'))
-app.use(waBasePath + '/feedback', require(waPath + 'feedback'))
+// MARK - Weightlifting app routes
+app.use(
+  '/api/weightliftingapp/v1',
+  require('./api/weightliftingapp/v1/controllers')
+)
 
-// MARK - Fantasy paths
-const fPath = './api/fantasy/v1/'
-const fBasePath = '/fantasy/v1'
-app.use(fBasePath + '/', require(fPath))
+// MARK - Fantasy routes
+app.use('/api/fantasy/v1/', require('./api/fantasy/v1/'))

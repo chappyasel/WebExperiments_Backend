@@ -1,4 +1,4 @@
-import aws = require('../util/aws')
+import aws = require('../../util/aws')
 import * as t from './types'
 
 const FEEDBACK_TABLE = 'benchTrackerFeedback'
