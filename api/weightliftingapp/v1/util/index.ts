@@ -2,7 +2,7 @@ import boom = require('boom')
 
 function requireParam(req: any, res: any, param: string): any {
   return (
-    req.param[param] ||
+    req.params[param] ||
     res.json(boom.badRequest(`missing required param field: '${param}'`))
   )
 }

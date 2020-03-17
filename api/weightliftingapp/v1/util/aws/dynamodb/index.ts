@@ -4,7 +4,21 @@ import keys = require('../keys')
 AWS.config.update(keys.AWS_REMOTE_CONFIG)
 const db = new AWS.DynamoDB.DocumentClient()
 
-async function put(res: any, table: string, item: Object) {
+type Item = Object
+
+type PutResponse = {
+  item: Item
+}
+
+type GetResponse = {
+  item: Item | null
+}
+
+type QueryResponse = {
+  items: Item[]
+}
+
+async function put(res: any, table: string, item: Item): Promise<PutResponse> {
   const params = {
     TableName: table,
     Item: item,
@@ -13,21 +27,22 @@ async function put(res: any, table: string, item: Object) {
   try {
     await db.put(params).promise()
     return {
-      success: true,
       item,
     }
   } catch (error) {
     res.json(
       boom.serverUnavailable(`AWS DynamoDB 'put' server error: '${error}'`)
     )
-    return {
-      success: false,
-      error,
-    }
+    return Promise.reject(error)
   }
 }
 
-async function get(res: any, table: string, keyName: string, keyID: any) {
+async function get(
+  res: any,
+  table: string,
+  keyName: string,
+  keyID: any
+): Promise<GetResponse> {
   const params = {
     TableName: table,
     KeyConditionExpression: `${keyName} = :id`,
@@ -40,21 +55,17 @@ async function get(res: any, table: string, keyName: string, keyID: any) {
     const dbRes = await db.query(params).promise()
     const { Items } = dbRes
     return {
-      success: true,
       item: Items ? Items[0] : null,
     }
   } catch (error) {
     res.json(
       boom.serverUnavailable(`AWS DynamoDB 'get' server error: '${error}'`)
     )
-    return {
-      success: false,
-      error,
-    }
+    return Promise.reject(error)
   }
 }
 
-async function query(res: any, table: string) {
+async function query(res: any, table: string): Promise<QueryResponse> {
   const params = {
     TableName: table,
   }
@@ -63,17 +74,13 @@ async function query(res: any, table: string) {
     const dbRes = await db.scan(params).promise()
     const { Items } = dbRes
     return {
-      success: true,
-      items: Items,
+      items: Items ?? [],
     }
   } catch (error) {
     res.json(
       boom.serverUnavailable(`AWS DynamoDB 'query' server error: '${error}'`)
     )
-    return {
-      success: false,
-      error,
-    }
+    return Promise.reject(error)
   }
 }
 

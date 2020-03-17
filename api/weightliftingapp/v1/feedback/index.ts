@@ -23,7 +23,6 @@ feedback.post('/', async (req: any, res: any) => {
   res.json({
     items: dbRes.items,
   })
-  res.end()
 })
 
 /**
@@ -40,7 +39,7 @@ feedback.get('/:feedbackID', async (req: any, res: any) => {
   const feedback_id: string = requireParam(req, res, 'feedbackID')
   const dbRes = await db.getFeedbackItem(res, feedback_id)
   res.json({
-    item: dbRes,
+    item: dbRes.item,
   })
 })
 
@@ -74,8 +73,9 @@ feedback.post('/new', async (req: any, res: any) => {
   }
 
   const dbRes = await db.putFeedbackItem(res, feedback)
-  res.json(dbRes)
-  res.end()
+  res.json({
+    item: dbRes.item,
+  })
 })
 
 export = feedback
