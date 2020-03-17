@@ -37,26 +37,6 @@ feedback.get('/:feedbackID', async (req: any, res: any) => {
 })
 
 /**
- * @api {post} /feedback/:id/upvote
- * @apiGroup Feedback
- * @apiDescription Upvote a feedback item using the user
- *
- * @apiParam (param) {String} id         The feedback item ID to upvote
- * @apiParam (body)  {String} device_id  The device ID to upvote with
- *
- * @apiSuccess { updated, item }         The updated feedback item
- **/
-feedback.post('/:feedbackID/upvote', async (req: any, res: any) => {
-  const feedback_id: string = requireParam(req, res, 'feedbackID')
-  const device_id: string = requireBody(req, res, 'device_id')
-  const dbRes = await db.upvoteFeedbackItem(res, feedback_id, device_id)
-  res.json({
-    updated: dbRes.updated,
-    item: dbRes.item ?? null,
-  })
-})
-
-/**
  * @api {post} /feedback/new
  * @apiGroup Feedback
  * @apiDescription Create a new feedback item
@@ -88,6 +68,46 @@ feedback.post('/new', async (req: any, res: any) => {
   const dbRes = await db.putFeedbackItem(res, feedback)
   res.json({
     item: dbRes.item,
+  })
+})
+
+/**
+ * @api {post} /feedback/:id/vote/upvote
+ * @apiGroup Feedback
+ * @apiDescription Upvote a feedback item for a user
+ *
+ * @apiParam (param) {String} id         The feedback item ID to upvote
+ * @apiParam (body)  {String} device_id  The device ID to use for upvoting
+ *
+ * @apiSuccess { updated, item }         The updated feedback item
+ **/
+feedback.post('/:feedbackID/vote/upvote', async (req: any, res: any) => {
+  const feedback_id: string = requireParam(req, res, 'feedbackID')
+  const device_id: string = requireBody(req, res, 'device_id')
+  const dbRes = await db.upvoteFeedbackItem(res, feedback_id, device_id)
+  res.json({
+    updated: dbRes.updated,
+    item: dbRes.item ?? null,
+  })
+})
+
+/**
+ * @api {post} /feedback/:id/vote/clear
+ * @apiGroup Feedback
+ * @apiDescription Clear a user's vote on a feedback item
+ *
+ * @apiParam (param) {String} id         The feedback item ID to clear
+ * @apiParam (body)  {String} device_id  The device ID to clear the vote of
+ *
+ * @apiSuccess { updated, item }         The updated feedback item
+ **/
+feedback.post('/:feedbackID/vote/clear', async (req: any, res: any) => {
+  const feedback_id: string = requireParam(req, res, 'feedbackID')
+  const device_id: string = requireBody(req, res, 'device_id')
+  const dbRes = await db.clearVoteFeedbackItem(res, feedback_id, device_id)
+  res.json({
+    updated: dbRes.updated,
+    item: dbRes.item ?? null,
   })
 })
 
