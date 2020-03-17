@@ -1,16 +1,24 @@
 import boom = require('boom')
 import AWS = require('aws-sdk')
 import keys = require('../keys')
+import e = require('express')
 AWS.config.update(keys.AWS_REMOTE_CONFIG)
 const db = new AWS.DynamoDB.DocumentClient()
 
 type Item = Object
+
+type DynamoDbSet = AWS.DynamoDB.DocumentClient.DynamoDbSet
 
 type PutResponse = {
   item: Item
 }
 
 type GetResponse = {
+  item: Item | null
+}
+
+type UpdateResponse = {
+  updated: boolean
   item: Item | null
 }
 
@@ -84,8 +92,51 @@ async function query(res: any, table: string): Promise<QueryResponse> {
   }
 }
 
+async function update(
+  res: any,
+  table: string,
+  key: Object,
+  updateExpression: string,
+  expressionValues: Object,
+  conditionExpression?: string
+): Promise<UpdateResponse> {
+  const params = {
+    TableName: table,
+    Key: key,
+    ConditionExpression: conditionExpression,
+    UpdateExpression: updateExpression,
+    ExpressionAttributeValues: expressionValues,
+    ReturnValues: 'ALL_NEW',
+  }
+  try {
+    const dbRes = await db.update(params).promise()
+    const { Attributes } = dbRes
+    return {
+      updated: true,
+      item: Attributes ? Attributes : null,
+    }
+  } catch (error) {
+    if (error.code === 'ConditionalCheckFailedException') {
+      return {
+        updated: false,
+        item: null,
+      }
+    }
+    res.json(
+      boom.serverUnavailable(`AWS DynamoDB 'update' server error: '${error}'`)
+    )
+    return Promise.reject(error)
+  }
+}
+
+function stringSet(arr: string[]): DynamoDbSet {
+  return db.createSet(arr)
+}
+
 export = {
   put,
   get,
   query,
+  update,
+  stringSet,
 }

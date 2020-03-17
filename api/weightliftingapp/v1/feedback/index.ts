@@ -8,15 +8,9 @@ const { v4: uuid } = require('uuid')
 /**
  * @api {post} /feedback
  * @apiGroup Feedback
- * @apiDescription Query users
+ * @apiDescription Query feedback items
  *
- * @apiParam (body) {String="experience","dateCreated"} [sort="dateCreated"]
- *                  Optional. The user param with which to sort
- * @apiParam (body) {Bool} [ascending=true] Optional. Return in ascending order
- * @apiParam (body) {Number} [limit=100] Optional. The max return count of users
- * @apiParam (body) {Number} [offset=0] Optional. The start index to return users
- *
- * @apiSuccess {Object[]} users The users matching the query
+ * @apiSuccess { items: Feedback[] }     The users matching the query
  **/
 feedback.post('/', async (req: any, res: any) => {
   const dbRes = await db.queryFeedbackItems(res)
@@ -28,18 +22,37 @@ feedback.post('/', async (req: any, res: any) => {
 /**
  * @api {get} /feedback/:id
  * @apiGroup Feedback
- * @apiDescription Get a user by id
+ * @apiDescription Get a feedback item by ID
  *
- * @apiParam (param) {String} feedbackID  The feedback item's ID
+ * @apiParam (param) {String} id         The feedback item ID to get
  *
- * @apiSuccess {Object} feedback The specified feedback item
- * @apiError FeedbackNotFound The feedback item with the given id was not found
+ * @apiSuccess { item: Feedback }        The specified feedback item
  **/
 feedback.get('/:feedbackID', async (req: any, res: any) => {
-  const feedback_id: string = requireParam(req, res, 'feedbackID')
-  const dbRes = await db.getFeedbackItem(res, feedback_id)
+  const feedbackID: string = requireParam(req, res, 'feedbackID')
+  const dbRes = await db.getFeedbackItem(res, feedbackID)
   res.json({
-    item: dbRes.item,
+    item: dbRes.item ?? null,
+  })
+})
+
+/**
+ * @api {post} /feedback/:id/upvote
+ * @apiGroup Feedback
+ * @apiDescription Upvote a feedback item using the user
+ *
+ * @apiParam (param) {String} id         The feedback item ID to upvote
+ * @apiParam (body)  {String} device_id  The device ID to upvote with
+ *
+ * @apiSuccess { updated, item }         The updated feedback item
+ **/
+feedback.post('/:feedbackID/upvote', async (req: any, res: any) => {
+  const feedback_id: string = requireParam(req, res, 'feedbackID')
+  const device_id: string = requireBody(req, res, 'device_id')
+  const dbRes = await db.upvoteFeedbackItem(res, feedback_id, device_id)
+  res.json({
+    updated: dbRes.updated,
+    item: dbRes.item ?? null,
   })
 })
 
@@ -53,7 +66,7 @@ feedback.get('/:feedbackID', async (req: any, res: any) => {
  * @apiParam (body) {String} title      The feedback item's title
  * @apiParam (body) {String} body       The feedback item's body
  *
- * @apiSuccess {Object} feedback        The feedback item
+ * @apiSuccess { item: Feedback }       The created feedback item
  **/
 feedback.post('/new', async (req: any, res: any) => {
   const user_id: string = requireBody(req, res, 'user_id')
@@ -69,7 +82,7 @@ feedback.post('/new', async (req: any, res: any) => {
     title,
     body,
     upvotes: 1,
-    upvote_device_ids: [device_id],
+    upvote_device_ids: db.stringSet([device_id]),
   }
 
   const dbRes = await db.putFeedbackItem(res, feedback)

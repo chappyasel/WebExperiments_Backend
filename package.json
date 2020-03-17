@@ -31,6 +31,7 @@
   "scripts": {
     "build": "tsc",
     "start-dev": "ts-node-dev --respawn --transpileOnly ./app.ts",
-    "start": "node .build/app.js"
+    "start": "node .build/app.js",
+    "deploy": "eb deploy"
   }
 }
