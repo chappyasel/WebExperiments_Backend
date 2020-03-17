@@ -22,7 +22,7 @@ Eventually, I plan to support a variety of features in my Weightlifting API, inc
 
 The ESPN Fantasy Football season has recently begun and I've been interested in all the [IBM Watson](https://www.ibm.com/sports/fantasy) fantasy football insights ESPN has integrated in the past two years. While they have integrated these insignts to some extent, I think there is a lot of comparative and predictive funcationality that is still missing. [Example](http://chappyasel.com/fantasy/v1/projections)
 
-``` www
+```www
 http://chappyasel.com/fantasy/v1/projections
 ```
 
@@ -30,19 +30,28 @@ Becuase of this, I have decided to start working on a web app / API that can be 
 
 ## Installation
 
-This repo is relatively easy to get running locally since it runs as a [Node.js](https://nodejs.org/en/) backend. To install the repo's dependencies, run `npm install`. Then, to run the app locally, simply run `node app.js` on the command line.
-
-## Deployment
-
-### Production
-
-``` bash
-eb deploy
+```bash
+npm install
 ```
+
+## Running
 
 ### Development
 
-``` bash
-npm install nodemon -g
-nodemon app.js
+```bash
+npm run start-dev
+```
+
+### Production
+
+```bash
+npm run build
+npm run start
+```
+
+### Deployment
+
+```bash
+npm run build
+eb deploy
 ```

@@ -1,7 +1,7 @@
+export {}
 const express = require('express')
-const boom = require('boom')
 const feedback = express.Router()
-const { requireParam } = require('../util')
+const { requireParam, requireBody } = require('../util')
 const db = require('./db')
 const { v4: uuid } = require('uuid')
 
@@ -18,11 +18,12 @@ const { v4: uuid } = require('uuid')
  *
  * @apiSuccess {Object[]} users The users matching the query
  **/
-feedback.post('/', (req, res) => {
+feedback.post('/', async (req: any, res: any) => {
+  const dbRes = await db.queryFeedbackItems(res)
   res.json({
-    '1': '2',
+    items: dbRes.items,
   })
-  return next(boom.serverUnavailable('DatabaseConnection'))
+  res.end()
 })
 
 /**
@@ -35,14 +36,12 @@ feedback.post('/', (req, res) => {
  * @apiSuccess {Object} feedback The specified feedback item
  * @apiError FeedbackNotFound The feedback item with the given id was not found
  **/
-feedback.get('/:feedbackID', (req, res, next) => {
+feedback.get('/:feedbackID', async (req: any, res: any) => {
+  const feedback_id: Number = requireParam(req, res, 'feedbackID')
+  const dbRes = await db.getFeedbackItem(res, feedback_id)
   res.json({
-    test: req.params.userID,
+    item: dbRes,
   })
-  // mysql.query((err, users) => {
-  //     if (err) return next(boom.serverUnavailable("DatabaseConnection"))
-  //     res.json({ userID: users })
-  // })
 })
 
 /**
@@ -57,13 +56,13 @@ feedback.get('/:feedbackID', (req, res, next) => {
  *
  * @apiSuccess {Object} feedback        The feedback item
  **/
-feedback.post('/new', async (req, res, _) => {
-  const user_id = requireParam(req, res, 'user_id')
-  const device_id = requireParam(req, res, 'device_id')
-  const title = requireParam(req, res, 'title')
-  const body = requireParam(req, res, 'body')
+feedback.post('/new', async (req: any, res: any) => {
+  const user_id = requireBody(req, res, 'user_id')
+  const device_id = requireBody(req, res, 'device_id')
+  const title = requireBody(req, res, 'title')
+  const body = requireBody(req, res, 'body')
 
-  const feedback = {
+  const feedback: Feedback = {
     id: uuid(),
     user_id,
     device_id,

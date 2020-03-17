@@ -1,6 +1,7 @@
 node_modules
 keys.js
 
+.build
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml

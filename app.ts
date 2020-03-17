@@ -1,3 +1,4 @@
+export {}
 const express = require('express')
 const app = express()
 const server = require('http').Server(app)
@@ -9,18 +10,22 @@ app.use(helmet())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
-server.listen(8081, (err) => {
-	if (err) throw err
-	console.log('Web Experiments activated!')
+server.listen(8081, (err: any) => {
+  if (err) throw err
+  console.log('Web Experiments activated!')
 })
 
-app.use((err, req, res, next) => {
-	console.error(err)
-	res.status(500).render('error', { error: err })
+app.use((err: any, req: any, res: any, next: any) => {
+  console.error(err)
+  res.status(500).render('error', { error: err })
 })
 
 // MARK - Public paths
-app.use('/', express.static(__dirname + '/public'))
+if (__dirname.includes('/.build')) {
+  app.use('/', express.static(__dirname + '/../public'))
+} else {
+  app.use('/', express.static(__dirname + '/public'))
+}
 
 // MARK - Weightlifting app paths
 const waPath = './api/weightliftingapp/v1/'
