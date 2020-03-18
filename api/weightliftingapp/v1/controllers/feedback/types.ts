@@ -15,20 +15,15 @@ export enum FeedbackStatus {
 }
 
 export type Feedback = {
-  ftype: FeedbackType // partition key
-  id: string // sort key
+  id: string // (Primary) partition key
   user_id: string
   device_id: string
   email: string
   timestamp: number
+  ftype: FeedbackType // (GSI ftype-upvotes-index) partition key
   title: string
   body: string
-  status: FeedbackStatus
-  upvotes: number
+  fstatus: FeedbackStatus
+  upvotes: number // (GSI ftype-upvotes-index) sort key
   upvote_device_ids: string[] | DynamoDbSet
-}
-
-export type FeedbackQuery = {
-  success: boolean
-  items: Feedback[]
 }

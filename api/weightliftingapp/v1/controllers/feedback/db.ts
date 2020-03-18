@@ -18,7 +18,7 @@ async function queryFeedbackItems(
 }
 
 async function getFeedbackItem(id: string) {
-  return await util.aws.dynamodb.get(FEEDBACK_TABLE, 'id', id)
+  return await util.aws.dynamodb.get(FEEDBACK_TABLE, { id: id })
 }
 
 async function putFeedbackItem(feedback: t.Feedback) {
@@ -45,10 +45,17 @@ async function clearVoteFeedbackItem(id: string, deviceID: string) {
   )
 }
 
+async function updateStatusFeedbackItem(id: string, fstatus: number) {
+  return await util.aws.dynamodb.update(
+    FEEDBACK_TABLE,
+    { id: id },
+    'SET fstatus = :fstatus',
+    { ':fstatus': fstatus }
+  )
+}
+
 async function deleteFeedbackItem(id: string) {
-  return await util.aws.dynamodb.delete(FEEDBACK_TABLE, {
-    id: id,
-  })
+  return await util.aws.dynamodb.delete(FEEDBACK_TABLE, { id: id })
 }
 
 function stringSet(arr: string[]): t.DynamoDbSet {
@@ -61,6 +68,7 @@ export = {
   putFeedbackItem,
   upvoteFeedbackItem,
   clearVoteFeedbackItem,
+  updateStatusFeedbackItem,
   deleteFeedbackItem,
   stringSet,
 }

@@ -31,24 +31,17 @@ async function queryItems(
   }
 }
 
-async function getItem(
-  table: string,
-  keyName: string,
-  keyID: any
-): Promise<t.GetResponse> {
+async function getItem(table: string, key: t.Key): Promise<t.GetResponse> {
   try {
     const dbRes = await db
-      .query({
+      .get({
         TableName: table,
-        KeyConditionExpression: `${keyName} = :id`,
-        ExpressionAttributeValues: {
-          ':id': keyID,
-        },
+        Key: key,
       })
       .promise()
-    const { Items } = dbRes
+    const { Item } = dbRes
     return {
-      item: Items ? Items[0] : null,
+      item: Item ? Item : null,
     }
   } catch (err) {
     throw boom.serverUnavailable(`AWS DynamoDB 'get' server err: '${err}'`)
@@ -73,7 +66,7 @@ async function putItem(table: string, item: t.Item): Promise<t.PutResponse> {
 
 async function updateItem(
   table: string,
-  key: Object,
+  key: t.Key,
   updateExpression: string,
   expressionValues: Object,
   conditionExpression?: string
@@ -107,7 +100,7 @@ async function updateItem(
 
 async function deleteItem(
   table: string,
-  key: Object,
+  key: t.Key,
   expressionValues?: Object,
   conditionExpression?: string
 ): Promise<t.DeleteResponse> {

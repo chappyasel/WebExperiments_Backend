@@ -91,7 +91,7 @@ feedback.post(
       timestamp: new Date().getTime(),
       title,
       body,
-      status: t.FeedbackStatus.OPEN,
+      fstatus: t.FeedbackStatus.OPEN,
       upvotes: 1,
       upvote_device_ids: db.stringSet([device_id]),
     }
@@ -112,7 +112,7 @@ feedback.post(
  * @apiGroup Feedback
  * @apiDescription Upvote a feedback item for a user
  *
- * @apiParam (param) {String} id         The feedback item ID to upvote
+ * @apiParam (param) {String} id         The feedback item ID
  * @apiParam (body)  {String} device_id  The device ID to use for upvoting
  *
  * @apiSuccess { updated, item }         The updated feedback item
@@ -135,7 +135,7 @@ feedback.post(
  * @apiGroup Feedback
  * @apiDescription Clear a user's vote on a feedback item
  *
- * @apiParam (param) {String} id         The feedback item ID to clear
+ * @apiParam (param) {String} id         The feedback item ID
  * @apiParam (body)  {String} device_id  The device ID to clear the vote of
  *
  * @apiSuccess { updated, item }         The updated feedback item
@@ -149,6 +149,30 @@ feedback.post(
     res.json({
       updated: dbRes.updated,
       item: dbRes.item ?? null,
+    })
+  })
+)
+
+/**
+ * @api {post} /feedback/:id/status
+ * @apiGroup Feedback
+ * @apiDescription (INTERNAL) Update the status of a feedback item
+ *
+ * @apiParam (param) {String} id         The feedback item ID
+ * @apiParam (body) {String} status      The updated feedback item status
+ *
+ * @apiSuccess { item: Feedback }        The updated feedback item
+ **/
+feedback.post(
+  '/:feedbackID/status',
+  util.wrap(async (req: any, res: any) => {
+    console.log(req.headers)
+    util.access.enforceInternalUser(req)
+    const feedback_id: string = util.require.param(req, 'feedbackID')
+    const status: number = util.require.body(req, 'status')
+    const dbRes = await db.updateStatusFeedbackItem(feedback_id, status)
+    res.json({
+      item: dbRes.item,
     })
   })
 )
