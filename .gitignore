@@ -1,6 +1,7 @@
 package-lock.json
 node_modules
 keys.ts
+*.p8
 
 .build
 .elasticbeanstalk/*

@@ -42,9 +42,9 @@ function stringSet(arr: string[]): t.DynamoDbSet {
 }
 
 export = {
-  putFeedbackItem,
-  getFeedbackItem,
   queryFeedbackItems,
+  getFeedbackItem,
+  putFeedbackItem,
   upvoteFeedbackItem,
   clearVoteFeedbackItem,
   stringSet,

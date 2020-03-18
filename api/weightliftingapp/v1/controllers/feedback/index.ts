@@ -3,9 +3,17 @@ const { requireParam, requireBody } = require('../../util')
 import db = require('./db')
 import * as t from './types'
 const { v4: uuid } = require('uuid')
+import apns = require('../../util/apns')
 
 // MARK - child routes
-feedback.use('/comments', require('./comments'))
+feedback.use(
+  '/:feedbackID/comments',
+  (req: any, res: any, next: any) => {
+    req.feedback_id = requireParam(req, res, 'feedbackID')
+    next()
+  },
+  require('./comments')
+)
 
 /**
  * @api {post} /feedback
@@ -63,11 +71,13 @@ feedback.post('/new', async (req: any, res: any) => {
     timestamp: new Date().getTime(),
     title,
     body,
+    status: t.FeedbackStatus.OPEN,
     upvotes: 1,
     upvote_device_ids: db.stringSet([device_id]),
   }
 
   const dbRes = await db.putFeedbackItem(res, feedback)
+  await apns.sendInternalNotifToDevs()
   res.json({
     item: dbRes.item,
   })
