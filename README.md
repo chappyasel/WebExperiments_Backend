@@ -12,6 +12,8 @@ Currently, I am in the process of deprecating my PHP / MySQL backend in favor of
 
 My portfolio website is comprised of a single-page HTML file backed by [Vue.js](https://vuejs.org) and a series of CSS / JSON files. I prefer Vue.js over React JS due to its simplicity and ease-of-use, particularly for single-page applications. Having all of my website data stored in JSON files allows me to easily update my website and integrates perfectly with Vue.js.
 
+- Home page: [www.chappyasel.com](http://chappyasel.com)
+
 ### Weightlifting App
 
 While I have a decent amount of funcationality already available in my Weightlifting App PHP API, I made the decision to switch to Node.js for its vibrant developer community and plethora of helpful libraries. As I stated above, I am currently in the process of rewriting my API in JavaScript accessing a DynamoDB database instead of MySQL.
@@ -20,13 +22,11 @@ Eventually, I plan to support a variety of features in my Weightlifting API, inc
 
 ### ESPN Fantasy Football
 
-The ESPN Fantasy Football season has recently begun and I've been interested in all the [IBM Watson](https://www.ibm.com/sports/fantasy) fantasy football insights ESPN has integrated in the past two years. While they have integrated these insignts to some extent, I think there is a lot of comparative and predictive funcationality that is still missing. [Example](http://chappyasel.com/fantasy/v1/projections)
+The ESPN Fantasy Football season has recently begun and I've been interested in all the [IBM Watson](https://www.ibm.com/sports/fantasy) fantasy football insights ESPN has integrated in the past two years. While they have integrated these insignts to some extent, I think there is a lot of comparative and predictive funcationality that is still missing.
 
-```www
-http://chappyasel.com/api/fantasy/v1/projections
-```
+Because of this, I have decided to start working on a web app / API that can be used to unlock deeper insights into player performance predictions along with a more accurate 'win probability' system that puts these predictions to use. Right now, I am working on reverse-engineering the ESPN Fantsy Football API and IBM Watson fantasy football insight system to use in my own web app. I am hoping that eventually I can create a supirior predictions system that shows win probability over time along with better player comparison tools, allowing fantasy football players to perform better in their leagues.
 
-Becuase of this, I have decided to start working on a web app / API that can be used to unlock deeper insights into player performance predictions along with a more accurate 'win probability' system that puts these predictions to use. Right now, I am working on reverse-engineering the ESPN Fantsy Football API and IBM Watson fantasy football insight system to use in my own web app. I am hoping that eventually I can create a supirior predictions system that shows win probability over time along with better player comparison tools, allowing fantasy football players to perform better in their leagues.
+- Projections: [/api/fantasy/v1/projections](http://chappyasel.com/api/fantasy/v1/projections)
 
 ## Dependency Installation
 
@@ -34,7 +34,7 @@ Becuase of this, I have decided to start working on a web app / API that can be 
 npm install
 ```
 
-## Running
+## Run
 
 ### Development
 
@@ -49,7 +49,7 @@ npm run build
 npm run start
 ```
 
-### Deployment
+### EB Deployment
 
 ```bash
 npm run build
@@ -58,9 +58,11 @@ npm run deploy
 
 ## Setup
 
+Add the following files to this project:
+
 `///util/access/keys.ts`
 
-```json
+```ts
 export = {
   INTERNAL_DEVICE_IDS: new Set([
     '<device uuid>', // device description
@@ -72,7 +74,7 @@ export = {
 
 `///util/apns/keys.ts`
 
-```json
+```ts
 export = {
   KEY_CERT: '<cert_name.p8>',
   KEY_ID: '<key id>',
@@ -90,7 +92,7 @@ export = {
 
 `///util/aws/keys.ts`
 
-```json
+```ts
 export = {
   AWS_REMOTE_CONFIG: {
     accessKeyId: '<access key id>',
