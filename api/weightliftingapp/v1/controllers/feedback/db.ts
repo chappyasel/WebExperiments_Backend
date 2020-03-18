@@ -3,8 +3,18 @@ import * as t from './types'
 
 const FEEDBACK_TABLE = 'benchTrackerFeedback'
 
-async function queryFeedbackItems() {
-  return await util.aws.dynamodb.query(FEEDBACK_TABLE)
+async function queryFeedbackItems(
+  ftype: t.FeedbackType,
+  limit: number,
+  startKey?: Object
+) {
+  return await util.aws.dynamodb.query(FEEDBACK_TABLE, {
+    index: 'ftype-upvotes-index',
+    conditionExpression: 'ftype = :ftype',
+    expressionValues: { ':ftype': ftype },
+    limit: limit,
+    startKey,
+  })
 }
 
 async function getFeedbackItem(id: string) {

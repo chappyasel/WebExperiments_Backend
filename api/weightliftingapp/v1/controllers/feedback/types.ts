@@ -15,12 +15,12 @@ export enum FeedbackStatus {
 }
 
 export type Feedback = {
-  id: string
+  ftype: FeedbackType // partition key
+  id: string // sort key
   user_id: string
   device_id: string
   email: string
   timestamp: number
-  type: FeedbackType
   title: string
   body: string
   status: FeedbackStatus

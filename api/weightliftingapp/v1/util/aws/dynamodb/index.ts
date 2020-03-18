@@ -5,16 +5,26 @@ import keys = require('../keys')
 AWS.config.update(keys.AWS_REMOTE_CONFIG)
 const db = new AWS.DynamoDB.DocumentClient()
 
-async function queryItems(table: string): Promise<t.QueryResponse> {
-  const params = {
-    TableName: table,
-  }
-
+async function queryItems(
+  table: string,
+  params: t.QueryParams
+): Promise<t.QueryResponse> {
   try {
-    const dbRes = await db.scan(params).promise()
-    const { Items } = dbRes
+    const dbRes = await db
+      .query({
+        TableName: table,
+        IndexName: params.index,
+        KeyConditionExpression: params.conditionExpression,
+        ExpressionAttributeValues: params.expressionValues,
+        Limit: params.limit,
+        ScanIndexForward: params.order_asc ?? false,
+        ExclusiveStartKey: params.startKey,
+      })
+      .promise()
+    const { Items, LastEvaluatedKey } = dbRes
     return {
       items: Items ?? [],
+      lastKey: LastEvaluatedKey ?? null,
     }
   } catch (err) {
     throw boom.serverUnavailable(`AWS DynamoDB 'query' server err: '${err}'`)
@@ -26,16 +36,16 @@ async function getItem(
   keyName: string,
   keyID: any
 ): Promise<t.GetResponse> {
-  const params = {
-    TableName: table,
-    KeyConditionExpression: `${keyName} = :id`,
-    ExpressionAttributeValues: {
-      ':id': keyID,
-    },
-  }
-
   try {
-    const dbRes = await db.query(params).promise()
+    const dbRes = await db
+      .query({
+        TableName: table,
+        KeyConditionExpression: `${keyName} = :id`,
+        ExpressionAttributeValues: {
+          ':id': keyID,
+        },
+      })
+      .promise()
     const { Items } = dbRes
     return {
       item: Items ? Items[0] : null,
@@ -46,13 +56,13 @@ async function getItem(
 }
 
 async function putItem(table: string, item: t.Item): Promise<t.PutResponse> {
-  const params = {
-    TableName: table,
-    Item: item,
-  }
-
   try {
-    await db.put(params).promise()
+    await db
+      .put({
+        TableName: table,
+        Item: item,
+      })
+      .promise()
     return {
       item,
     }
@@ -68,16 +78,17 @@ async function updateItem(
   expressionValues: Object,
   conditionExpression?: string
 ): Promise<t.UpdateResponse> {
-  const params = {
-    TableName: table,
-    Key: key,
-    ConditionExpression: conditionExpression,
-    UpdateExpression: updateExpression,
-    ExpressionAttributeValues: expressionValues,
-    ReturnValues: 'ALL_NEW',
-  }
   try {
-    const dbRes = await db.update(params).promise()
+    const dbRes = await db
+      .update({
+        TableName: table,
+        Key: key,
+        ConditionExpression: conditionExpression,
+        UpdateExpression: updateExpression,
+        ExpressionAttributeValues: expressionValues,
+        ReturnValues: 'ALL_NEW',
+      })
+      .promise()
     const { Attributes } = dbRes
     return {
       updated: true,
@@ -100,16 +111,16 @@ async function deleteItem(
   expressionValues?: Object,
   conditionExpression?: string
 ): Promise<t.DeleteResponse> {
-  const params = {
-    TableName: table,
-    Key: key,
-    ConditionExpression: conditionExpression,
-    ExpressionAttributeValues: expressionValues,
-    ReturnValues: 'ALL_OLD',
-  }
-
   try {
-    const dbRes = await db.delete(params).promise()
+    const dbRes = await db
+      .delete({
+        TableName: table,
+        Key: key,
+        ConditionExpression: conditionExpression,
+        ExpressionAttributeValues: expressionValues,
+        ReturnValues: 'ALL_OLD',
+      })
+      .promise()
     return {
       deleted: dbRes.Attributes !== undefined,
     }

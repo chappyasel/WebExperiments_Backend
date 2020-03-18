@@ -2,6 +2,7 @@ import express = require('express')
 const feedback = express.Router()
 import util = require('../../util')
 import db = require('./db')
+import notif = require('./notif')
 import * as t from './types'
 
 // MARK - child routes
@@ -19,14 +20,22 @@ feedback.use(
  * @apiGroup Feedback
  * @apiDescription Query feedback items
  *
- * @apiSuccess { items: Feedback[] }     The users matching the query
+ * @apiParam (body) {String} ftype       The feedback type to get
+ * @apiParam (body) {String} limit       OPTIONAL: The res item limit (default = 25)
+ * @apiParam (body) {String} start_key   OPTIONAL: The last_key of the last query
+ *
+ * @apiSuccess { items: Feedback[] }     The feedback items matching the query
  **/
 feedback.post(
   '/',
   util.wrap(async (req: any, res: any) => {
-    const dbRes = await db.queryFeedbackItems()
+    const ftype: number = util.require.body(req, 'ftype')
+    const limit: number = req.body['limit'] ?? 25
+    const startKey: Object | undefined = req.body['start_key']
+    const dbRes = await db.queryFeedbackItems(ftype, limit, startKey)
     res.json({
       items: dbRes.items,
+      last_key: dbRes.lastKey,
     })
   })
 )
@@ -66,6 +75,7 @@ feedback.get(
 feedback.post(
   '/new',
   util.wrap(async (req: any, res: any) => {
+    const ftype: number = util.require.body(req, 'ftype')
     const user_id: string = util.require.body(req, 'user_id')
     const device_id: string = util.require.body(req, 'device_id')
     const email: string = util.require.body(req, 'email')
@@ -73,12 +83,12 @@ feedback.post(
     const body: string = util.require.body(req, 'body')
 
     const feedback: t.Feedback = {
+      ftype,
       id: util.uuid(),
       user_id,
       device_id,
       email,
       timestamp: new Date().getTime(),
-      type: t.FeedbackType.SUGGESTION,
       title,
       body,
       status: t.FeedbackStatus.OPEN,
@@ -87,7 +97,10 @@ feedback.post(
     }
 
     const dbRes = await db.putFeedbackItem(feedback)
-    await util.apns.sendInternalNotifToDevs()
+
+    // send notifs to devs in background (no await)
+    notif.notifyDevsNewFeedbackItem(feedback)
+
     res.json({
       item: dbRes.item,
     })
