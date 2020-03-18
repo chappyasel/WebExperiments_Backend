@@ -1,19 +1,25 @@
-const feedbackComments = require('express').Router()
-const { requireParam, requireBody } = require('../../../util')
+import express = require('express')
+const feedbackComments = express.Router()
+import util = require('../../../util')
 import db = require('./db')
 import * as t from './types'
-const { v4: uuid } = require('uuid')
 
-feedbackComments.get('/', async (req: any, res: any) => {
-  res.json({
-    items: req.feedback_id,
+feedbackComments.get(
+  '/',
+  util.wrap(async (req: any, res: any) => {
+    res.json({
+      items: req.feedback_id,
+    })
   })
-})
+)
 
-feedbackComments.post('/new', async (req: any, res: any) => {
-  res.json({
-    items: req.feedback_id,
+feedbackComments.post(
+  '/new',
+  util.wrap(async (req: any, res: any) => {
+    res.json({
+      items: req.feedback_id,
+    })
   })
-})
+)
 
 export = feedbackComments

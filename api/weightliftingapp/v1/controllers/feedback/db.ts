@@ -1,23 +1,22 @@
-import aws = require('../../util/aws')
+import util = require('../../util')
 import * as t from './types'
 
 const FEEDBACK_TABLE = 'benchTrackerFeedback'
 
-async function queryFeedbackItems(res: any) {
-  return await aws.dynamodb.query(res, FEEDBACK_TABLE)
+async function queryFeedbackItems() {
+  return await util.aws.dynamodb.query(FEEDBACK_TABLE)
 }
 
-async function getFeedbackItem(res: any, id: string) {
-  return await aws.dynamodb.get(res, FEEDBACK_TABLE, 'id', id)
+async function getFeedbackItem(id: string) {
+  return await util.aws.dynamodb.get(FEEDBACK_TABLE, 'id', id)
 }
 
-async function putFeedbackItem(res: any, feedback: t.Feedback) {
-  return await aws.dynamodb.put(res, FEEDBACK_TABLE, feedback)
+async function putFeedbackItem(feedback: t.Feedback) {
+  return await util.aws.dynamodb.put(FEEDBACK_TABLE, feedback)
 }
 
-async function upvoteFeedbackItem(res: any, id: string, deviceID: string) {
-  return await aws.dynamodb.update(
-    res,
+async function upvoteFeedbackItem(id: string, deviceID: string) {
+  return await util.aws.dynamodb.update(
     FEEDBACK_TABLE,
     { id: id },
     'ADD upvote_device_ids :dss, upvotes :inc',
@@ -26,9 +25,8 @@ async function upvoteFeedbackItem(res: any, id: string, deviceID: string) {
   )
 }
 
-async function clearVoteFeedbackItem(res: any, id: string, deviceID: string) {
-  return await aws.dynamodb.update(
-    res,
+async function clearVoteFeedbackItem(id: string, deviceID: string) {
+  return await util.aws.dynamodb.update(
     FEEDBACK_TABLE,
     { id: id },
     'DELETE upvote_device_ids :dss  ADD upvotes :inc',
@@ -38,7 +36,7 @@ async function clearVoteFeedbackItem(res: any, id: string, deviceID: string) {
 }
 
 function stringSet(arr: string[]): t.DynamoDbSet {
-  return aws.dynamodb.stringSet(arr)
+  return util.aws.dynamodb.stringSet(arr)
 }
 
 export = {

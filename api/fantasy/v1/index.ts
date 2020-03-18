@@ -1,4 +1,5 @@
-const fantasy = require('express').Router()
+import express = require('express')
+const fantasy = express.Router()
 const fetch = require('node-fetch')
 const statMap = require('./statMap')
 

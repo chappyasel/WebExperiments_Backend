@@ -25,7 +25,7 @@ type QueryResponse = {
   items: Item[]
 }
 
-async function put(res: any, table: string, item: Item): Promise<PutResponse> {
+async function put(table: string, item: Item): Promise<PutResponse> {
   const params = {
     TableName: table,
     Item: item,
@@ -36,16 +36,12 @@ async function put(res: any, table: string, item: Item): Promise<PutResponse> {
     return {
       item,
     }
-  } catch (error) {
-    res.json(
-      boom.serverUnavailable(`AWS DynamoDB 'put' server error: '${error}'`)
-    )
-    return Promise.reject(error)
+  } catch (err) {
+    throw boom.serverUnavailable(`AWS DynamoDB 'put' server err: '${err}'`)
   }
 }
 
 async function get(
-  res: any,
   table: string,
   keyName: string,
   keyID: any
@@ -64,15 +60,12 @@ async function get(
     return {
       item: Items ? Items[0] : null,
     }
-  } catch (error) {
-    res.json(
-      boom.serverUnavailable(`AWS DynamoDB 'get' server error: '${error}'`)
-    )
-    return Promise.reject(error)
+  } catch (err) {
+    throw boom.serverUnavailable(`AWS DynamoDB 'get' server err: '${err}'`)
   }
 }
 
-async function query(res: any, table: string): Promise<QueryResponse> {
+async function query(table: string): Promise<QueryResponse> {
   const params = {
     TableName: table,
   }
@@ -83,16 +76,12 @@ async function query(res: any, table: string): Promise<QueryResponse> {
     return {
       items: Items ?? [],
     }
-  } catch (error) {
-    res.json(
-      boom.serverUnavailable(`AWS DynamoDB 'query' server error: '${error}'`)
-    )
-    return Promise.reject(error)
+  } catch (err) {
+    throw boom.serverUnavailable(`AWS DynamoDB 'query' server err: '${err}'`)
   }
 }
 
 async function update(
-  res: any,
   table: string,
   key: Object,
   updateExpression: string,
@@ -114,17 +103,14 @@ async function update(
       updated: true,
       item: Attributes ? Attributes : null,
     }
-  } catch (error) {
-    if (error.code === 'ConditionalCheckFailedException') {
+  } catch (err) {
+    if (err.code === 'ConditionalCheckFailedException') {
       return {
         updated: false,
         item: null,
       }
     }
-    res.json(
-      boom.serverUnavailable(`AWS DynamoDB 'update' server error: '${error}'`)
-    )
-    return Promise.reject(error)
+    throw boom.serverUnavailable(`AWS DynamoDB 'update' server err: '${err}'`)
   }
 }
 

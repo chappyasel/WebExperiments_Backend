@@ -1,4 +1,6 @@
-const users = require('express').Router()
+import express = require('express')
+const users = express.Router()
+import util = require('../../util')
 
 /**
  * @api {post} /users
@@ -12,12 +14,15 @@ const users = require('express').Router()
  *
  * @apiSuccess {Object[]} users The users matching the query
  **/
-users.post('/', (req: any, res: any) => {
-  // mysql.query((err, users) => {
-  //   if (err) return next(boom.serverUnavailable('DatabaseConnection'))
-  //   res.json({ userID: users })
-  // })
-})
+users.post(
+  '/',
+  util.wrap((req: any, res: any) => {
+    // mysql.query((err, users) => {
+    //   if (err) return next(boom.serverUnavailable('DatabaseConnection'))
+    //   res.json({ userID: users })
+    // })
+  })
+)
 
 /**
  * @api {get} /users/:id
@@ -29,13 +34,16 @@ users.post('/', (req: any, res: any) => {
  * @apiSuccess {Object} user The specified user
  * @apiError UserNotFound The user with the given id was not found
  **/
-users.get('/:userID', (req: any, res: any) => {
-  // res.json({ test: req.params.userID })
-  // mysql.query((err, users) => {
-  //     if (err) return next(boom.serverUnavailable("DatabaseConnection"))
-  //     res.json({ userID: users })
-  // })
-})
+users.get(
+  '/:userID',
+  util.wrap((req: any, res: any) => {
+    // res.json({ test: req.params.userID })
+    // mysql.query((err, users) => {
+    //     if (err) return next(boom.serverUnavailable("DatabaseConnection"))
+    //     res.json({ userID: users })
+    // })
+  })
+)
 
 /**
  * @api {post} /users/new
@@ -48,9 +56,12 @@ users.get('/:userID', (req: any, res: any) => {
  * @apiSuccess {Object} user The new user
  * @apiError UserAlreadyExists The user with the given id already exists
  **/
-users.post('/new', (req: any, res: any) => {
-  // res.json({ userID: req.body.userID })
-  // res.end()
-})
+users.post(
+  '/new',
+  util.wrap((req: any, res: any) => {
+    // res.json({ userID: req.body.userID })
+    // res.end()
+  })
+)
 
 export = users

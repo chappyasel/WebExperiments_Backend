@@ -1,22 +1,19 @@
-const express = require('express')
+import express = require('express')
+import http = require('http')
+import bodyParser = require('body-parser')
 const app = express()
-const server = require('http').Server(app)
-const bodyParser = require('body-parser')
+const server = new http.Server(app)
 const helmet = require('helmet')
+
+const PORT = 8081
 
 // MARK - SETUP
 app.use(helmet())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
-server.listen(8081, (err: any) => {
-  if (err) throw err
+server.listen(PORT, () => {
   console.log('Web Experiments activated!')
-})
-
-app.use((err: any, req: any, res: any, next: any) => {
-  console.error(err)
-  res.status(500).render('error', { error: err })
 })
 
 // MARK - Public paths
@@ -34,3 +31,8 @@ app.use(
 
 // MARK - Fantasy routes
 app.use('/api/fantasy/v1/', require('./api/fantasy/v1/'))
+
+// MARK - Error handler
+app.use((err: any, _: any, res: any, __: any) => {
+  return res.status(err.output.statusCode).json(err.output.payload)
+})

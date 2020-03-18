@@ -1,4 +1,5 @@
 import apn = require('apn')
+import boom = require('boom')
 import keys = require('./keys')
 
 const options = {
@@ -27,9 +28,9 @@ async function sendInternalNotifToDevs() {
     const res = await apnProvider.send(notif, keys.DEV_DEVICE_TOKENS)
     apnProvider.shutdown()
     return res
-  } catch (error) {
+  } catch (err) {
     apnProvider.shutdown()
-    return Promise.reject(error)
+    throw boom.internal(`APNS send error: ${err}`)
   }
 }
 

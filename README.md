@@ -28,7 +28,7 @@ http://chappyasel.com/api/fantasy/v1/projections
 
 Becuase of this, I have decided to start working on a web app / API that can be used to unlock deeper insights into player performance predictions along with a more accurate 'win probability' system that puts these predictions to use. Right now, I am working on reverse-engineering the ESPN Fantsy Football API and IBM Watson fantasy football insight system to use in my own web app. I am hoping that eventually I can create a supirior predictions system that shows win probability over time along with better player comparison tools, allowing fantasy football players to perform better in their leagues.
 
-## Installation
+## Dependency Installation
 
 ```bash
 npm install
@@ -55,3 +55,52 @@ npm run start
 npm run build
 npm run deploy
 ```
+
+## Setup
+
+`///util/access/keys.ts`
+
+```json
+export = {
+  INTERNAL_DEVICE_IDS: new Set([
+    '<device uuid>', // device description
+    ...
+  ]),
+}
+
+```
+
+`///util/apns/keys.ts`
+
+```json
+export = {
+  KEY_CERT: '<cert_name.p8>',
+  KEY_ID: '<key id>',
+  TEAM_ID: '<team id>',
+  BUNDLE_IDS: {
+    MAIN: '<com.company.app>',
+    INTERNAL: '<com.company.app.internal>',
+  },
+  DEV_DEVICE_TOKENS: [
+    '<dev device token>', // device description
+    ...
+  ],
+}
+```
+
+`///util/aws/keys.ts`
+
+```json
+export = {
+  AWS_REMOTE_CONFIG: {
+    accessKeyId: '<access key id>',
+    secretAccessKey: '<secret access key>',
+    region: '<us-east-1>',
+  },
+}
+
+```
+
+## References
+
+- [APNS with Node.js](https://solarianprogrammer.com/2017/02/14/ios-remote-push-notifications-nodejs-backend/)

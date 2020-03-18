@@ -1,15 +1,14 @@
-const feedback = require('express').Router()
-const { requireParam, requireBody } = require('../../util')
+import express = require('express')
+const feedback = express.Router()
+import util = require('../../util')
 import db = require('./db')
 import * as t from './types'
-const { v4: uuid } = require('uuid')
-import apns = require('../../util/apns')
 
 // MARK - child routes
 feedback.use(
   '/:feedbackID/comments',
-  (req: any, res: any, next: any) => {
-    req.feedback_id = requireParam(req, res, 'feedbackID')
+  (req: any, _: any, next: any) => {
+    req.feedback_id = util.requireParam(req, 'feedbackID')
     next()
   },
   require('./comments')
@@ -22,12 +21,15 @@ feedback.use(
  *
  * @apiSuccess { items: Feedback[] }     The users matching the query
  **/
-feedback.post('/', async (req: any, res: any) => {
-  const dbRes = await db.queryFeedbackItems(res)
-  res.json({
-    items: dbRes.items,
+feedback.post(
+  '/',
+  util.wrap(async (req: any, res: any) => {
+    const dbRes = await db.queryFeedbackItems()
+    res.json({
+      items: dbRes.items,
+    })
   })
-})
+)
 
 /**
  * @api {get} /feedback/:id
@@ -38,13 +40,16 @@ feedback.post('/', async (req: any, res: any) => {
  *
  * @apiSuccess { item: Feedback }        The specified feedback item
  **/
-feedback.get('/:feedbackID', async (req: any, res: any) => {
-  const feedbackID: string = requireParam(req, res, 'feedbackID')
-  const dbRes = await db.getFeedbackItem(res, feedbackID)
-  res.json({
-    item: dbRes.item ?? null,
+feedback.get(
+  '/:feedbackID',
+  util.wrap(async (req: any, res: any) => {
+    const feedbackID: string = util.requireParam(req, 'feedbackID')
+    const dbRes = await db.getFeedbackItem(feedbackID)
+    res.json({
+      item: dbRes.item ?? null,
+    })
   })
-})
+)
 
 /**
  * @api {post} /feedback/new
@@ -58,30 +63,33 @@ feedback.get('/:feedbackID', async (req: any, res: any) => {
  *
  * @apiSuccess { item: Feedback }       The created feedback item
  **/
-feedback.post('/new', async (req: any, res: any) => {
-  const user_id: string = requireBody(req, res, 'user_id')
-  const device_id: string = requireBody(req, res, 'device_id')
-  const title: string = requireBody(req, res, 'title')
-  const body: string = requireBody(req, res, 'body')
+feedback.post(
+  '/new',
+  util.wrap(async (req: any, res: any) => {
+    const user_id: string = util.requireBody(req, 'user_id')
+    const device_id: string = util.requireBody(req, 'device_id')
+    const title: string = util.requireBody(req, 'title')
+    const body: string = util.requireBody(req, 'body')
 
-  const feedback: t.Feedback = {
-    id: uuid(),
-    user_id,
-    device_id,
-    timestamp: new Date().getTime(),
-    title,
-    body,
-    status: t.FeedbackStatus.OPEN,
-    upvotes: 1,
-    upvote_device_ids: db.stringSet([device_id]),
-  }
+    const feedback: t.Feedback = {
+      id: util.uuid(),
+      user_id,
+      device_id,
+      timestamp: new Date().getTime(),
+      title,
+      body,
+      status: t.FeedbackStatus.OPEN,
+      upvotes: 1,
+      upvote_device_ids: db.stringSet([device_id]),
+    }
 
-  const dbRes = await db.putFeedbackItem(res, feedback)
-  await apns.sendInternalNotifToDevs()
-  res.json({
-    item: dbRes.item,
+    const dbRes = await db.putFeedbackItem(feedback)
+    await util.apns.sendInternalNotifToDevs()
+    res.json({
+      item: dbRes.item,
+    })
   })
-})
+)
 
 /**
  * @api {post} /feedback/:id/vote/upvote
@@ -93,15 +101,18 @@ feedback.post('/new', async (req: any, res: any) => {
  *
  * @apiSuccess { updated, item }         The updated feedback item
  **/
-feedback.post('/:feedbackID/vote/upvote', async (req: any, res: any) => {
-  const feedback_id: string = requireParam(req, res, 'feedbackID')
-  const device_id: string = requireBody(req, res, 'device_id')
-  const dbRes = await db.upvoteFeedbackItem(res, feedback_id, device_id)
-  res.json({
-    updated: dbRes.updated,
-    item: dbRes.item ?? null,
+feedback.post(
+  '/:feedbackID/vote/upvote',
+  util.wrap(async (req: any, res: any) => {
+    const feedback_id: string = util.requireParam(req, 'feedbackID')
+    const device_id: string = util.requireBody(req, 'device_id')
+    const dbRes = await db.upvoteFeedbackItem(feedback_id, device_id)
+    res.json({
+      updated: dbRes.updated,
+      item: dbRes.item ?? null,
+    })
   })
-})
+)
 
 /**
  * @api {post} /feedback/:id/vote/clear
@@ -113,14 +124,17 @@ feedback.post('/:feedbackID/vote/upvote', async (req: any, res: any) => {
  *
  * @apiSuccess { updated, item }         The updated feedback item
  **/
-feedback.post('/:feedbackID/vote/clear', async (req: any, res: any) => {
-  const feedback_id: string = requireParam(req, res, 'feedbackID')
-  const device_id: string = requireBody(req, res, 'device_id')
-  const dbRes = await db.clearVoteFeedbackItem(res, feedback_id, device_id)
-  res.json({
-    updated: dbRes.updated,
-    item: dbRes.item ?? null,
+feedback.post(
+  '/:feedbackID/vote/clear',
+  util.wrap(async (req: any, res: any) => {
+    const feedback_id: string = util.requireParam(req, 'feedbackID')
+    const device_id: string = util.requireBody(req, 'device_id')
+    const dbRes = await db.clearVoteFeedbackItem(feedback_id, device_id)
+    res.json({
+      updated: dbRes.updated,
+      item: dbRes.item ?? null,
+    })
   })
-})
+)
 
 export = feedback

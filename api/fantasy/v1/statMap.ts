@@ -1,5 +1,3 @@
-const express = require('express')
-
 // From: https://fantasy.espn.com/football/league/settings?leagueId=1084973&view=scoring
 //     In: sources -> script -> __KONA_SERIALIZATION_DATA__ -> statsMap
 //     Note: derived
