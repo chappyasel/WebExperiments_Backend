@@ -35,6 +35,12 @@ async function clearVoteFeedbackItem(id: string, deviceID: string) {
   )
 }
 
+async function deleteFeedbackItem(id: string) {
+  return await util.aws.dynamodb.delete(FEEDBACK_TABLE, {
+    id: id,
+  })
+}
+
 function stringSet(arr: string[]): t.DynamoDbSet {
   return util.aws.dynamodb.stringSet(arr)
 }
@@ -45,5 +51,6 @@ export = {
   putFeedbackItem,
   upvoteFeedbackItem,
   clearVoteFeedbackItem,
+  deleteFeedbackItem,
   stringSet,
 }

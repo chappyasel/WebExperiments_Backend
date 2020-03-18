@@ -52,7 +52,6 @@ npm run start
 ### EB Deployment
 
 ```bash
-npm run build
 npm run deploy
 ```
 
@@ -64,6 +63,10 @@ Add the following files to this project:
 
 ```ts
 export = {
+  HEADERS: {
+    INTERNAL: '<internal>',
+    INTERNAL_DEVICE_ID: '<internal-device-id>',
+  },
   INTERNAL_DEVICE_IDS: new Set([
     '<device uuid>', // device description
     ...
@@ -100,7 +103,6 @@ export = {
     region: '<us-east-1>',
   },
 }
-
 ```
 
 ## References

@@ -8,7 +8,7 @@ import * as t from './types'
 feedback.use(
   '/:feedbackID/comments',
   (req: any, _: any, next: any) => {
-    req.feedback_id = util.requireParam(req, 'feedbackID')
+    req.feedback_id = util.require.param(req, 'feedbackID')
     next()
   },
   require('./comments')
@@ -43,7 +43,7 @@ feedback.post(
 feedback.get(
   '/:feedbackID',
   util.wrap(async (req: any, res: any) => {
-    const feedbackID: string = util.requireParam(req, 'feedbackID')
+    const feedbackID: string = util.require.param(req, 'feedbackID')
     const dbRes = await db.getFeedbackItem(feedbackID)
     res.json({
       item: dbRes.item ?? null,
@@ -66,16 +66,19 @@ feedback.get(
 feedback.post(
   '/new',
   util.wrap(async (req: any, res: any) => {
-    const user_id: string = util.requireBody(req, 'user_id')
-    const device_id: string = util.requireBody(req, 'device_id')
-    const title: string = util.requireBody(req, 'title')
-    const body: string = util.requireBody(req, 'body')
+    const user_id: string = util.require.body(req, 'user_id')
+    const device_id: string = util.require.body(req, 'device_id')
+    const email: string = util.require.body(req, 'email')
+    const title: string = util.require.body(req, 'title')
+    const body: string = util.require.body(req, 'body')
 
     const feedback: t.Feedback = {
       id: util.uuid(),
       user_id,
       device_id,
+      email,
       timestamp: new Date().getTime(),
+      type: t.FeedbackType.SUGGESTION,
       title,
       body,
       status: t.FeedbackStatus.OPEN,
@@ -104,8 +107,8 @@ feedback.post(
 feedback.post(
   '/:feedbackID/vote/upvote',
   util.wrap(async (req: any, res: any) => {
-    const feedback_id: string = util.requireParam(req, 'feedbackID')
-    const device_id: string = util.requireBody(req, 'device_id')
+    const feedback_id: string = util.require.param(req, 'feedbackID')
+    const device_id: string = util.require.body(req, 'device_id')
     const dbRes = await db.upvoteFeedbackItem(feedback_id, device_id)
     res.json({
       updated: dbRes.updated,
@@ -127,12 +130,33 @@ feedback.post(
 feedback.post(
   '/:feedbackID/vote/clear',
   util.wrap(async (req: any, res: any) => {
-    const feedback_id: string = util.requireParam(req, 'feedbackID')
-    const device_id: string = util.requireBody(req, 'device_id')
+    const feedback_id: string = util.require.param(req, 'feedbackID')
+    const device_id: string = util.require.body(req, 'device_id')
     const dbRes = await db.clearVoteFeedbackItem(feedback_id, device_id)
     res.json({
       updated: dbRes.updated,
       item: dbRes.item ?? null,
+    })
+  })
+)
+
+/**
+ * @api {post} /feedback/:id/delete
+ * @apiGroup Feedback
+ * @apiDescription (INTERNAL) Delete a feedback item
+ *
+ * @apiParam (param) {String} id         The feedback item ID to delete
+ *
+ * @apiSuccess { deleted: boolean }      Whether or not the item was deleted
+ **/
+feedback.post(
+  '/:feedbackID/delete',
+  util.wrap(async (req: any, res: any) => {
+    util.access.enforceInternalUser(req)
+    const feedback_id: string = util.require.param(req, 'feedbackID')
+    const dbRes = await db.deleteFeedbackItem(feedback_id)
+    res.json({
+      deleted: dbRes.deleted,
     })
   })
 )
