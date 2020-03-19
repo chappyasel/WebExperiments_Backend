@@ -14,6 +14,10 @@ const wrap = (fn: any) => async (req: any, res: any, next: any) => {
   })
 }
 
+function timestamp() {
+  return Math.floor(new Date().getTime() / 1000)
+}
+
 export = {
   access,
   apns,
@@ -21,4 +25,5 @@ export = {
   require: reqRequire,
   uuid,
   wrap,
+  timestamp,
 }

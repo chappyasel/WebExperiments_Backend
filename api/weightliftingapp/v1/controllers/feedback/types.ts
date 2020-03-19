@@ -7,11 +7,10 @@ export enum FeedbackType {
 
 export enum FeedbackStatus {
   OPEN = 0,
-  CLOSED = 1,
-  PLANNED = 2,
-  WIP = 3,
-  DONE = 4,
-  RELEASED = 5,
+  PLANNED = 10,
+  WIP = 11,
+  DONE = 21,
+  CLOSED = 100,
 }
 
 export type Feedback = {
@@ -20,6 +19,7 @@ export type Feedback = {
   device_id: string
   email: string
   timestamp: number
+  app_version: number
   ftype: FeedbackType // (GSI ftype-upvotes-index) partition key
   title: string
   body: string

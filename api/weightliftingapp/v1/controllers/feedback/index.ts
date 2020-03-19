@@ -78,6 +78,7 @@ feedback.post(
     const ftype: number = util.require.body(req, 'ftype')
     const user_id: string = util.require.body(req, 'user_id')
     const device_id: string = util.require.body(req, 'device_id')
+    const app_version: number = util.require.body(req, 'app_version')
     const email: string = util.require.body(req, 'email')
     const title: string = util.require.body(req, 'title')
     const body: string = util.require.body(req, 'body')
@@ -87,8 +88,9 @@ feedback.post(
       id: util.uuid(),
       user_id,
       device_id,
+      app_version,
       email,
-      timestamp: new Date().getTime(),
+      timestamp: util.timestamp(),
       title,
       body,
       fstatus: t.FeedbackStatus.OPEN,
