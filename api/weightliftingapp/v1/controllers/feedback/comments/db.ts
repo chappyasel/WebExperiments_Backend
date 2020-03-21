@@ -4,7 +4,10 @@ import * as t from './types'
 const COMMENT_TABLE = 'benchTrackerFeedbackComments'
 
 async function queryCommentItems() {
-  return await util.aws.dynamodb.query(COMMENT_TABLE)
+  return await util.aws.dynamodb.query(COMMENT_TABLE, {
+    conditionExpression: '',
+    expressionValues: '',
+  })
 }
 
 async function putCommentItem(comment: t.Comment) {

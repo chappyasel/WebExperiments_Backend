@@ -1,4 +1,5 @@
-export type DynamoDbSet = AWS.DynamoDB.DocumentClient.DynamoDbSet
+export type DynamoDbStringSet = AWS.DynamoDB.DocumentClient.StringSet
+export type StringSet = string[] | DynamoDbStringSet
 
 export enum FeedbackType {
   SUGGESTION = 0,
@@ -19,11 +20,42 @@ export type Feedback = {
   device_id: string
   email: string
   timestamp: number
-  app_version: number
+  app_version: string
   ftype: FeedbackType // (GSI ftype-upvotes-index) partition key
   title: string
   body: string
   fstatus: FeedbackStatus
   upvotes: number // (GSI ftype-upvotes-index) sort key
-  upvote_device_ids: string[] | DynamoDbSet
+  upvote_device_ids?: StringSet
+  user_did_upvote?: boolean
 }
+
+export const FeedbackQueryFields = [
+  'id',
+  'user_id',
+  'device_id',
+  'email',
+  'timestamp',
+  'app_version',
+  'ftype',
+  'title',
+  'body',
+  'fstatus',
+  'upvotes',
+  'upvote_device_ids',
+]
+
+export const FeedbackAllFields = [
+  'id',
+  'user_id',
+  'device_id',
+  'email',
+  'timestamp',
+  'app_version',
+  'ftype',
+  'title',
+  'body',
+  'fstatus',
+  'upvotes',
+  'upvote_device_ids',
+]

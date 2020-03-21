@@ -54,6 +54,10 @@ feedback.get(
   util.wrap(async (req: any, res: any) => {
     const feedbackID: string = util.require.param(req, 'feedbackID')
     const dbRes = await db.getFeedbackItem(feedbackID)
+    if (dbRes.item !== null) {
+      const deviceID = util.access.deviceID(req)
+      db.convertFeedbackToUserDidUpvote(deviceID, <t.Feedback>dbRes.item)
+    }
     res.json({
       item: dbRes.item ?? null,
     })
@@ -65,8 +69,8 @@ feedback.get(
  * @apiGroup Feedback
  * @apiDescription Create a new feedback item
  *
+ * @apiParam (body) {Number} ftype      Feedback type (bug, suggestion)
  * @apiParam (body) {String} user_id    The user's ID
- * @apiParam (body) {String} device_id  The device's UUID
  * @apiParam (body) {String} title      The feedback item's title
  * @apiParam (body) {String} body       The feedback item's body
  *
@@ -77,8 +81,8 @@ feedback.post(
   util.wrap(async (req: any, res: any) => {
     const ftype: number = util.require.body(req, 'ftype')
     const user_id: string = util.require.body(req, 'user_id')
-    const device_id: string = util.require.body(req, 'device_id')
-    const app_version: number = util.require.body(req, 'app_version')
+    const device_id: string = util.access.deviceID(req)
+    const app_version: string = util.access.appVersion(req)
     const email: string = util.require.body(req, 'email')
     const title: string = util.require.body(req, 'title')
     const body: string = util.require.body(req, 'body')
@@ -95,7 +99,7 @@ feedback.post(
       body,
       fstatus: t.FeedbackStatus.OPEN,
       upvotes: 1,
-      upvote_device_ids: db.stringSet([device_id]),
+      upvote_device_ids: db.toStringSet([device_id]),
     }
 
     const dbRes = await db.putFeedbackItem(feedback)
