@@ -14,28 +14,41 @@ export enum FeedbackStatus {
   CLOSED = 100,
 }
 
-export type Feedback = {
+export interface Feedback {
   id: string // (Primary) partition key
   user_id: string
-  device_id: string
-  email: string
-  timestamp: number
-  app_version: string
+  device_id?: string
+  email?: string
+  ftimestamp: number
+  app_version?: string
   ftype: FeedbackType // (GSI ftype-upvotes-index) partition key
   title: string
-  body: string
+  body?: string
   fstatus: FeedbackStatus
   upvotes: number // (GSI ftype-upvotes-index) sort key
   upvote_device_ids?: StringSet
   user_did_upvote?: boolean
 }
 
-export const FeedbackQueryFields = [
+type FeedbackKeys = keyof Feedback
+
+export const FeedbackFieldsQuery: FeedbackKeys[] = [
   'id',
   'user_id',
   'device_id',
-  'email',
-  'timestamp',
+  'ftimestamp',
+  'ftype',
+  'title',
+  'fstatus',
+  'upvotes',
+  'upvote_device_ids',
+]
+
+export const FeedbackFieldsAll: FeedbackKeys[] = [
+  'id',
+  'user_id',
+  'device_id',
+  'ftimestamp',
   'app_version',
   'ftype',
   'title',
@@ -45,17 +58,4 @@ export const FeedbackQueryFields = [
   'upvote_device_ids',
 ]
 
-export const FeedbackAllFields = [
-  'id',
-  'user_id',
-  'device_id',
-  'email',
-  'timestamp',
-  'app_version',
-  'ftype',
-  'title',
-  'body',
-  'fstatus',
-  'upvotes',
-  'upvote_device_ids',
-]
+export const FeedbackFieldsAllInternal = FeedbackFieldsAll.concat(['email'])

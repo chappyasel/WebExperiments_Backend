@@ -32,7 +32,13 @@ feedback.post(
     const ftype: number = util.require.body(req, 'ftype')
     const limit: number = req.body['limit'] ?? 25
     const startKey: Object | undefined = req.body['start_key']
+
     const dbRes = await db.queryFeedbackItems(ftype, limit, startKey)
+    const deviceID = util.access.deviceID(req)
+    dbRes.items.map(f =>
+      db.convertFeedbackToUserDidUpvote(deviceID, <t.Feedback>f)
+    )
+
     res.json({
       items: dbRes.items,
       last_key: dbRes.lastKey,
@@ -58,6 +64,7 @@ feedback.get(
       const deviceID = util.access.deviceID(req)
       db.convertFeedbackToUserDidUpvote(deviceID, <t.Feedback>dbRes.item)
     }
+
     res.json({
       item: dbRes.item ?? null,
     })
@@ -94,7 +101,7 @@ feedback.post(
       device_id,
       app_version,
       email,
-      timestamp: util.timestamp(),
+      ftimestamp: util.timestamp(),
       title,
       body,
       fstatus: t.FeedbackStatus.OPEN,
@@ -103,6 +110,7 @@ feedback.post(
     }
 
     const dbRes = await db.putFeedbackItem(feedback)
+    db.convertFeedbackToUserDidUpvote(device_id, <t.Feedback>dbRes.item)
 
     // send notifs to devs in background (no await)
     notif.notifyDevsNewFeedbackItem(feedback)
@@ -119,19 +127,21 @@ feedback.post(
  * @apiDescription Upvote a feedback item for a user
  *
  * @apiParam (param) {String} id         The feedback item ID
- * @apiParam (body)  {String} device_id  The device ID to use for upvoting
  *
- * @apiSuccess { updated, item }         The updated feedback item
+ * @apiSuccess { updated: bool }         Whether or not the item was updated
  **/
 feedback.post(
   '/:feedbackID/vote/upvote',
   util.wrap(async (req: any, res: any) => {
     const feedback_id: string = util.require.param(req, 'feedbackID')
-    const device_id: string = util.require.body(req, 'device_id')
+    const device_id: string = util.access.deviceID(req)
+
     const dbRes = await db.upvoteFeedbackItem(feedback_id, device_id)
+    if (dbRes.item !== null)
+      db.convertFeedbackToUserDidUpvote(device_id, <t.Feedback>dbRes.item)
+
     res.json({
       updated: dbRes.updated,
-      item: dbRes.item ?? null,
     })
   })
 )
@@ -142,19 +152,21 @@ feedback.post(
  * @apiDescription Clear a user's vote on a feedback item
  *
  * @apiParam (param) {String} id         The feedback item ID
- * @apiParam (body)  {String} device_id  The device ID to clear the vote of
  *
- * @apiSuccess { updated, item }         The updated feedback item
+ * @apiSuccess { updated: bool }         Whether or not the item was updated
  **/
 feedback.post(
   '/:feedbackID/vote/clear',
   util.wrap(async (req: any, res: any) => {
     const feedback_id: string = util.require.param(req, 'feedbackID')
-    const device_id: string = util.require.body(req, 'device_id')
+    const device_id: string = util.access.deviceID(req)
+
     const dbRes = await db.clearVoteFeedbackItem(feedback_id, device_id)
+    if (dbRes.item !== null)
+      db.convertFeedbackToUserDidUpvote(device_id, <t.Feedback>dbRes.item)
+
     res.json({
       updated: dbRes.updated,
-      item: dbRes.item ?? null,
     })
   })
 )
@@ -167,7 +179,7 @@ feedback.post(
  * @apiParam (param) {String} id         The feedback item ID
  * @apiParam (body) {String} status      The updated feedback item status
  *
- * @apiSuccess { item: Feedback }        The updated feedback item
+ * @apiSuccess { updated: bool }         Whether or not the item was updated
  **/
 feedback.post(
   '/:feedbackID/status',
@@ -176,9 +188,15 @@ feedback.post(
     util.access.enforceInternalUser(req)
     const feedback_id: string = util.require.param(req, 'feedbackID')
     const status: number = util.require.body(req, 'status')
+
     const dbRes = await db.updateStatusFeedbackItem(feedback_id, status)
+    if (dbRes.item !== null) {
+      const deviceID = util.access.deviceID(req)
+      db.convertFeedbackToUserDidUpvote(deviceID, <t.Feedback>dbRes.item)
+    }
+
     res.json({
-      item: dbRes.item,
+      updated: dbRes.updated,
     })
   })
 )
@@ -198,6 +216,7 @@ feedback.post(
     util.access.enforceInternalUser(req)
     const feedback_id: string = util.require.param(req, 'feedbackID')
     const dbRes = await db.deleteFeedbackItem(feedback_id)
+
     res.json({
       deleted: dbRes.deleted,
     })

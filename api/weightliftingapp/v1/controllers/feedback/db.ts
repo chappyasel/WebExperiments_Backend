@@ -13,13 +13,20 @@ async function queryFeedbackItems(
     index: 'ftype-upvotes-index',
     conditionExpression: 'ftype = :ftype',
     expressionValues: { ':ftype': ftype },
+    fields: t.FeedbackFieldsQuery,
     limit: limit,
     startKey,
   })
 }
 
 async function getFeedbackItem(id: string) {
-  return await util.aws.dynamodb.get(FEEDBACK_TABLE, { id: id })
+  return await util.aws.dynamodb.get(
+    FEEDBACK_TABLE,
+    { id: id },
+    {
+      fields: t.FeedbackFieldsAll,
+    }
+  )
 }
 
 async function putFeedbackItem(feedback: t.Feedback) {
@@ -30,9 +37,15 @@ async function upvoteFeedbackItem(id: string, deviceID: string) {
   return await util.aws.dynamodb.update(
     FEEDBACK_TABLE,
     { id: id },
-    'ADD upvote_device_ids :dss, upvotes :inc',
-    { ':inc': 1, ':did': deviceID, ':dss': toStringSet([deviceID]) },
-    'NOT contains(upvote_device_ids, :did)'
+    {
+      updateExpression: 'ADD upvote_device_ids :dss, upvotes :inc',
+      expressionValues: {
+        ':inc': 1,
+        ':did': deviceID,
+        ':dss': toStringSet([deviceID]),
+      },
+      conditionExpression: 'NOT contains(upvote_device_ids, :did)',
+    }
   )
 }
 
@@ -40,9 +53,15 @@ async function clearVoteFeedbackItem(id: string, deviceID: string) {
   return await util.aws.dynamodb.update(
     FEEDBACK_TABLE,
     { id: id },
-    'DELETE upvote_device_ids :dss  ADD upvotes :inc',
-    { ':inc': -1, ':did': deviceID, ':dss': toStringSet([deviceID]) },
-    'contains(upvote_device_ids, :did)'
+    {
+      updateExpression: 'DELETE upvote_device_ids :dss  ADD upvotes :inc',
+      expressionValues: {
+        ':inc': -1,
+        ':did': deviceID,
+        ':dss': toStringSet([deviceID]),
+      },
+      conditionExpression: 'contains(upvote_device_ids, :did)',
+    }
   )
 }
 
@@ -50,8 +69,10 @@ async function updateStatusFeedbackItem(id: string, fstatus: number) {
   return await util.aws.dynamodb.update(
     FEEDBACK_TABLE,
     { id: id },
-    'SET fstatus = :fstatus',
-    { ':fstatus': fstatus }
+    {
+      updateExpression: 'SET fstatus = :fstatus',
+      expressionValues: { ':fstatus': fstatus },
+    }
   )
 }
 

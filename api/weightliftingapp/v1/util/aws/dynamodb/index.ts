@@ -16,6 +16,7 @@ async function queryItems(
         IndexName: params.index,
         KeyConditionExpression: params.conditionExpression,
         ExpressionAttributeValues: params.expressionValues,
+        ProjectionExpression: params.fields?.join(', '),
         Limit: params.limit,
         ScanIndexForward: params.order_asc ?? false,
         ExclusiveStartKey: params.startKey,
@@ -31,12 +32,17 @@ async function queryItems(
   }
 }
 
-async function getItem(table: string, key: t.Key): Promise<t.GetResponse> {
+async function getItem(
+  table: string,
+  key: t.Key,
+  params?: t.GetParams
+): Promise<t.GetResponse> {
   try {
     const dbRes = await db
       .get({
         TableName: table,
         Key: key,
+        ProjectionExpression: params?.fields?.join(', '),
       })
       .promise()
     const { Item } = dbRes
@@ -67,18 +73,16 @@ async function putItem(table: string, item: t.Item): Promise<t.PutResponse> {
 async function updateItem(
   table: string,
   key: t.Key,
-  updateExpression: string,
-  expressionValues: Object,
-  conditionExpression?: string
+  params: t.UpdateParams
 ): Promise<t.UpdateResponse> {
   try {
     const dbRes = await db
       .update({
         TableName: table,
         Key: key,
-        ConditionExpression: conditionExpression,
-        UpdateExpression: updateExpression,
-        ExpressionAttributeValues: expressionValues,
+        ConditionExpression: params.conditionExpression,
+        UpdateExpression: params.updateExpression,
+        ExpressionAttributeValues: params.expressionValues,
         ReturnValues: 'ALL_NEW',
       })
       .promise()
@@ -101,16 +105,15 @@ async function updateItem(
 async function deleteItem(
   table: string,
   key: t.Key,
-  expressionValues?: Object,
-  conditionExpression?: string
+  params?: t.DeleteParams
 ): Promise<t.DeleteResponse> {
   try {
     const dbRes = await db
       .delete({
         TableName: table,
         Key: key,
-        ConditionExpression: conditionExpression,
-        ExpressionAttributeValues: expressionValues,
+        ConditionExpression: params?.conditionExpression,
+        ExpressionAttributeValues: params?.expressionValues,
         ReturnValues: 'ALL_OLD',
       })
       .promise()
@@ -118,6 +121,11 @@ async function deleteItem(
       deleted: dbRes.Attributes !== undefined,
     }
   } catch (err) {
+    if (err.code === 'ConditionalCheckFailedException') {
+      return {
+        deleted: false,
+      }
+    }
     throw boom.serverUnavailable(`AWS DynamoDB 'delete' server err: '${err}'`)
   }
 }
