@@ -17,7 +17,7 @@ export enum FeedbackStatus {
 export interface Feedback {
   id: string // (Primary) partition key
   user_id: string
-  device_id?: string
+  device_id: string
   email?: string
   ftimestamp: number
   app_version?: string

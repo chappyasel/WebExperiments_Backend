@@ -122,48 +122,26 @@ feedback.post(
 )
 
 /**
- * @api {post} /feedback/:id/vote/upvote
+ * @api {post} /feedback/:id/vote/:type(upvote|clear)
  * @apiGroup Feedback
- * @apiDescription Upvote a feedback item for a user
+ * @apiDescription Modift a user's vote for a feedback item
  *
  * @apiParam (param) {String} id         The feedback item ID
+ * @apiParam (param) {String} type       The vote modification to be made
  *
  * @apiSuccess { updated: bool }         Whether or not the item was updated
  **/
 feedback.post(
-  '/:feedbackID/vote/upvote',
+  '/:feedbackID/vote/:voteType(upvote|clear)',
   util.wrap(async (req: any, res: any) => {
+    const vote_type: string = util.require.param(req, 'voteType')
     const feedback_id: string = util.require.param(req, 'feedbackID')
     const device_id: string = util.access.deviceID(req)
 
-    const dbRes = await db.upvoteFeedbackItem(feedback_id, device_id)
-    if (dbRes.item !== null)
-      db.convertFeedbackToUserDidUpvote(device_id, <t.Feedback>dbRes.item)
-
-    res.json({
-      updated: dbRes.updated,
-    })
-  })
-)
-
-/**
- * @api {post} /feedback/:id/vote/clear
- * @apiGroup Feedback
- * @apiDescription Clear a user's vote on a feedback item
- *
- * @apiParam (param) {String} id         The feedback item ID
- *
- * @apiSuccess { updated: bool }         Whether or not the item was updated
- **/
-feedback.post(
-  '/:feedbackID/vote/clear',
-  util.wrap(async (req: any, res: any) => {
-    const feedback_id: string = util.require.param(req, 'feedbackID')
-    const device_id: string = util.access.deviceID(req)
-
-    const dbRes = await db.clearVoteFeedbackItem(feedback_id, device_id)
-    if (dbRes.item !== null)
-      db.convertFeedbackToUserDidUpvote(device_id, <t.Feedback>dbRes.item)
+    var dbRes = null
+    if (vote_type === 'upvote')
+      dbRes = await db.upvoteFeedbackItem(feedback_id, device_id)
+    else dbRes = await db.clearVoteFeedbackItem(feedback_id, device_id)
 
     res.json({
       updated: dbRes.updated,
