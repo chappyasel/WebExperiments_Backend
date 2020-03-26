@@ -1,5 +1,5 @@
 export default {
-    description: `
+  description: `
     Hi, I'm Chappy 👋
     <br/><br/>
     I'm a self-driven full stack developer eager to try new things and continue
@@ -39,6 +39,5 @@ export default {
     or
     [reach out](mailto:chappy_asel@hotmail.com)
     via the email listed at the top of my resume.
-    `
-    .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank">$1</a>')
+    `.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank">$1</a>'),
 }

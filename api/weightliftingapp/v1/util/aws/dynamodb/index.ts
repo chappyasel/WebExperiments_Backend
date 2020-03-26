@@ -28,7 +28,7 @@ async function queryItems(
       lastKey: LastEvaluatedKey ?? null,
     }
   } catch (err) {
-    throw boom.serverUnavailable(`AWS DynamoDB 'query' server err: '${err}'`)
+    throw boom.failedDependency(`AWS DynamoDB 'query' server err: '${err}'`)
   }
 }
 
@@ -50,7 +50,7 @@ async function getItem(
       item: Item ? Item : null,
     }
   } catch (err) {
-    throw boom.serverUnavailable(`AWS DynamoDB 'get' server err: '${err}'`)
+    throw boom.failedDependency(`AWS DynamoDB 'get' server err: '${err}'`)
   }
 }
 
@@ -66,7 +66,7 @@ async function putItem(table: string, item: t.Item): Promise<t.PutResponse> {
       item,
     }
   } catch (err) {
-    throw boom.serverUnavailable(`AWS DynamoDB 'put' server err: '${err}'`)
+    throw boom.failedDependency(`AWS DynamoDB 'put' server err: '${err}'`)
   }
 }
 
@@ -98,7 +98,7 @@ async function updateItem(
         item: null,
       }
     }
-    throw boom.serverUnavailable(`AWS DynamoDB 'update' server err: '${err}'`)
+    throw boom.failedDependency(`AWS DynamoDB 'update' server err: '${err}'`)
   }
 }
 
@@ -126,7 +126,7 @@ async function deleteItem(
         deleted: false,
       }
     }
-    throw boom.serverUnavailable(`AWS DynamoDB 'delete' server err: '${err}'`)
+    throw boom.failedDependency(`AWS DynamoDB 'delete' server err: '${err}'`)
   }
 }
 

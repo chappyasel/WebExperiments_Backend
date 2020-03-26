@@ -36,7 +36,7 @@ async function sendInternalNotifToDevs(
     }
   } catch (err) {
     apnProvider.shutdown()
-    throw boom.internal(`APNS send error: ${err}`)
+    throw boom.failedDependency(`APNS send error: ${err}`)
   }
 }
 

@@ -78,6 +78,7 @@ feedback.get(
  *
  * @apiParam (body) {Number} ftype      Feedback type (bug, suggestion)
  * @apiParam (body) {String} user_id    The user's ID
+ * @apiParam (body) {String} email      The user's email
  * @apiParam (body) {String} title      The feedback item's title
  * @apiParam (body) {String} body       The feedback item's body
  *

@@ -105,6 +105,27 @@ export = {
 }
 ```
 
+`.env.dev`
+
+```env
+PORT=8081
+```
+
+`.env.production`
+
+```env
+PORT=8081
+
+# dev only
+IS_DEV=TRUE
+```
+
+## Expose Localhost
+
+```bash
+ngrok http 8081
+```
+
 ## References
 
 - [APNS with Node.js](https://solarianprogrammer.com/2017/02/14/ios-remote-push-notifications-nodejs-backend/)

@@ -4,15 +4,13 @@ import bodyParser = require('body-parser')
 const app = express()
 const server = new http.Server(app)
 const helmet = require('helmet')
-
-const PORT = 8081
+import boom = require('boom')
 
 // MARK - SETUP
 app.use(helmet())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
-
-server.listen(PORT, () => {
+server.listen(process.env.PORT, () => {
   console.log('Web Experiments activated!')
 })
 
@@ -34,5 +32,6 @@ app.use('/api/fantasy/v1/', require('./api/fantasy/v1/'))
 
 // MARK - Error handler
 app.use((err: any, _: any, res: any, __: any) => {
+  if (!boom.isBoom(err)) err = boom.badImplementation(err)
   return res.status(err.output.statusCode).json(err.output.payload)
 })

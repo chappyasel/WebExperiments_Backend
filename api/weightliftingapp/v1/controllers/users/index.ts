@@ -18,7 +18,7 @@ users.post(
   '/',
   util.wrap((req: any, res: any) => {
     // mysql.query((err, users) => {
-    //   if (err) return next(boom.serverUnavailable('DatabaseConnection'))
+    //   if (err) return next(boom.failedDependency('DatabaseConnection'))
     //   res.json({ userID: users })
     // })
   })
@@ -39,7 +39,7 @@ users.get(
   util.wrap((req: any, res: any) => {
     // res.json({ test: req.params.userID })
     // mysql.query((err, users) => {
-    //     if (err) return next(boom.serverUnavailable("DatabaseConnection"))
+    //     if (err) return next(boom.failedDependency("DatabaseConnection"))
     //     res.json({ userID: users })
     // })
   })

@@ -4,13 +4,17 @@ import compareVersions = require('compare-versions')
 
 function deviceID(req: any): string {
   if (req.header(keys.HEADERS.DEVICE_ID) === undefined)
-    throw boom.badRequest('endpoint device id check failed: missing header')
+    throw boom.preconditionRequired(
+      'endpoint device id check failed: missing header'
+    )
   return req.header(keys.HEADERS.DEVICE_ID)
 }
 
 function appVersion(req: any): string {
   if (req.header(keys.HEADERS.APP_VERSION) === undefined)
-    throw boom.badRequest('endpoint app version check failed: missing header')
+    throw boom.preconditionRequired(
+      'endpoint app version check failed: missing header'
+    )
   return req.header(keys.HEADERS.APP_VERSION)
 }
 
