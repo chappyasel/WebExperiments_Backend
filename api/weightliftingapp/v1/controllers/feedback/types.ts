@@ -30,7 +30,7 @@ export interface Feedback {
   user_did_upvote?: boolean
 }
 
-type FeedbackKeys = keyof Feedback
+export type FeedbackKeys = keyof Feedback
 
 export const FeedbackFieldsQuery: FeedbackKeys[] = [
   'id',
@@ -49,7 +49,6 @@ export const FeedbackFieldsAll: FeedbackKeys[] = [
   'user_id',
   'device_id',
   'ftimestamp',
-  'app_version',
   'ftype',
   'title',
   'body',
@@ -58,4 +57,7 @@ export const FeedbackFieldsAll: FeedbackKeys[] = [
   'upvote_device_ids',
 ]
 
-export const FeedbackFieldsAllInternal = FeedbackFieldsAll.concat(['email'])
+export const FeedbackFieldsAllInternal = FeedbackFieldsAll.concat([
+  'app_version',
+  'email',
+])

@@ -59,7 +59,10 @@ feedback.get(
   '/:feedbackID',
   util.wrap(async (req: any, res: any) => {
     const feedbackID: string = util.require.param(req, 'feedbackID')
-    const dbRes = await db.getFeedbackItem(feedbackID)
+    const fields = util.access.isInternalUser(req)
+      ? t.FeedbackFieldsAllInternal
+      : t.FeedbackFieldsAll
+    const dbRes = await db.getFeedbackItem(feedbackID, fields)
     if (dbRes.item !== null) {
       const deviceID = util.access.deviceID(req)
       db.convertFeedbackToUserDidUpvote(deviceID, <t.Feedback>dbRes.item)

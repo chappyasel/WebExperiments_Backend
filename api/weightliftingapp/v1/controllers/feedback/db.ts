@@ -19,12 +19,12 @@ async function queryFeedbackItems(
   })
 }
 
-async function getFeedbackItem(id: string) {
+async function getFeedbackItem(id: string, fields: t.FeedbackKeys[]) {
   return await util.aws.dynamodb.get(
     FEEDBACK_TABLE,
     { id: id },
     {
-      fields: t.FeedbackFieldsAll,
+      fields: fields,
     }
   )
 }
