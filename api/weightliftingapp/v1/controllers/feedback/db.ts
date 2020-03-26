@@ -84,8 +84,10 @@ function convertFeedbackToUserDidUpvote(
   deviceID: string,
   feedback: t.Feedback
 ) {
-  if (feedback.upvote_device_ids === undefined)
-    throw boom.internal('error converting feedback to user did upvote type')
+  if (feedback.upvote_device_ids === undefined) {
+    feedback.user_did_upvote = false
+    return
+  }
   feedback.user_did_upvote = setContainsUser(
     feedback.upvote_device_ids,
     deviceID
