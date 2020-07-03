@@ -20,18 +20,18 @@ feedback.use(
  * @apiGroup Feedback
  * @apiDescription Query feedback items
  *
- * @apiParam (body) {String} ftype       The feedback type to get
- * @apiParam (body) {String} limit       OPTIONAL: The res item limit (default = 25)
- * @apiParam (body) {String} start_key   OPTIONAL: The last_key of the last query
+ * @apiParam (body) {String} ftype          The feedback type to get
+ * @apiParam (body) {String} limit          OPTIONAL: The res item limit (default = 20)
+ * @apiParam (body) {FeedbackKey} start_key OPTIONAL: The last_key of the last query
  *
- * @apiSuccess { items: Feedback[] }     The feedback items matching the query
+ * @apiSuccess { items: Feedback[] }        The feedback items matching the query
  **/
 feedback.post(
   '/',
   util.wrap(async (req: any, res: any) => {
     const ftype: number = util.require.body(req, 'ftype')
-    const limit: number = req.body['limit'] ?? 25
-    const startKey: Object | undefined = req.body['start_key']
+    const limit: number = req.body['limit'] ?? 20
+    const startKey: t.FeedbackKey | undefined = req.body['start_key']
 
     const dbRes = await db.queryFeedbackItems(ftype, limit, startKey)
     const deviceID = util.access.deviceID(req)
@@ -41,7 +41,7 @@ feedback.post(
 
     res.json({
       items: dbRes.items,
-      last_key: dbRes.lastKey,
+      last_key: dbRes.lastKey ?? null,
     })
   })
 )

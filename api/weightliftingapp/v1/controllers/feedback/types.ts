@@ -30,6 +30,12 @@ export interface Feedback {
   user_did_upvote?: boolean
 }
 
+export interface FeedbackKey {
+  id: string
+  ftype: number
+  upvotes: number
+}
+
 export type FeedbackKeys = keyof Feedback
 
 export const FeedbackFieldsQuery: FeedbackKeys[] = [

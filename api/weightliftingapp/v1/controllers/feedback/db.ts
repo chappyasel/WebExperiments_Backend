@@ -7,7 +7,7 @@ const FEEDBACK_TABLE = 'benchTrackerFeedback'
 async function queryFeedbackItems(
   ftype: t.FeedbackType,
   limit: number,
-  startKey?: Object
+  startKey?: t.FeedbackKey
 ) {
   return await util.aws.dynamodb.query(FEEDBACK_TABLE, {
     index: 'ftype-upvotes-index',
