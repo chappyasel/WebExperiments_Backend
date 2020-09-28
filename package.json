@@ -32,9 +32,12 @@
     "typescript": "^3.8.3"
   },
   "scripts": {
-    "build": "tsc",
-    "start-dev": "ts-node-dev --respawn --transpileOnly -r dotenv/config ./app.ts dotenv_config_path=.env.dev",
+    "build": "npm run build-server && npm run build-client",
+    "build-server": "tsc",
+    "build-client": "cd client && npm run build",
     "start": "node -r dotenv/config .build/app.js dotenv_config_path=.env.production",
-    "deploy": "tsc && eb deploy"
+    "start-server-dev": "ts-node-dev --respawn --transpileOnly -r dotenv/config ./app.ts dotenv_config_path=.env.dev",
+    "start-client-dev": "cd client && npm run start",
+    "deploy": "npm run build && eb deploy"
   }
 }
