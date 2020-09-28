@@ -1,6 +1,7 @@
 import express = require('express')
 import http = require('http')
 import bodyParser = require('body-parser')
+const path = require('path')
 const app = express()
 const server = new http.Server(app)
 const helmet = require('helmet')
@@ -15,11 +16,13 @@ server.listen(process.env.PORT, () => {
 })
 
 // MARK - Public paths
-if (__dirname.includes('/.build')) {
-  app.use('/', express.static(__dirname + '/../public'))
-} else {
-  app.use('/', express.static(__dirname + '/public'))
-}
+// if (__dirname.includes('/.build')) {
+//   app.use('/', express.static(__dirname + '/../public'))
+// } else {
+//   app.use('/', express.static(__dirname + '/public'))
+// }
+
+app.use(express.static(path.join(__dirname, '../client/build')))
 
 // MARK - Weightlifting app routes
 app.use(
