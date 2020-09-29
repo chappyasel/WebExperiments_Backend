@@ -1,21 +1,21 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import ContactItem from './ContactItem'
+import ProjectItem from './ProjectItem'
 
 const Content = styled.section`
-  max-width: 500px;
+  width: 80%;
   display: flex;
   flex-flow: row wrap;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
 `
 
-export default function Contact({ contacts }) {
+export default function Projects({ projects }) {
   return (
     <Content>
-      {contacts.map((c, _) => (
-        <ContactItem contact={c} />
+      {projects.list.map((p, _) => (
+        <ProjectItem project={p} />
       ))}
     </Content>
   )

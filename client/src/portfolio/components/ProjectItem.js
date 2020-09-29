@@ -1,11 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const ProjectDiv = styled.div`
+const Content = styled.div`
   position: relative;
   width: 47%;
   margin: 10px;
-  height: 20vw;
+  height: 16vw;
   border-radius: 20px;
   box-shadow: 0px 5px 20px 2px #ccc;
   transition: all 0.3s ease-in-out;
@@ -18,12 +18,11 @@ const ProjectDiv = styled.div`
   }
 `
 
-const Blur = styled.div`
+const Image = styled.div`
   position: absolute;
   width: 100%;
   height: 100%;
   border-radius: 20px;
-  filter: blur(2px);
   background-image: ${p =>
     `url(${require('../img/projects/' + p.project.image)})`};
   background-repeat: no-repeat;
@@ -32,16 +31,16 @@ const Blur = styled.div`
   overflow: hidden;
 `
 
-const Content = styled.div`
+const Details = styled.div`
   position: absolute;
   right: 10px;
   top: 10px;
-  background-color: rgba(144, 204, 249, 0.8);
+  background-color: ${p => p.theme.cellColor};
   border-radius: 15px;
 
   & > h3 {
     width: auto;
-    color: white;
+    color: ${p => p.theme.bodyTextColor};
     margin: 10px 20px 10px 20px;
     padding-top: 0;
     font-size: 25px;
@@ -59,13 +58,13 @@ const Content = styled.div`
   }
 `
 
-export default function Project({ project }) {
+export default function ProjectItem({ project }) {
   return (
-    <ProjectDiv onClick={_ => (window.location.href = project.link)}>
-      <Blur project={project} />
-      <Content>
+    <Content onClick={_ => (window.location.href = project.link)}>
+      <Image project={project} />
+      <Details>
         <h3>{project.name}</h3>
-      </Content>
-    </ProjectDiv>
+      </Details>
+    </Content>
   )
 }
