@@ -1,18 +1,18 @@
 import React from 'react'
+import styled from 'styled-components'
+
+const Content = styled.div`
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  padding: 1em;
+  max-width: 800px;
+  margin: auto;
+`
 
 export default function Privacy() {
   document.title = 'Privacy Policy | Weightlifting App'
 
   return (
-    <div
-      className="App"
-      style={{
-        'font-family': "'Helvetica Neue', Helvetica, Arial, sans-serif",
-        'padding': '1em',
-        'max-width': '800px',
-        'margin': 'auto',
-      }}
-    >
+    <Content>
       <h2>Privacy Policy</h2>
       <p>
         Weightlifting App built the Weightlifting App app as a Free app. This
@@ -166,6 +166,6 @@ export default function Privacy() {
         If you have any questions or suggestions about our Privacy Policy, do
         not hesitate to contact us at help.weightliftingapp@gmail.com
       </p>
-    </div>
+    </Content>
   )
 }

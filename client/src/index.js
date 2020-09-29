@@ -1,12 +1,27 @@
 import React from 'react'
 import { render } from 'react-dom'
 import { BrowserRouter } from 'react-router-dom'
-import './index.css'
+import { createGlobalStyle } from 'styled-components'
 import App from './App'
 
+const GlobalStyle = createGlobalStyle`
+  html {
+    font-family: 'Heebo', sans-serif;
+    height: 100%;
+    background-color: #f6f6f6;
+  }
+
+  body {
+    margin: 0;
+  }
+`
+
 render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>,
+  <React.Fragment>
+    <GlobalStyle />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </React.Fragment>,
   document.getElementById('root')
 )

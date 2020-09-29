@@ -8,8 +8,6 @@ import data from './data'
 import Project from './components/Project'
 import Contact from './components/Contact'
 
-import './styles/projects.css'
-
 const App = styled.div`
   text-align: center;
   padding-bottom: 100px;
@@ -119,12 +117,12 @@ const ResumeLinkTitle = styled.h3`
 export default function Portfolio() {
   return (
     <App>
-      <Section className="about">
+      <Section>
         <Header>About Me</Header>
         <AboutImage src={profileimg} />
         <AboutText dangerouslySetInnerHTML={data.aboutMe} />
       </Section>
-      <Section className="projects">
+      <Section>
         <Header>Projects</Header>
         <Projects>
           {data.projects.list.map((p, _) => (
@@ -132,7 +130,7 @@ export default function Portfolio() {
           ))}
         </Projects>
       </Section>
-      <Section className="resume">
+      <Section>
         <Header>Resume</Header>
         <section>
           <ResumeLink onClick={_ => (window.location.href = resumepdf)}>
@@ -140,7 +138,7 @@ export default function Portfolio() {
           </ResumeLink>
         </section>
       </Section>
-      <Section className="contact">
+      <Section>
         <Header>Contact</Header>
         <Contacts>
           {data.contacts.map((c, _) => (

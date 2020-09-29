@@ -61,10 +61,7 @@ const Content = styled.div`
 
 export default function Project({ project }) {
   return (
-    <ProjectDiv
-      className="shadow"
-      onClick={_ => (window.location.href = project.link)}
-    >
+    <ProjectDiv onClick={_ => (window.location.href = project.link)}>
       <Blur project={project} />
       <Content>
         <h3>{project.name}</h3>
