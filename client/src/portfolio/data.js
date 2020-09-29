@@ -1,5 +1,5 @@
 export default {
-  description: {
+  aboutMe: {
     __html: `
     Hi, I'm Chappy 👋
     <br/><br/>
@@ -41,5 +41,90 @@ export default {
     [reach out](mailto:chappy_asel@hotmail.com)
     via the email listed at the top of my resume.
     `.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank">$1</a>'),
+  },
+  contacts: [
+    {
+      name: 'LinkedIn',
+      link: 'https://www.linkedin.com/in/chappyasel/',
+      image: 'linkedin.png',
+    },
+    {
+      name: 'Github',
+      link: 'https://github.com/ChappyA12',
+      image: 'github.png',
+    },
+    {
+      name: 'Email',
+      link: 'mailto:chappy_asel@hotmail.com',
+      image: 'email.png',
+    },
+    {
+      name: 'Phone',
+      link: 'tel:+7036772825',
+      image: 'phone.png',
+    },
+    {
+      name: 'Facebook',
+      link: 'https://www.facebook.com/chappy.asel',
+      image: 'facebook.png',
+    },
+    {
+      name: 'Twitter',
+      link: 'https://twitter.com/ChappyA12',
+      image: 'twitter.png',
+    },
+    {
+      name: 'Instagram',
+      link: 'https://www.instagram.com/chappya12/',
+      image: 'instagram.png',
+    },
+  ],
+  projects: {
+    languages: [
+      'HTML',
+      'CSS',
+      'JavaScript',
+      'Objective C',
+      'Python',
+      'Node.js',
+    ],
+    list: [
+      {
+        name: 'Weightlifting App',
+        link: 'https://apps.apple.com/us/app/id1266077653',
+        image: 'weightlifting.jpg',
+        languages: ['Objective C'],
+      },
+      {
+        name: 'Homework App',
+        link: 'https://apps.apple.com/us/app/id1097438761',
+        image: 'homework.jpg',
+        languages: ['Objective C'],
+      },
+      {
+        name: 'Web Experiments',
+        link: 'https://github.com/ChappyA12/WebExperiments_Backend',
+        image: 'web-exp.jpg',
+        languages: ['HTML', 'CSS', 'JavaScript', 'Node.js'],
+      },
+      {
+        name: 'Fantasy Basketball',
+        link: 'https://github.com/ChappyA12/FantasyBasketball_iOS',
+        image: 'fantasy.jpg',
+        languages: ['Objective C'],
+      },
+      {
+        name: 'Weightlifting App ML',
+        link: 'https://github.com/ChappyA12/WeightliftingAppML_Python',
+        image: 'weightlifting-ml.jpg',
+        languages: ['Python'],
+      },
+      {
+        name: 'Rotoworld ML',
+        link: 'https://github.com/ChappyA12/RotoworldML_Python',
+        image: 'rotoworld-ml.jpg',
+        languages: ['Python'],
+      },
+    ],
   },
 }

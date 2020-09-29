@@ -2,6 +2,7 @@ import React from 'react'
 
 export default function Privacy() {
   document.title = 'Privacy Policy | Weightlifting App'
+
   return (
     <div
       className="App"
