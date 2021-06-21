@@ -1,12 +1,13 @@
 import React from 'react'
 import { render } from 'react-dom'
 import { BrowserRouter } from 'react-router-dom'
-import './index.css'
 import App from './App'
 
 render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>,
+  <React.Fragment>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </React.Fragment>,
   document.getElementById('root')
 )
