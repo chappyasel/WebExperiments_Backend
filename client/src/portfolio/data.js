@@ -75,7 +75,7 @@ export default {
     },
     {
       name: 'Instagram',
-      link: 'https://www.instagram.com/chappya12/',
+      link: 'https://www.instagram.com/chappyasel/',
       image: 'instagram.png',
     },
   ],

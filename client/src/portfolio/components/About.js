@@ -26,22 +26,13 @@ const AboutImage = styled.img`
 `
 
 const AboutText = styled.p`
-  font-size: 2.2vw;
+  font-size: min(max(3.5vw, 14px), 22px);
   text-align: justify;
   min-height: 300px;
   color: ${p => p.theme.bodyTextColor};
 
   & > a {
     color: ${p => p.theme.bodyTextColor};
-  }
-
-  @media only screen and (min-width: 1000px) {
-    font-size: 20px;
-    margin: 0 10px 10px 10px;
-  }
-
-  @media only screen and (max-width: 750px) {
-    font-size: 3vw;
   }
 `
 

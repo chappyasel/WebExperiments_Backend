@@ -7,12 +7,8 @@ import Privacy from './weightliftingapp/Privacy'
 export default function App() {
   return (
     <Switch>
-      <div>
-        <Switch>
-          <Route exact path="/" component={Portfolio} />
-          <Route exact path="/weightliftingapp/privacy" component={Privacy} />
-        </Switch>
-      </div>
+      <Route exact path="/" component={Portfolio} />
+      <Route exact path="/weightliftingapp/privacy" component={Privacy} />
     </Switch>
   )
 }

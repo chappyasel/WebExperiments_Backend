@@ -134,6 +134,10 @@ IS_DEV=TRUE
 ngrok http 8081
 ```
 
+```bash
+ngrok http 3000 -host-header="localhost:3000"
+```
+
 ## References
 
 - [APNS with Node.js](https://solarianprogrammer.com/2017/02/14/ios-remote-push-notifications-nodejs-backend/)

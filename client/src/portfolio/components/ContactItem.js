@@ -3,12 +3,12 @@ import styled from 'styled-components'
 
 const Content = styled.div`
   margin: 10px;
-  width: 100px;
-  height: 100px;
+  width: min(20vw, 100px);
+  height: min(20vw, 100px);
   background-image: ${p =>
     `url(${require('../img/contact/' + p.contact.image)})`};
   background-position: center;
-  background-size: 105px;
+  background-size: min(20vw, 100px);
   background-color: ${p => p.theme.cellColor};
   border-radius: 50px;
   cursor: pointer;
@@ -26,7 +26,7 @@ export default function ContactItem({ contact }) {
     <Content
       contact={contact}
       title={contact.name}
-      onClick={_ => (window.location.href = contact.link)}
+      onClick={_ => (window.open(contact.link, "_blank"))}
     />
   )
 }

@@ -17,16 +17,18 @@ Watch; however, our development team is working on an Apple Watch app which \
 should be released in the coming months.`
     },
     {
-      question: "Can I create new muscle groups in addition to the defaults?",
+      question: "Can I create new muscle categories in addition to the defaults?",
       answer: `\
 Due to the nature of the advanced analytics performed by Weightlifting App, \
-creating custom muscle groups (eg "Hamstrings") is not feasible.`
+creating custom categories (eg. "Hamstrings") is not feasible. If an \
+exercise does not fit an existing category, consider adding it to the "Other" \
+category.`
     },
     {
       question: "Can I sync my workouts to Apple's Health app?",
       answer: `\
-Because Weightlifting App cannot accurately assess the number of calories \
-burned during a workout, such a feature would not currently make sense.`
+Not currently, although our development team is looking into adding Apple \
+Health integration in the near future.`
     },
     {
       question: "Does Weightlifting App have a beta tester program?",

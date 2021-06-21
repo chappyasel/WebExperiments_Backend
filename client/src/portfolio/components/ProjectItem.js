@@ -5,7 +5,7 @@ const Content = styled.div`
   position: relative;
   width: 47%;
   margin: 10px;
-  height: 16vw;
+  height: 300px;
   border-radius: 20px;
   box-shadow: 0px 5px 20px 2px #ccc;
   transition: all 0.3s ease-in-out;
@@ -15,6 +15,13 @@ const Content = styled.div`
   &: hover {
     box-shadow: 0px 5px 30px 0px #ddd;
     transform: scale(1.03);
+  }
+
+  @media only screen and (max-width: 1200px) {
+    width: 90%;
+    height: 40vw;
+    min-height: 250px;
+    max-height: 350px;
   }
 `
 
@@ -43,24 +50,13 @@ const Details = styled.div`
     color: ${p => p.theme.bodyTextColor};
     margin: 10px 20px 10px 20px;
     padding-top: 0;
-    font-size: 25px;
-  }
-
-  @media only screen and (max-width: 1050px) {
-    width: 90%;
-    height: 40vw;
-    min-height: 250px;
-    max-height: 300px;
-
-    & > h3 {
-      font-size: 18px;
-    }
+    font-size: min(max(2.5vw, 18px), 25px);
   }
 `
 
 export default function ProjectItem({ project }) {
   return (
-    <Content onClick={_ => (window.location.href = project.link)}>
+    <Content onClick={_ => window.open(project.link, "_blank")}>
       <Image project={project} />
       <Details>
         <h3>{project.name}</h3>

@@ -5,7 +5,7 @@ const Content = styled.section``
 
 const ResumeLink = styled.div`
   background-color: ${p => p.theme.cellColor};
-  width: 300px;
+  width: max(min(40vw, 400px), 300px);
   margin: auto;
   border-radius: 20px;
   transition: all 0.3s ease-in-out;
@@ -20,16 +20,19 @@ const ResumeLink = styled.div`
 
 const ResumeLinkTitle = styled.h3`
   color: ${p => p.theme.bodyTextColor};
-  font-size: 25px;
+  font-size: min(5vw, 25px);
   text-align: center;
-  padding: 10px;
+  padding: 15px;
 `
 
-export default function Resume({ link }) {
+export default function Resume({ resumeLink, cvLink }) {
   return (
     <Content>
-      <ResumeLink onClick={_ => (window.location.href = link)}>
-        <ResumeLinkTitle>Download</ResumeLinkTitle>
+      <ResumeLink onClick={_ => window.open(resumeLink, "_blank")}>
+        <ResumeLinkTitle>Download Resume</ResumeLinkTitle>
+      </ResumeLink>
+      <ResumeLink onClick={_ => window.open(cvLink, "_blank")}>
+        <ResumeLinkTitle>Download CV</ResumeLinkTitle>
       </ResumeLink>
     </Content>
   )
