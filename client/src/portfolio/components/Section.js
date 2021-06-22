@@ -21,7 +21,7 @@ const Title = styled.h1`
   margin: 0 0 20px 0;
   text-align: center;
   color: ${p => p.theme.titleTextColor};
-  font-size: min(max(7vw, 40px), 70px);
+  font-size: min(max(6vw, 35px), 60px);
 `
 
 export default function Section({ title, id, contents }) {

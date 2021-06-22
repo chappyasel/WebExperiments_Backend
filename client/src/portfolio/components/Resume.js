@@ -20,7 +20,7 @@ const ResumeLink = styled.div`
 
 const ResumeLinkTitle = styled.h3`
   color: ${p => p.theme.bodyTextColor};
-  font-size: min(5vw, 25px);
+  font-size: min(max(4vw, 15px) 25px);
   text-align: center;
   padding: 15px;
 `

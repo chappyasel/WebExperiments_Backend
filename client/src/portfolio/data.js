@@ -4,17 +4,20 @@ export default {
     Hi, I'm Chappy Asel 👋
     <br/><br/>
     I'm a self-driven full stack developer eager to try new things and continue
-    to expand on my areas of knowledge. I am currently studying Computer Science
-    at the University of Washington and pursuing a position as a full-time
-    developer at an exciting, results-driven company for this upcoming summer.
+    to expand on my areas of knowledge. I have recently graduated from the
+    University of Washington with a degree in computer science and a minor in
+    entrepreneurship. This fall, I will be joining
+    [Apple](https://www.apple.com) as a full-time AR/VR software engineer and
+    will be based in Sunnyvale, California.
     <br/><br/>
-    I've had the privilege of interning for a variety of companies, including
+    In the past, I have had the privilege of interning for a variety of
+    companies, including
     [Apple](https://www.apple.com),
     [Facebook](https://about.fb.com/),
     [Lime](https://www.li.me),
     [Xevo](https://www.xevo.com),
     [Suplari](https://www.suplari.com),
-    among others. While working at each of these companies, I have gained
+    among many others. While working at each of these companies, I have gained
     valuable insights into how both established companies and startups scale and
     function as well as how effective leaders and cutting-edge products are
     forged from positive, electric work environments.
@@ -29,7 +32,7 @@ export default {
     [Homework App](https://apps.apple.com/us/app/id1097438761)
     and
     [Weightlifting App](https://apps.apple.com/us/app/id1266077653),
-    to the iOS App Store which have a combined 350k+ installs. Homework App
+    to the iOS App Store which have a combined 360k+ installs. Homework App
     was acquired in early 2019 by a private investor with which I negotiated
     the terms personally.
     <br/><br/>

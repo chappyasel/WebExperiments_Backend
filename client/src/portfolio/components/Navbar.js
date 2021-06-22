@@ -48,7 +48,7 @@ const Content = styled.div`
 `
 
 const Title = styled.p`
-  font-size: min(3vw, 40px);
+  font-size: min(3vw, 35px);
   font-weight: 600;
   color: ${p => p.theme.navTextColor};
   flex: 2;
@@ -59,13 +59,17 @@ const Title = styled.p`
 `
 
 const Item = styled.a`
-  font-size: min(max(2.5vw, 15px), 25px);
+  font-size: min(max(2.4vw, 15px), 22px);
   font-weight: 500;
   color: ${p => p.theme.navTextColor};
   text-align: center;
   text-decoration: none;
   padding: 10px;
   flex: 1;
+
+  @media only screen and (max-width: 390px) {
+    padding: 0px;
+  }
 `
 
 export default function Navbar({ title, items }) {

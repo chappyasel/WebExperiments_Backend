@@ -4,12 +4,16 @@ import styled from 'styled-components'
 const Content = styled.div`
   width: 80%;
   max-width: 1200px;
+
+  @media only screen and (max-width: 600px) {
+    width: 90%;
+  }
 `
 
 const AboutImage = styled.img`
   margin: 30px 50px 50px 0;
   float: left;
-  width: 40vw;
+  width: 35vw;
   max-width: 500px;
   border-radius: 50%;
   box-shadow: 0px 5px 20px 2px rgba(0, 0, 0, 0.2);
@@ -24,8 +28,15 @@ const AboutImage = styled.img`
 `
 
 const AboutText = styled.p`
-  font-size: min(max(3.5vw, 14px), 22px);
+  font-size: min(max(3vw, 15px), 20px);
   text-align: justify;
+  -ms-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+  hyphenate-limit-chars: 6 3 2;
+  -ms-hyphenate-limit-lines: 1;
+  -webkit-hyphenate-limit-lines: 1;
+  hyphenate-limit-lines: 1;
   min-height: 300px;
   color: ${p => p.theme.bodyTextColor};
 
