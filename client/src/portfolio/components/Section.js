@@ -4,13 +4,17 @@ import styled from 'styled-components'
 const Content = styled.div`
   margin: auto;
   max-width: 2000px;
-  padding: 100px 0 100px 0;
+  padding: 100px 0;
   background-color: clear;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   overflow: visible;
+
+  @media only screen and (max-width: 900px) {
+    padding: 50px 0;
+  }
 `
 
 const Title = styled.h1`
@@ -20,11 +24,11 @@ const Title = styled.h1`
   font-size: min(max(7vw, 40px), 70px);
 `
 
-export default function Section({ title, offset, children }) {
+export default function Section({ title, id, contents }) {
   return (
-    <Content>
+    <Content id={id}>
       <Title>{title}</Title>
-      {children}
+      {contents}
     </Content>
   )
 }

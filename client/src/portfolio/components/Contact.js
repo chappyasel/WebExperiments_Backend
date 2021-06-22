@@ -15,7 +15,7 @@ export default function Contact({ contacts }) {
   return (
     <Content>
       {contacts.map((c, _) => (
-        <ContactItem contact={c} />
+        <ContactItem key={c.name} contact={c} />
       ))}
     </Content>
   )

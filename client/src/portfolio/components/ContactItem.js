@@ -13,10 +13,10 @@ const Content = styled.div`
   border-radius: 50px;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
-  box-shadow: 0px 5px 15px 2px #ccc;
+  box-shadow: 0px 5px 15px 2px rgba(0, 0, 0, 0.2);
 
   &:hover {
-    box-shadow: 0px 5px 20px 0px #ddd;
+    box-shadow: 0px 5px 20px 0px rgba(0, 0, 0, 0.14);
     transform: scale(1.05);
   }
 `
@@ -26,7 +26,7 @@ export default function ContactItem({ contact }) {
     <Content
       contact={contact}
       title={contact.name}
-      onClick={_ => (window.open(contact.link, "_blank"))}
+      onClick={_ => window.open(contact.link, '_blank')}
     />
   )
 }

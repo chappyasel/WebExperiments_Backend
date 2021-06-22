@@ -7,13 +7,13 @@ const Content = styled.div`
   margin: 10px;
   height: 300px;
   border-radius: 20px;
-  box-shadow: 0px 5px 20px 2px #ccc;
+  box-shadow: 0px 5px 20px 2px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease-in-out;
   cursor: pointer;
   overflow: hidden;
 
   &: hover {
-    box-shadow: 0px 5px 30px 0px #ddd;
+    box-shadow: 0px 5px 30px 0px rgba(0, 0, 0, 0.14);
     transform: scale(1.03);
   }
 
@@ -56,7 +56,7 @@ const Details = styled.div`
 
 export default function ProjectItem({ project }) {
   return (
-    <Content onClick={_ => window.open(project.link, "_blank")}>
+    <Content onClick={_ => window.open(project.link, '_blank')}>
       <Image project={project} />
       <Details>
         <h3>{project.name}</h3>

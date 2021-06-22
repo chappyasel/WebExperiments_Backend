@@ -9,11 +9,11 @@ const ResumeLink = styled.div`
   margin: auto;
   border-radius: 20px;
   transition: all 0.3s ease-in-out;
-  box-shadow: 0px 5px 15px 2px #ccc;
+  box-shadow: 0px 5px 15px 2px rgba(0, 0, 0, 0.2);
   cursor: pointer;
 
   &: hover {
-    box-shadow: 0px 5px 20px 0px #ddd;
+    box-shadow: 0px 5px 20px 0px rgba(0, 0, 0, 0.14);
     transform: scale(1.05);
   }
 `
@@ -28,10 +28,10 @@ const ResumeLinkTitle = styled.h3`
 export default function Resume({ resumeLink, cvLink }) {
   return (
     <Content>
-      <ResumeLink onClick={_ => window.open(resumeLink, "_blank")}>
+      <ResumeLink onClick={_ => window.open(resumeLink, '_blank')}>
         <ResumeLinkTitle>Download Resume</ResumeLinkTitle>
       </ResumeLink>
-      <ResumeLink onClick={_ => window.open(cvLink, "_blank")}>
+      <ResumeLink onClick={_ => window.open(cvLink, '_blank')}>
         <ResumeLinkTitle>Download CV</ResumeLinkTitle>
       </ResumeLink>
     </Content>

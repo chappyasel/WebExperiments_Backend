@@ -7,21 +7,19 @@ const Content = styled.div`
 `
 
 const AboutImage = styled.img`
-  margin: 0 20px 20px 0;
+  margin: 30px 50px 50px 0;
   float: left;
-  width: 25vw;
-  min-width: 140px;
-  max-width: 350px;
+  width: 40vw;
+  max-width: 500px;
   border-radius: 50%;
-  box-shadow: 0px 5px 20px 2px #ccc;
+  box-shadow: 0px 5px 20px 2px rgba(0, 0, 0, 0.2);
 
-  @media only screen and (min-width: 1000px) {
-    width: 20vw;
-    margin: 0 30px 30px 10px;
-  }
-
-  @media only screen and (max-width: 750px) {
-    width: 35vw;
+  @media only screen and (max-width: 900px) {
+    display: block;
+    float: none;
+    margin: auto;
+    margin-bottom: 30px;
+    width: min(80%, 400px);
   }
 `
 

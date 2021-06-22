@@ -15,7 +15,7 @@ export default function Projects({ projects }) {
   return (
     <Content>
       {projects.list.map((p, _) => (
-        <ProjectItem project={p} />
+        <ProjectItem key={p.name} project={p} />
       ))}
     </Content>
   )

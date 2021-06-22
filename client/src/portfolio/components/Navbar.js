@@ -1,18 +1,21 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import styled from 'styled-components'
 
 const HEIGHT = 80
-const ITEMS = ['About Me', 'Projects', 'Resume', 'Contact']
 
 const NavbarView = styled.nav`
   position: fixed;
   top: ${p => (p.visible ? '0' : '-80px')};
   width: 100%;
   height: ${HEIGHT}px;
-  background-color: ${p => p.theme.bgColor};
+  background-color: ${p => p.theme.navBGColor};
   box-shadow: ${p => (p.visible ? '0px 5px 10px 2px rgba(0,0,0,0.1)' : 'none')};
   z-index: 10;
   transition: all 0.4s ease 0s;
+
+  @media only screen and (max-width: 700px) {
+    height: 60px;
+  }
 `
 
 const Content = styled.div`
@@ -31,6 +34,17 @@ const Content = styled.div`
     content: '';
     min-width: 50px;
   }
+
+  @media only screen and (max-width: 700px) {
+    &::before {
+      content: '';
+      min-width: 20px;
+    }
+    &::after {
+      content: '';
+      min-width: 20px;
+    }
+  }
 `
 
 const Title = styled.p`
@@ -38,10 +52,14 @@ const Title = styled.p`
   font-weight: 600;
   color: ${p => p.theme.navTextColor};
   flex: 2;
+
+  @media only screen and (max-width: 700px) {
+    display: none;
+  }
 `
 
 const Item = styled.a`
-  font-size: min(2.5vw, 25px);
+  font-size: min(max(2.5vw, 15px), 25px);
   font-weight: 500;
   color: ${p => p.theme.navTextColor};
   text-align: center;
@@ -50,15 +68,15 @@ const Item = styled.a`
   flex: 1;
 `
 
-export default function Navbar({ onSelection }) {
+export default function Navbar({ title, items }) {
   const [prevPos, setPrevPos] = useState(0)
   const [visible, setVisible] = useState(true)
 
-  function handleScroll() {
+  const handleScroll = useCallback(() => {
     const currPos = window.pageYOffset
     setVisible(currPos < HEIGHT || prevPos > currPos)
     setPrevPos(currPos)
-  }
+  }, [prevPos])
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll)
@@ -68,9 +86,9 @@ export default function Navbar({ onSelection }) {
   return (
     <NavbarView visible={visible}>
       <Content>
-        <Title>Chappy Asel</Title>
-        {ITEMS.map((title, i) => (
-          <Item href="#" onClick={_ => onSelection(i)}>
+        <Title>{title}</Title>
+        {items.map(({ id, title }) => (
+          <Item key={id} href={`#${id}`}>
             {title}
           </Item>
         ))}
