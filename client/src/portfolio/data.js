@@ -4,11 +4,11 @@ export default {
     Hi, I'm Chappy Asel 👋
     <br/><br/>
     I'm a self-driven full stack developer eager to try new things and continue
-    to expand on my areas of knowledge. I have recently graduated from the
+    to expand on my areas of knowledge. I recently graduated from the
     University of Washington with a degree in computer science and a minor in
-    entrepreneurship. This fall, I will be joining
+    entrepreneurship. In September 2021 I joined the TDG Software team at
     [Apple](https://www.apple.com) as a full-time AR/VR software engineer and
-    will be based in Sunnyvale, California.
+    am based in Mountain View, California.
     <br/><br/>
     In the past, I have had the privilege of interning for a variety of
     companies, including
