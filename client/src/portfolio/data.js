@@ -13,7 +13,7 @@ export default {
     In the past, I have had the privilege of interning for a variety of
     companies, including
     [Apple](https://www.apple.com),
-    [Facebook](https://about.fb.com/),
+    [Meta](https://about.facebook.com/),
     [Lime](https://www.li.me),
     [Xevo](https://www.xevo.com),
     [Suplari](https://www.suplari.com),
@@ -57,24 +57,24 @@ export default {
       image: 'github.png',
     },
     {
+      name: 'Medium',
+      link: 'https://medium.com/@chappyasel',
+      image: 'medium.png',
+    },
+    {
+      name: 'Twitter',
+      link: 'https://twitter.com/chappyasel',
+      image: 'twitter.png',
+    },
+    {
       name: 'Email',
       link: 'mailto:chappyasel@gmail.com',
       image: 'email.png',
     },
     {
-      name: 'Phone',
-      link: 'tel:+7036772825',
-      image: 'phone.png',
-    },
-    {
       name: 'Facebook',
       link: 'https://www.facebook.com/chappy.asel',
       image: 'facebook.png',
-    },
-    {
-      name: 'Twitter',
-      link: 'https://twitter.com/ChappyA12',
-      image: 'twitter.png',
     },
     {
       name: 'Instagram',

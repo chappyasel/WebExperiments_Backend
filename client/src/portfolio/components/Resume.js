@@ -29,10 +29,10 @@ export default function Resume({ resumeLink, cvLink }) {
   return (
     <Content>
       <ResumeLink onClick={_ => window.open(resumeLink, '_blank')}>
-        <ResumeLinkTitle>Download Resume</ResumeLinkTitle>
+        <ResumeLinkTitle>View Resume</ResumeLinkTitle>
       </ResumeLink>
       <ResumeLink onClick={_ => window.open(cvLink, '_blank')}>
-        <ResumeLinkTitle>Download CV</ResumeLinkTitle>
+        <ResumeLinkTitle>View Curriculum Vitae</ResumeLinkTitle>
       </ResumeLink>
     </Content>
   )
