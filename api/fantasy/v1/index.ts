@@ -9,9 +9,7 @@ fantasy.get('/projections', async (req: any, res: any, next: any) => {
   try {
     const leagueID = req.params.league_id || 1084973
     const espn = await fetch(
-      BASE_URL +
-        `/seasons/2019/segments/0/leagues/` +
-        `${leagueID}?view=mScoreboard&view=mStatus`
+      BASE_URL + `/seasons/2019/segments/0/leagues/` + `${leagueID}?view=mScoreboard&view=mStatus`
     ).then((r: any) => r.json())
 
     var playerIDs: any = []

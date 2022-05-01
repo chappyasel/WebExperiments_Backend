@@ -4,13 +4,13 @@ import util = require('../../util')
 import LiarsDice = require('./liarsDice')
 
 /**
- * @api {get} /play
+ * @api {post} /play
  * @apiGroup LiarsDice
  * @apiDescription Play a game of Liar's Dice
  *
  * @apiSuccess LiarsDice.Output       The game output
  */
-liarsdice.get(
+liarsdice.post(
   '/play',
   util.wrap((req: any, res: any) => {
     const input: LiarsDice.Input = {
