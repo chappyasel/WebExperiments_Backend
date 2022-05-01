@@ -1,6 +1,5 @@
 import express = require('express')
 import http = require('http')
-import bodyParser = require('body-parser')
 const path = require('path')
 const app = express()
 const server = new http.Server(app)
@@ -9,8 +8,8 @@ import boom = require('boom')
 
 // Setup
 app.use(helmet())
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 server.listen(process.env.PORT, () => {
   console.log('Web Experiments activated!')
 })

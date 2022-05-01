@@ -16,7 +16,7 @@ liarsdice.post(
     const input: LiarsDice.Input = {
       myDice: util.require.body(req, 'myDice'),
       totalDice: util.require.body(req, 'totalDice'),
-      countOnes: util.require.body<boolean>(req, 'countOnes'),
+      countOnes: util.require.body(req, 'countOnes'),
       minProbability: util.require.body<number>(req, 'minProbability', 0.01),
     }
     res.json(LiarsDice.play(input))

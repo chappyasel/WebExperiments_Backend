@@ -11,12 +11,14 @@ const GlobalStyle = createGlobalStyle`
   }
 `
 
+const DEFAULT_INPUT = {
+  myDice: [2, 0, 1, 0, 0, 2],
+  totalDice: 20,
+  countOnes: true,
+}
+
 export default function LiarsDice() {
-  const [input, setInput] = useState({
-    myDice: [2, 0, 1, 0, 0, 2],
-    totalDice: 20,
-    countOnes: true,
-  })
+  const [input, setInput] = useState(DEFAULT_INPUT)
   const [targets, setTargets] = useState([])
 
   const playGame = async () => {

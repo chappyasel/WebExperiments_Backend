@@ -83,7 +83,7 @@ export default {
     },
   ],
   projects: {
-    languages: ['HTML', 'CSS', 'JavaScript', 'Objective C', 'Python', 'Node.js'],
+    languages: ['HTML', 'CSS', 'JavaScript', 'TypeScript', 'Objective C', 'Python', 'Node.js'],
     list: [
       {
         name: 'Weightlifting App',
@@ -120,6 +120,11 @@ export default {
         link: 'https://github.com/ChappyA12/RotoworldML_Python',
         image: 'rotoworld-ml.jpg',
         languages: ['Python'],
+      },
+      {
+        name: "Liar's Dice",
+        link: '/liarsdice',
+        languages: ['TypeScript'],
       },
     ],
   },

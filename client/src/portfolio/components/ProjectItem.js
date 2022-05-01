@@ -31,10 +31,10 @@ const Image = styled.div`
   height: 100%;
   border-radius: 20px;
   background-image: ${p =>
-    `url(${require('../img/projects/' + p.project.image)})`};
+    `url(${require('../img/projects/' + (p.project.image ?? 'default.jpg'))})`};
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: center top;
+  background-position: ${p => 'center' + (p.project.image ? 'top' : '')};
   overflow: hidden;
 `
 
