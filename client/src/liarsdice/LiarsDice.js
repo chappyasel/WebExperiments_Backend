@@ -50,16 +50,16 @@ export default function LiarsDice() {
           ))}
         </Stack>
         <Form.Group className="mb-3">
-          <Form.Label>Dice left</Form.Label>
+          <Form.Label>Dice left (EV {ev(input.totalDice)})</Form.Label>
           <Form.Control
             type="number"
             value={input.totalDice}
-            onChange={e => setInput({ ...input, totalDice: e.target.value })}
+            onChange={e => setInput({ ...input, totalDice: parseInt(e.target.value) })}
           />
         </Form.Group>
         <Form.Check
           type="checkbox"
-          label="count ones"
+          label="Ones are wild"
           checked={input.countOnes}
           onChange={e => setInput({ ...input, countOnes: e.target.checked })}
         />
@@ -105,6 +105,18 @@ const play = async input =>
   })
     .then(res => res.json())
     .catch(err => alert(`error: ${err}`))
+
+const ev = tot => {
+  const val = (tot / 3).toFixed(0)
+  switch (tot % 3) {
+    case 0:
+      return `${val}`
+    case 1:
+      return `over ${val}`
+    case 2:
+      return `under ${val}`
+  }
+}
 
 const numberToString = number => {
   switch (number) {
