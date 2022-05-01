@@ -76,11 +76,9 @@ export default function Portfolio() {
   const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
   const [dark, setDark] = useState(prefersDark)
 
-  window
-    .matchMedia('(prefers-color-scheme: dark)')
-    .addEventListener('change', event => {
-      setDark(event.matches)
-    })
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+    setDark(e.matches)
+  })
 
   return (
     <ThemeProvider theme={dark ? darkTheme : lightTheme}>

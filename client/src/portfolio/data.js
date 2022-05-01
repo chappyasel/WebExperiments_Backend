@@ -83,14 +83,7 @@ export default {
     },
   ],
   projects: {
-    languages: [
-      'HTML',
-      'CSS',
-      'JavaScript',
-      'Objective C',
-      'Python',
-      'Node.js',
-    ],
+    languages: ['HTML', 'CSS', 'JavaScript', 'Objective C', 'Python', 'Node.js'],
     list: [
       {
         name: 'Weightlifting App',

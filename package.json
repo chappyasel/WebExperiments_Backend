@@ -40,6 +40,7 @@
     "start": "node -r dotenv/config .build/app.js dotenv_config_path=.env.production",
     "start-server-dev": "ts-node-dev --respawn --transpileOnly -r dotenv/config ./app.ts dotenv_config_path=.env.dev",
     "start-client-dev": "cd client && npm run start",
+    "deploy-dev": "npm run build && eb deploy web-experiments-dev",
     "deploy": "npm run build && eb deploy"
   }
 }

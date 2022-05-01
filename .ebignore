@@ -1,2 +1,10 @@
+package-lock.json
+node_modules
+.git
+
 .vscode/*
 .api/*
+
+README.md
+line_count.sh
+tslint.json
