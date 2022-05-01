@@ -1,6 +1,6 @@
 import express = require('express')
 const feedbackComments = express.Router()
-import util = require('../../../util')
+import util = require('../../../../../util')
 import db = require('./db')
 import * as t from './types'
 

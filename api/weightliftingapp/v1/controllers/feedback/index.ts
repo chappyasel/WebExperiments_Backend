@@ -1,6 +1,6 @@
 import express = require('express')
 const feedback = express.Router()
-import util = require('../../util')
+import util = require('../../../../util')
 import db = require('./db')
 import notif = require('./notif')
 import * as t from './types'

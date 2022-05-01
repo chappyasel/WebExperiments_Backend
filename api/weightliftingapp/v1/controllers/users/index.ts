@@ -1,6 +1,6 @@
 import express = require('express')
 const users = express.Router()
-import util = require('../../util')
+import util = require('../../../../util')
 
 /**
  * @api {post} /users

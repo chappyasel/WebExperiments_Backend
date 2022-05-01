@@ -1,5 +1,5 @@
 import boom = require('boom')
-import util = require('../../util')
+import util = require('../../../../util')
 import * as t from './types'
 
 const FEEDBACK_TABLE = 'benchTrackerFeedback'

@@ -1,5 +1,5 @@
 import * as t from './types'
-import util = require('../../util')
+import util = require('../../../../util')
 
 async function notifyDevsNewFeedbackItem(feedback: t.Feedback) {
   return await util.apns.sendInternalNotifToDevs(

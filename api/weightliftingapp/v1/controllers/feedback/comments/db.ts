@@ -1,4 +1,4 @@
-import util = require('../../../util')
+import util = require('../../../../../util')
 import * as t from './types'
 
 const COMMENT_TABLE = 'benchTrackerFeedbackComments'

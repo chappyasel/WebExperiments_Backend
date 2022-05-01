@@ -19,18 +19,16 @@ server.listen(process.env.PORT, () => {
 app.use(express.static('client/build'))
 
 // Weightlifting app routes
-app.use(
-  '/api/weightliftingapp/v1',
-  require('./api/weightliftingapp/v1/controllers')
-)
+app.use('/api/weightliftingapp/v1', require('./api/weightliftingapp/v1/controllers'))
 
 // Fantasy routes
 app.use('/api/fantasy/v1/', require('./api/fantasy/v1/'))
 
+// Liar's Dice routes
+app.use('/api/liarsdice/v1/', require('./api/liarsdice/v1/'))
+
 // Public routes
-app.get('*', (_, res) =>
-  res.sendFile(path.resolve('client', 'build', 'index.html'))
-)
+app.get('*', (_, res) => res.sendFile(path.resolve('client', 'build', 'index.html')))
 
 // Error handler
 app.use((err: any, _: any, res: any, __: any) => {

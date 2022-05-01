@@ -1,6 +1,6 @@
 import express = require('express')
 const faq = express.Router()
-import util = require('../../util')
+import util = require('../../../../util')
 import data from './data'
 
 /**

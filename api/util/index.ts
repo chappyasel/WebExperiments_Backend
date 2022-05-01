@@ -8,15 +8,15 @@ import reqRequire = require('./require')
 const { v4: uuid } = require('uuid')
 
 const wrap = (fn: any) => async (req: any, res: any, next: any) => {
-  return Promise.resolve(fn(req, res, next)).catch(err => {
+  try {
+    fn(req, res, next)
+  } catch (err) {
     if (!err.isBoom) return next(boom.badImplementation(err))
     next(err)
-  })
+  }
 }
 
-function timestamp() {
-  return Math.floor(new Date().getTime() / 1000)
-}
+const timestamp = () => Math.floor(new Date().getTime() / 1000)
 
 export = {
   access,
