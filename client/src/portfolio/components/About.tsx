@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import * as Theme from '../util/theme'
 
 const Content = styled.div`
   width: 80%;
@@ -38,14 +39,19 @@ const AboutText = styled.p`
   -webkit-hyphenate-limit-lines: 1;
   hyphenate-limit-lines: 1;
   min-height: 300px;
-  color: ${p => p.theme.bodyTextColor};
+  color: ${(p: Theme.Props) => p.theme.bodyTextColor};
 
   & > a {
-    color: ${p => p.theme.bodyTextColor};
+    color: ${(p: Theme.Props) => p.theme.bodyTextColor};
   }
 `
 
-export default function About({ image, description }) {
+export interface AboutProps {
+  image: string
+  description: { __html: string }
+}
+
+export default function About({ image, description }: AboutProps): JSX.Element {
   return (
     <Content>
       <AboutImage src={image} />

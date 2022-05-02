@@ -1,15 +1,16 @@
 import React from 'react'
 import styled from 'styled-components'
+import * as Theme from '../util/theme'
 
-const Content = styled.div`
+const Content: Theme.Component<{ contact: Contact }> = styled.div`
   margin: 10px;
   width: min(20vw, 100px);
   height: min(20vw, 100px);
-  background-image: ${p =>
+  background-image: ${(p: Theme.Props) =>
     `url(${require('../img/contact/' + p.contact.image)})`};
   background-position: center;
   background-size: min(20vw, 100px);
-  background-color: ${p => p.theme.cellColor};
+  background-color: ${(p: Theme.Props) => p.theme.cellColor};
   border-radius: 50px;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
@@ -21,12 +22,22 @@ const Content = styled.div`
   }
 `
 
-export default function ContactItem({ contact }) {
+export interface Contact {
+  name: string
+  link: string
+  image: string
+}
+
+export interface ContactProps {
+  contact: Contact
+}
+
+export default function ContactItem({ contact }: ContactProps): JSX.Element {
   return (
     <Content
       contact={contact}
       title={contact.name}
-      onClick={_ => window.open(contact.link, '_blank')}
+      onClick={(_) => window.open(contact.link, '_blank')}
     />
   )
 }

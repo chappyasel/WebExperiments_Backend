@@ -1,4 +1,4 @@
-export default {
+export const DATA = {
   aboutMe: {
     __html: `
     Hi, I'm Chappy Asel 👋

@@ -8,7 +8,7 @@ const Content = styled.div`
   margin: auto;
 `
 
-export default function Privacy() {
+export default function Privacy(): JSX.Element {
   document.title = 'Privacy Policy | Weightlifting App'
 
   return (
@@ -55,9 +55,9 @@ export default function Privacy() {
       <ul>
         <li>
           <a
-            href="https://firebase.google.com/support/privacy"
-            target="_blank"
-            rel="noopener noreferrer"
+            href='https://firebase.google.com/support/privacy'
+            target='_blank'
+            rel='noopener noreferrer'
           >
             Firebase Crashlytics
           </a>
