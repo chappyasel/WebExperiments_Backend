@@ -1,11 +1,22 @@
 import React from 'react'
 import Form from 'react-bootstrap/Form'
 
-export default function Input({ onChange, input }) {
+export interface Input {
+  myDice: [number, number, number, number, number, number],
+  totalDice: number,
+  countOnes: boolean,
+}
+
+export interface InputProps {
+  onChange: (input: Input) => void,
+  input: Input
+}
+
+export default function InputForm({ onChange, input }: InputProps): JSX.Element {
   return (
     <Form>
       <div style={{ display: 'flex', gap: '5px' }}>
-        {input.myDice.map((numDice, index) => (
+        {input.myDice.map((numDice: number, index: number) => (
           <Form.Group key={index} style={{ width: '100px', marginBottom: '20px' }}>
             <Form.Label>{numberToString(index)}</Form.Label>
             <Form.Control
@@ -21,7 +32,7 @@ export default function Input({ onChange, input }) {
         ))}
       </div>
       <Form.Group className="mb-3">
-        <Form.Label>Dice left (EV {ev(input.totalDice)})</Form.Label>
+        <Form.Label>Dice left (EV {expectedValue(input.totalDice)})</Form.Label>
         <Form.Control
           type="number"
           style={{ width: '200px', marginBottom: '20px' }}
@@ -39,20 +50,20 @@ export default function Input({ onChange, input }) {
   )
 }
 
-const ev = tot => {
-  const val = (tot / 3).toFixed(0)
-  switch (tot % 3) {
-    case 0:
-      return `${val}`
+function expectedValue(total: number): string {
+  const val = (total / 3).toFixed(0)
+  switch (total % 3) {
     case 1:
       return `over ${val}`
     case 2:
       return `under ${val}`
+    default:
+      return `${val}`
   }
 }
 
-const numberToString = number => {
-  switch (number) {
+function numberToString(num: number): string {
+  switch (num) {
     case 0:
       return 'Ones'
     case 1:
@@ -65,5 +76,7 @@ const numberToString = number => {
       return 'Fives'
     case 5:
       return 'Sixes'
+    default:
+      return 'Unknown'
   }
 }

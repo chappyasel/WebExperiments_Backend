@@ -1,7 +1,17 @@
 import React from 'react'
 import Table from 'react-bootstrap/Table'
 
-export default function Output({ targets }) {
+export interface Target {
+  diceNumber: number,
+  alreadyHave: number,
+  scenarios: [any]
+}
+
+export interface TargetsProps {
+  targets: Target[]
+}
+
+export default function OutputTable({ targets }: TargetsProps): JSX.Element {
   return (
     <>
       {targets.map(target => (

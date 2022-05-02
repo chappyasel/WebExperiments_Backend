@@ -2,14 +2,17 @@
   "compilerOptions": {
     "module": "commonjs",
     "target": "es5",
-    "outDir": ".build",
-    "esModuleInterop": true,
     "moduleResolution": "node",
     "typeRoots": ["node_modules/@types"],
+    "outDir": ".build",
+    "esModuleInterop": true,
     "sourceMap": true,
 
     "strict": true,
     "noImplicitAny": true,
-    "noImplicitReturns": true
-  }
+    "noImplicitReturns": true,
+  },
+  "include": [
+    "api",
+  ]
 }
