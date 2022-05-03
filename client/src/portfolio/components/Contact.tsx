@@ -1,7 +1,24 @@
 import React from 'react'
 import styled from 'styled-components'
+import { Contact } from '../util/data'
 
-import ContactItem, { Contact } from './ContactItem'
+import ContactItem from './ContactItem'
+
+export interface Props {
+  contacts: Contact[]
+}
+
+export default function ContactView({ contacts }: Props) {
+  return (
+    <Content>
+      {contacts.map((contact, _) => (
+        <ContactItem key={contact.name} contact={contact} />
+      ))}
+    </Content>
+  )
+}
+
+// Styles
 
 const Content = styled.section`
   padding: 0 40px;
@@ -11,17 +28,3 @@ const Content = styled.section`
   justify-content: center;
   align-items: center;
 `
-
-export interface ContactProps {
-  contacts: Contact[]
-}
-
-export default function ContactView({ contacts }: ContactProps): JSX.Element {
-  return (
-    <Content>
-      {contacts.map((contact: Contact, _: any) => (
-        <ContactItem key={contact.name} contact={contact} />
-      ))}
-    </Content>
-  )
-}

@@ -1,23 +1,12 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { createGlobalStyle } from 'styled-components'
 import '../styles/bootstrap.min.css'
-import InputForm, { Input } from './Input'
-import OutputTable from './Output'
-const fetch = require('node-fetch')
+import { DEFAULT_INPUT, play } from './util/interface'
 
-const GlobalStyle = createGlobalStyle`
-  html {
-    margin: 20px;
-  }
-`
+import InputForm from './components/InputForm'
+import OutputTable from './components/OutputTable'
 
-const DEFAULT_INPUT: Input = {
-  myDice: [2, 0, 1, 0, 0, 2],
-  totalDice: 20,
-  countOnes: true,
-}
-
-export default function LiarsDice(): JSX.Element {
+export default function LiarsDice() {
   const [input, setInput] = useState(DEFAULT_INPUT)
   const [targets, setTargets] = useState([])
 
@@ -41,12 +30,10 @@ export default function LiarsDice(): JSX.Element {
   )
 }
 
-async function play(input: Input) {
-  return await fetch('api/liarsdice/v1/play', {
-    method: 'POST',
-    body: JSON.stringify(input),
-    headers: { 'Content-Type': 'application/json' },
-  })
-    .then((res: any) => res.json())
-    .catch((err: any) => alert(`error: ${err}`))
-}
+// Styles
+
+const GlobalStyle = createGlobalStyle`
+  html {
+    margin: 20px;
+  }
+`

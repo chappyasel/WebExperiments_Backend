@@ -1,6 +1,22 @@
 import React from 'react'
 import styled from 'styled-components'
-import * as Theme from '../util/theme'
+import { AboutMe } from '../util/data'
+
+export interface Props {
+  image: string
+  description: AboutMe
+}
+
+export default function About({ image, description }: Props) {
+  return (
+    <Content>
+      <AboutImage src={image} />
+      <AboutText dangerouslySetInnerHTML={description} />
+    </Content>
+  )
+}
+
+// Styles
 
 const Content = styled.div`
   width: 80%;
@@ -34,28 +50,12 @@ const AboutText = styled.p`
   -ms-hyphens: auto;
   -webkit-hyphens: auto;
   hyphens: auto;
-  hyphenate-limit-chars: 6 3 2;
   -ms-hyphenate-limit-lines: 1;
   -webkit-hyphenate-limit-lines: 1;
-  hyphenate-limit-lines: 1;
   min-height: 300px;
-  color: ${(p: Theme.Props) => p.theme.bodyTextColor};
+  color: ${p => p.theme.bodyTextColor};
 
   & > a {
-    color: ${(p: Theme.Props) => p.theme.bodyTextColor};
+    color: ${p => p.theme.bodyTextColor};
   }
 `
-
-export interface AboutProps {
-  image: string
-  description: { __html: string }
-}
-
-export default function About({ image, description }: AboutProps): JSX.Element {
-  return (
-    <Content>
-      <AboutImage src={image} />
-      <AboutText dangerouslySetInnerHTML={description} />
-    </Content>
-  )
-}

@@ -1,17 +1,12 @@
 import React from 'react'
 import Table from 'react-bootstrap/Table'
+import { Target } from '../util/interface'
 
-export interface Target {
-  diceNumber: number,
-  alreadyHave: number,
-  scenarios: [any]
-}
-
-export interface TargetsProps {
+export interface Props {
   targets: Target[]
 }
 
-export default function OutputTable({ targets }: TargetsProps): JSX.Element {
+export default function OutputTable({ targets }: Props) {
   return (
     <>
       {targets.map(target => (
@@ -19,7 +14,7 @@ export default function OutputTable({ targets }: TargetsProps): JSX.Element {
           <h1>
             Odds for {target.diceNumber}s (you have {target.alreadyHave}):
           </h1>
-          <Table key={target.diceNumber} bordered striped size="sm">
+          <Table key={target.diceNumber} bordered striped size='sm'>
             <thead>
               <tr>
                 <th>#</th>

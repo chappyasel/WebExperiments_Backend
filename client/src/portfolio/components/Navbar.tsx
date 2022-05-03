@@ -1,13 +1,50 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import styled from 'styled-components'
+import { Section } from '../util/sections'
 
-const HEIGHT = 80
+const BAR_HEIGHT = 80
 
-const NavbarView = styled.nav`
+export interface Props {
+  title: string
+  sections: Section[]
+}
+
+export default function Navbar({ title, sections }: Props) {
+  const [prevPos, setPrevPos] = useState(0)
+  const [visible, setVisible] = useState(true)
+
+  const handleScroll = useCallback(() => {
+    const currPos = window.pageYOffset
+    setVisible(currPos < BAR_HEIGHT || prevPos > currPos)
+    setPrevPos(currPos)
+  }, [prevPos])
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [prevPos, visible, handleScroll])
+
+  return (
+    <NavbarView visible={visible}>
+      <Content>
+        <Title>{title}</Title>
+        {sections.map(section => (
+          <Item key={section.id} href={`#${section.id}`}>
+            {section.title}
+          </Item>
+        ))}
+      </Content>
+    </NavbarView>
+  )
+}
+
+// Styles
+
+const NavbarView = styled('nav') <{ visible: boolean } >`
   position: fixed;
   top: ${p => (p.visible ? '0' : '-80px')};
   width: 100%;
-  height: ${HEIGHT}px;
+  height: ${BAR_HEIGHT}px;
   background-color: ${p => p.theme.navBGColor};
   box-shadow: ${p => (p.visible ? '0px 5px 10px 2px rgba(0,0,0,0.1)' : 'none')};
   z-index: 10;
@@ -64,39 +101,16 @@ const Item = styled.a`
   color: ${p => p.theme.navTextColor};
   text-align: center;
   text-decoration: none;
+  transition: all 0.2s ease-in-out;
   padding: 10px;
   flex: 1;
+
+  &:hover {
+    color: ${p => p.theme.navHoverColor};
+    text-decoration: none;
+  }
 
   @media only screen and (max-width: 390px) {
     padding: 0px;
   }
 `
-
-export default function Navbar({ title, items }) {
-  const [prevPos, setPrevPos] = useState(0)
-  const [visible, setVisible] = useState(true)
-
-  const handleScroll = useCallback(() => {
-    const currPos = window.pageYOffset
-    setVisible(currPos < HEIGHT || prevPos > currPos)
-    setPrevPos(currPos)
-  }, [prevPos])
-
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [prevPos, visible, handleScroll])
-
-  return (
-    <NavbarView visible={visible}>
-      <Content>
-        <Title>{title}</Title>
-        {items.map(({ id, title }) => (
-          <Item key={id} href={`#${id}`}>
-            {title}
-          </Item>
-        ))}
-      </Content>
-    </NavbarView>
-  )
-}

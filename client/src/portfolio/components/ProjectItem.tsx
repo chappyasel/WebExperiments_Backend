@@ -1,5 +1,23 @@
 import React from 'react'
 import styled from 'styled-components'
+import { Project } from '../util/data'
+
+export interface Props {
+  project: Project
+}
+
+export default function ProjectItem({ project }: Props) {
+  return (
+    <Content onClick={_ => window.open(project.link, '_blank')}>
+      <Image project={project} />
+      <Details>
+        <h3>{project.name}</h3>
+      </Details>
+    </Content>
+  )
+}
+
+// Styles
 
 const Content = styled.div`
   position: relative;
@@ -12,7 +30,7 @@ const Content = styled.div`
   cursor: pointer;
   overflow: hidden;
 
-  &: hover {
+  &:hover {
     box-shadow: 0px 5px 30px 0px rgba(0, 0, 0, 0.14);
     transform: scale(1.03);
   }
@@ -25,7 +43,7 @@ const Content = styled.div`
   }
 `
 
-const Image = styled.div`
+const Image = styled('div')<{ project: Project }>`
   position: absolute;
   width: 100%;
   height: 100%;
@@ -53,14 +71,3 @@ const Details = styled.div`
     font-size: min(max(2.5vw, 18px), 25px);
   }
 `
-
-export default function ProjectItem({ project }) {
-  return (
-    <Content onClick={_ => window.open(project.link, '_blank')}>
-      <Image project={project} />
-      <Details>
-        <h3>{project.name}</h3>
-      </Details>
-    </Content>
-  )
-}

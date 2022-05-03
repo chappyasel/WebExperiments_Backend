@@ -1,5 +1,17 @@
 import React from 'react'
 import styled from 'styled-components'
+import { Section } from '../util/sections'
+
+export default function SectionView(section: Section) {
+  return (
+    <Content id={section.id}>
+      <Title>{section.title}</Title>
+      {section.contents}
+    </Content>
+  )
+}
+
+// Styles
 
 const Content = styled.div`
   margin: auto;
@@ -23,12 +35,3 @@ const Title = styled.h1`
   color: ${p => p.theme.titleTextColor};
   font-size: min(max(6vw, 35px), 60px);
 `
-
-export default function Section({ title, id, contents }) {
-  return (
-    <Content id={id}>
-      <Title>{title}</Title>
-      {contents}
-    </Content>
-  )
-}

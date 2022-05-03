@@ -24,7 +24,7 @@
     "noImplicitReturns": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
-    "allowJs": true
+    "allowJs": false
   },
   "include": [
     "src"

@@ -1,4 +1,41 @@
-export const DATA = {
+export interface Data {
+  aboutMe: AboutMe
+  contacts: Contact[]
+  projects: Projects
+}
+
+export interface AboutMe {
+  __html: string
+}
+
+export interface Contact {
+  name: string
+  link: string
+  image: string
+}
+
+export interface Projects {
+  languages: Language[]
+  list: Project[]
+}
+
+export interface Project {
+  name: string
+  link: string
+  image?: string
+  languages: Language[]
+}
+
+export type Language =
+  | 'HTML'
+  | 'CSS'
+  | 'JavaScript'
+  | 'TypeScript'
+  | 'Objective C'
+  | 'Python'
+  | 'Node.js'
+
+export const DATA: Data = {
   aboutMe: {
     __html: `
     Hi, I'm Chappy Asel 👋

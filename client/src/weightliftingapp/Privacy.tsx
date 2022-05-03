@@ -1,13 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const Content = styled.div`
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  padding: 1em;
-  max-width: 800px;
-  margin: auto;
-`
-
 export default function Privacy(): JSX.Element {
   document.title = 'Privacy Policy | Weightlifting App'
 
@@ -162,3 +155,12 @@ export default function Privacy(): JSX.Element {
     </Content>
   )
 }
+
+// Styles
+
+const Content = styled.div`
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  padding: 1em;
+  max-width: 800px;
+  margin: auto;
+`

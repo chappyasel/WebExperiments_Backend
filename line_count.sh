@@ -2,18 +2,24 @@
 
 # Print the # of lines of code for Web Experiments among other functions
 
-DIR="api"
+DIR="."
+MATCH="/(api|client/src)/"
+EXLCUDE="statMap.ts","v0",".build"
+LANGUAGES="Java,JavaScript,PHP,Python,Shell,SQL,TypeScript"
 
 function count {
+    # To audit files: --by-file
     cloc $DIR \
-        --match-d="api/*" \
-        --exclude-dir="statMap.ts","v0"
+        --match-d=$MATCH \
+        --exclude-dir=$EXLCUDE \
+        --include-lang=$LANGUAGES
 }
 
 function diffs {
-    cloc --diff $DIR "api" \
-        --match-d="api/*" \
-        --exclude-dir="statMap.ts","v0"
+    cloc --diff $DIR "." \
+        --match-d=$MATCH \
+        --exclude-dir=$EXLCUDE \
+        --include-lang=$LANGUAGES
 }
 
 function list {
