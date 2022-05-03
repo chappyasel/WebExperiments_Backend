@@ -1,10 +1,10 @@
-import express = require('express')
-import http = require('http')
+const express = require('express')
+const http = require('http')
 const path = require('path')
 const app = express()
 const server = new http.Server(app)
 const helmet = require('helmet')
-import boom = require('boom')
+const boom = require('boom')
 
 // Setup
 app.use(helmet())

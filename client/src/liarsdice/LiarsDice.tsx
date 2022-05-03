@@ -10,14 +10,14 @@ export default function LiarsDice() {
   const [input, setInput] = useState(DEFAULT_INPUT)
   const [targets, setTargets] = useState([])
 
-  const playGame = async () => {
-    const output = await play(input)
-    if (output?.targets !== undefined) {
-      setTargets(output.targets)
-    }
-  }
-
   useEffect(() => {
+    const playGame = async () => {
+      const output = await play(input)
+      if (output?.targets !== undefined) {
+        setTargets(output.targets)
+      }
+    }
+
     playGame()
   }, [input])
 

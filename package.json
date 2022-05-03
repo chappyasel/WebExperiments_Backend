@@ -8,6 +8,9 @@
     "type": "git",
     "url": "git+https://github.com/ChappyA12/OnlinePortfolio_Web.git"
   },
+  "engines": {
+    "node": "v16.14.2"
+  },
   "license": "ISC",
   "dependencies": {
     "apn": "^2.2.0",
