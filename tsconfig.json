@@ -4,16 +4,21 @@
     "target": "es5",
     "moduleResolution": "node",
     "typeRoots": ["node_modules/@types"],
-    "outDir": ".build",
+    "outDir": "build",
     "esModuleInterop": true,
     "sourceMap": true,
     "allowJs": false,
 
     "baseUrl": ".",
     "paths": {
-      "@shared/*": ["shared/*"],
-      "@util/*": ["api/util/*"]
+      "@util/*": ["api/util/*"],
+      "@shared/*": ["client/src/shared/*"]
     },
+    "plugins": [
+      {
+        "transform": "typescript-transform-paths"
+      }
+    ],
 
     "strict": true,
     "noImplicitAny": true,
@@ -21,6 +26,7 @@
   },
   "include": [
     "api",
-    "shared",
-  ],
+    "client/src/shared",
+    "app.ts"
+  ]
 }

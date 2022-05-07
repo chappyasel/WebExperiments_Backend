@@ -27,7 +27,7 @@ app.use('/api/fantasy/v1/', require('./api/fantasy/v1/'))
 app.use('/api/liarsdice/v1/', require('./api/liarsdice/v1/'))
 
 // Public routes
-app.get('*', (_, res) => res.sendFile(path.resolve('client', 'build', 'index.html')))
+app.get('*', (_: any, res: any) => res.sendFile(path.resolve('client', 'build', 'index.html')))
 
 // Error handler
 app.use((err: any, _: any, res: any, __: any) => {

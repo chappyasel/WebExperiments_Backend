@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "module": "esnext",
+    "module": "commonjs",
     "target": "es5",
     "jsx": "react",
     "moduleResolution": "node",
@@ -12,6 +12,10 @@
     "types": [
       "node"
     ],
+    "baseUrl": ".",
+    "paths": {
+      "@shared/*": ["src/shared/*"]
+    },
     "outDir": ".build",
     "esModuleInterop": true,
     "skipLibCheck": true,
@@ -27,7 +31,6 @@
     "forceConsistentCasingInFileNames": true
   },
   "include": [
-    "src",
-    "../shared"
+    "src"
   ]
 }
