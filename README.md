@@ -2,9 +2,9 @@
 
 ## Intro
 
-Web Experiments backend is a monorepo for my [AWS EB](https://aws.amazon.com/elasticbeanstalk)-hosted online portfolio website along with MySQL / PHP / Node.js / Express backends for various other personal projects including [Weightlifting App](https://apps.apple.com/us/app/id1266077653) and ESPN Fantasy Football stats.
+Web Experiments backend is a monorepo for my [AWS EB](https://aws.amazon.com/elasticbeanstalk)-hosted online portfolio website along with Node / Express / PHP / MySQL backends for various other personal projects including [Weightlifting App](https://apps.apple.com/us/app/id1266077653) and ESPN Fantasy Football stats.
 
-Currently, I am in the process of deprecating my PHP / MySQL backend in favor of a AWS EB app running Node.js / Express with DynamoDB and S3 as my storage components. I previously had my backend running on a Linux instance managed by GoDaddy but I decided to convert to AWS due to reliability and cost benefits.
+Currently, I am in the process of deprecating my PHP / MySQL backend in favor of a AWS EB app running Node / Express with DynamoDB and S3 as my storage components. I previously had my backend running on a Linux instance managed by GoDaddy but I decided to convert to AWS due to reliability and cost benefits.
 
 ## Contents
 
@@ -19,6 +19,12 @@ My portfolio website was written using [React](https://reactjs.org). This was pr
 While I have a decent amount of functionality already available in my Weightlifting App PHP API, I made the decision to switch to Express / Node.js for its vibrant developer community and plethora of helpful libraries. As I stated above, I am currently in the process of rewriting my API in JavaScript accessing a DynamoDB database instead of MySQL.
 
 Eventually, I plan to support a variety of features in my Weightlifting API, including user creation / querying / updating / deletion, leaderboard querying, social features, and more.
+
+### Liar's Dice
+
+[Liar's Dice](https://en.wikipedia.org/wiki/Liar%27s_dice) is a dice game that combines luck and skill as one must weigh probabilities with the game theory involved in predicting the decisions of other intellegent actors. I developed a simple tool to assist in deriving probabilities for each hand to aid in decision-making. This is exposed both as a simple React webpage as well as an API accessible by posting a POST request `/api/v1/liarsdice/play`
+
+- Demo: [www.chappyasel.com/liarsdice](http://chappyasel.com/liarsdice)
 
 ### ESPN Fantasy Football
 
@@ -38,23 +44,31 @@ npm install && (cd client && npm install)
 
 ### Development
 
-To run the Express backend:
+To run the Express backend (exposed via `localhost:3000`):
 
 ```bash
 npm run start-server-dev
 ```
 
-To run the React frontend:
+To run the React frontend (exposed via `localhost:8081`):
 
 ```bash
 npm run start-client-dev
 ```
 
+To run both simultaneously (same ports as above; client running detached):
+
+```bash
+npm run start-dev
+
+# to stop the detached client
+npm run stop-dev
+```
+
 ### Production
 
 ```bash
-npm run build
-npm run start
+npm run build && npm run start
 ```
 
 ### AWS Elastic Beanstalk Deployment
@@ -67,7 +81,7 @@ npm run deploy
 
 Add the following files to this project:
 
-`///util/access/keys.ts`
+`/api/util/access/keys.ts`
 
 ```ts
 export = {
@@ -83,7 +97,7 @@ export = {
 
 ```
 
-`///util/apns/keys.ts`
+`/api/util/apns/keys.ts`
 
 ```ts
 export = {
@@ -101,7 +115,7 @@ export = {
 }
 ```
 
-`///util/aws/keys.ts`
+`/api/util/aws/keys.ts`
 
 ```ts
 export = {
@@ -113,31 +127,21 @@ export = {
 }
 ```
 
-`.env.dev`
+`/config/notif_cert.p8`
 
-```env
-PORT=8081
-```
-
-`.env.production`
-
-```env
-PORT=8081
-
-# dev only
-IS_DEV=TRUE
-```
+- Can be retrieved from Apple for sending notifications via APNS
+- See [APNS with Node.js](https://solarianprogrammer.com/2017/02/14/ios-remote-push-notifications-nodejs-backend/)
 
 ## Expose Localhost
+
+To expose the active Express backend:
 
 ```bash
 ngrok http 8081
 ```
 
+To expose the active Express backend:
+
 ```bash
 ngrok http 3000 -host-header="localhost:3000"
 ```
-
-## References
-
-- [APNS with Node.js](https://solarianprogrammer.com/2017/02/14/ios-remote-push-notifications-nodejs-backend/)
