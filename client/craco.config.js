@@ -5,5 +5,10 @@ module.exports = {
     alias: {
       '@shared': path.join(path.resolve(__dirname, './src/shared')),
     },
+    configure: {
+      resolve: {
+        symlinks: false,
+      },
+    },
   },
 }

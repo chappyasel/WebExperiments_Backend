@@ -4,15 +4,16 @@
     "target": "es5",
     "moduleResolution": "node",
     "typeRoots": ["node_modules/@types"],
-    "outDir": "build",
+    "outDir": ".build",
     "esModuleInterop": true,
     "sourceMap": true,
     "allowJs": false,
 
     "baseUrl": ".",
     "paths": {
+      "#util": ["api/util/index"],
       "@util/*": ["api/util/*"],
-      "@shared/*": ["client/src/shared/*"]
+      "@shared/*": ["shared/*"]
     },
     "plugins": [
       {
@@ -26,7 +27,7 @@
   },
   "include": [
     "api",
-    "client/src/shared",
+    "shared",
     "app.ts"
   ]
 }

@@ -1,13 +1,11 @@
 import * as t from './types'
-import util = require('../../../../util')
+import util = require('#util')
 
 async function notifyDevsNewFeedbackItem(feedback: t.Feedback) {
   return await util.apns.sendInternalNotifToDevs(
     {
       title:
-        feedback.ftype === t.FeedbackType.SUGGESTION
-          ? 'New Feature Suggestion'
-          : 'New Bug Report',
+        feedback.ftype === t.FeedbackType.SUGGESTION ? 'New Feature Suggestion' : 'New Bug Report',
       body: `'${feedback.title}' by user '${feedback.user_id}'`,
     },
     {

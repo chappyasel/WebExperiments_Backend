@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { createGlobalStyle } from 'styled-components'
 import '../styles/bootstrap.min.css'
-import * as LiarsDice from '@shared/liarsdice/liarsDice'
+import * as LiarsDice from '@shared/liarsdice/liarsdice'
 
 import InputForm from './components/InputForm'
 import OutputTable from './components/OutputTable'

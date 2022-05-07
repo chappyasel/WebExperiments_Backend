@@ -1,7 +1,7 @@
 import express = require('express')
 const liarsdice = express.Router()
-import * as LiarsDice from '@shared/liarsdice/liarsDice'
-import util = require('@util/index')
+import * as LiarsDice from '@shared/liarsdice/liarsdice'
+import util = require('#util')
 
 /**
  * @api {post} /play

@@ -1,6 +1,6 @@
 import express = require('express')
 const feedback = express.Router()
-import util = require('../../../../util')
+import util = require('#util')
 import db = require('./db')
 import notif = require('./notif')
 import * as t from './types'
@@ -35,9 +35,7 @@ feedback.post(
 
     const dbRes = await db.queryFeedbackItems(ftype, limit, startKey)
     const deviceID = util.access.deviceID(req)
-    dbRes.items.map(f =>
-      db.convertFeedbackToUserDidUpvote(deviceID, <t.Feedback>f)
-    )
+    dbRes.items.map(f => db.convertFeedbackToUserDidUpvote(deviceID, <t.Feedback>f))
 
     res.json({
       items: dbRes.items,
@@ -143,8 +141,7 @@ feedback.post(
     const device_id: string = util.access.deviceID(req)
 
     var dbRes = null
-    if (vote_type === 'upvote')
-      dbRes = await db.upvoteFeedbackItem(feedback_id, device_id)
+    if (vote_type === 'upvote') dbRes = await db.upvoteFeedbackItem(feedback_id, device_id)
     else dbRes = await db.clearVoteFeedbackItem(feedback_id, device_id)
 
     res.json({

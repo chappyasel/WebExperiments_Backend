@@ -1,14 +1,10 @@
 import boom = require('boom')
-import util = require('../../../../util')
+import util = require('#util')
 import * as t from './types'
 
 const FEEDBACK_TABLE = 'benchTrackerFeedback'
 
-async function queryFeedbackItems(
-  ftype: t.FeedbackType,
-  limit: number,
-  startKey?: t.FeedbackKey
-) {
+async function queryFeedbackItems(ftype: t.FeedbackType, limit: number, startKey?: t.FeedbackKey) {
   return await util.aws.dynamodb.query(FEEDBACK_TABLE, {
     index: 'ftype-upvotes-index',
     conditionExpression: 'ftype = :ftype',
@@ -80,18 +76,12 @@ async function deleteFeedbackItem(id: string) {
   return await util.aws.dynamodb.delete(FEEDBACK_TABLE, { id: id })
 }
 
-function convertFeedbackToUserDidUpvote(
-  deviceID: string,
-  feedback: t.Feedback
-) {
+function convertFeedbackToUserDidUpvote(deviceID: string, feedback: t.Feedback) {
   if (feedback.upvote_device_ids === undefined) {
     feedback.user_did_upvote = false
     return
   }
-  feedback.user_did_upvote = setContainsUser(
-    feedback.upvote_device_ids,
-    deviceID
-  )
+  feedback.user_did_upvote = setContainsUser(feedback.upvote_device_ids, deviceID)
   delete feedback.upvote_device_ids
 }
 

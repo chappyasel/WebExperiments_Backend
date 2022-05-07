@@ -48,7 +48,7 @@
     "...deploy-dev": "build and deploy to the development AWS EB environment",
     "deploy-dev": "npm run build && eb deploy web-experiments-dev",
     "...start": "start the client and server using the production build",
-    "start": "node -r dotenv/config build/app.js dotenv_config_path=.env.production",
+    "start": "node -r dotenv/config .build/app.js dotenv_config_path=config/.env.production",
     "...start-dev": "start the client (detached) and server in live development mode",
     "start-dev": "npm run start-client-dev-detached && npm run start-server-dev",
     "...start-dev-detached": "start the client and server in live development mode and detach them from the terminal",
@@ -70,6 +70,8 @@
     "...start-client-dev-detached": "start the client in live development mode and detach it from the terminal",
     "start-client-dev-detached": "pm2 start ./scripts/start-client-dev.sh --name node-client",
     "...stop-client-dev": "stop the detached client",
-    "stop-client-dev": "pm2 delete node-client"
+    "stop-client-dev": "pm2 delete node-client",
+    "...line-count": "count lines of code in the project",
+    "line-count": "./scripts/line-count.sh"
   }
 }

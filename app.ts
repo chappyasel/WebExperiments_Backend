@@ -11,7 +11,8 @@ app.use(helmet())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 server.listen(process.env.PORT, () => {
-  console.log('Web Experiments activated!')
+  const environment = process.env.IS_DEV ? 'dev' : 'prod'
+  console.log(`Web Experiments activated! (environment: ${environment})`)
 })
 
 // Static files

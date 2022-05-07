@@ -1,6 +1,6 @@
 import React from 'react'
 import Table from 'react-bootstrap/Table'
-import { Output } from '@shared/liarsdice/liarsDice'
+import { Output } from '@shared/liarsdice/liarsdice'
 
 export interface Props {
   output: Output
