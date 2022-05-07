@@ -7,6 +7,13 @@
     "outDir": ".build",
     "esModuleInterop": true,
     "sourceMap": true,
+    "allowJs": false,
+
+    "baseUrl": ".",
+    "paths": {
+      "@shared/*": ["shared/*"],
+      "@util/*": ["api/util/*"]
+    },
 
     "strict": true,
     "noImplicitAny": true,
@@ -14,5 +21,6 @@
   },
   "include": [
     "api",
-  ]
+    "shared",
+  ],
 }

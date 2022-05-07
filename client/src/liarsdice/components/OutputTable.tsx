@@ -1,15 +1,15 @@
 import React from 'react'
 import Table from 'react-bootstrap/Table'
-import { Target } from '../util/interface'
+import { Output } from '@shared/liarsdice/liarsDice'
 
 export interface Props {
-  targets: Target[]
+  output: Output
 }
 
-export default function OutputTable({ targets }: Props) {
+export default function OutputTable({ output }: Props) {
   return (
     <>
-      {targets.map(target => (
+      {output.targets.map(target => (
         <div>
           <h1>
             Odds for {target.diceNumber}s (you have {target.alreadyHave}):

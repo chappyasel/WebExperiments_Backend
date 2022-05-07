@@ -1,31 +1,31 @@
 import React, { useEffect, useState } from 'react'
 import { createGlobalStyle } from 'styled-components'
 import '../styles/bootstrap.min.css'
-import { DEFAULT_INPUT, play } from './util/interface'
+import * as LiarsDice from '../../../shared/liarsdice/liarsDice'
 
 import InputForm from './components/InputForm'
 import OutputTable from './components/OutputTable'
 
-export default function LiarsDice() {
+export const DEFAULT_INPUT: LiarsDice.Input = {
+  myDice: [2, 0, 1, 0, 0, 2],
+  totalDice: 20,
+  countOnes: true,
+}
+
+export default function LiarsDiceView() {
   const [input, setInput] = useState(DEFAULT_INPUT)
-  const [targets, setTargets] = useState([])
+  const [output, setOutput] = useState<LiarsDice.Output>()
 
   useEffect(() => {
-    const playGame = async () => {
-      const output = await play(input)
-      if (output?.targets !== undefined) {
-        setTargets(output.targets)
-      }
-    }
-
-    playGame()
+    const output = LiarsDice.play(input)
+    setOutput(output)
   }, [input])
 
   return (
     <>
       <GlobalStyle />
       <InputForm onChange={setInput} input={input} />
-      <OutputTable targets={targets} />
+      {output && <OutputTable output={output} />}
     </>
   )
 }

@@ -11,8 +11,9 @@ const wrap = (fn: any) => async (req: any, res: any, next: any) => {
   try {
     fn(req, res, next)
   } catch (err) {
-    if (!err.isBoom) return next(boom.badImplementation(err))
-    next(err)
+    const error: any = err
+    if (!error.isBoom) return next(boom.badImplementation(error))
+    next(error)
   }
 }
 

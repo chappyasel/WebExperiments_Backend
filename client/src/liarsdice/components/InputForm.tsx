@@ -1,6 +1,6 @@
 import React from 'react'
 import Form from 'react-bootstrap/Form'
-import { Input } from '../util/interface'
+import { Input } from '@shared/liarsdice/liarsDice'
 import { expectedValue, numberToString } from '../util/util'
 
 export interface Props {
