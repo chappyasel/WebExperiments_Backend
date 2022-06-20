@@ -3,13 +3,14 @@ import { AccountContext } from './Account'
 
 export default function Status() {
   const [status, setStatus] = useState(false)
-  const { getSession, logOut } = useContext(AccountContext)
+  const account = useContext(AccountContext)
 
   useEffect(() => {
-    getSession().then((user: any) => {
+    account.getSession().then((user: any) => {
+      console.log(user)
       setStatus(true)
     })
   }, [])
 
-  return <div>{status ? <button onClick={logOut}>log out</button> : 'please log in'}</div>
+  return <div>{status ? <button onClick={account.logOut}>log out</button> : 'please log in'}</div>
 }
