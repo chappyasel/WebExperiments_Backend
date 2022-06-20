@@ -81,6 +81,22 @@ npm run deploy
 
 Add the following files to this project:
 
+`/shared/auth/keys.ts`
+
+```ts
+export const AWS_CONFIG = {
+  remote: {
+    accessKeyId: 'XXXXXXXXXXXXXXXXXXXX',
+    secretAccessKey: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+    region: 'us-east-1',
+  },
+  cognito: {
+    userPoolId: 'us-east-1_xxxxxxxxx',
+    clientId: 'xxxxxxxxxxxxxxxxxxxxxxxxxx',
+  },
+}
+```
+
 `/api/util/access/keys.ts`
 
 ```ts
@@ -112,18 +128,6 @@ export = {
     '<dev device token>', // device description
     ...
   ],
-}
-```
-
-`/api/util/aws/keys.ts`
-
-```ts
-export = {
-  AWS_REMOTE_CONFIG: {
-    accessKeyId: '<access key id>',
-    secretAccessKey: '<secret access key>',
-    region: '<us-east-1>',
-  },
 }
 ```
 

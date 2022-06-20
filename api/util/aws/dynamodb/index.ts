@@ -1,14 +1,11 @@
 import boom = require('boom')
 import AWS = require('aws-sdk')
 import * as t from './types'
-import keys = require('../keys')
-AWS.config.update(keys.AWS_REMOTE_CONFIG)
+import keys = require('@shared/auth/keys')
+AWS.config.update(keys.AWS_CONFIG.remote)
 const db = new AWS.DynamoDB.DocumentClient()
 
-async function queryItems(
-  table: string,
-  params: t.QueryParams
-): Promise<t.QueryResponse> {
+async function queryItems(table: string, params: t.QueryParams): Promise<t.QueryResponse> {
   try {
     const dbRes = await db
       .query({
@@ -32,11 +29,7 @@ async function queryItems(
   }
 }
 
-async function getItem(
-  table: string,
-  key: t.Key,
-  params?: t.GetParams
-): Promise<t.GetResponse> {
+async function getItem(table: string, key: t.Key, params?: t.GetParams): Promise<t.GetResponse> {
   try {
     const dbRes = await db
       .get({

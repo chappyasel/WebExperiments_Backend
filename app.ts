@@ -21,6 +21,9 @@ app.use(express.static('client/build'))
 // Weightlifting app routes
 app.use('/api/weightliftingapp/v1', require('./api/weightliftingapp/v1/controllers'))
 
+// Caffiene routes
+app.use('/api/caffiene/v1/', require('./api/caffiene/v1/'))
+
 // Fantasy routes
 app.use('/api/fantasy/v1/', require('./api/fantasy/v1/'))
 

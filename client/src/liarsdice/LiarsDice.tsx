@@ -17,8 +17,8 @@ export default function LiarsDiceView() {
   const [output, setOutput] = useState<LiarsDice.Output>()
 
   useEffect(() => {
-    const output = LiarsDice.play(input)
-    setOutput(output)
+    const result = LiarsDice.play(input)
+    setOutput(result)
   }, [input])
 
   return (
