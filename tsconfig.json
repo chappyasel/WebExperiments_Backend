@@ -24,6 +24,9 @@
     "strict": true,
     "noImplicitAny": true,
     "noImplicitReturns": true,
+
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
   },
   "include": [
     "api",

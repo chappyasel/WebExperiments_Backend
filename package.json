@@ -13,6 +13,8 @@
   },
   "license": "ISC",
   "dependencies": {
+    "@typedorm/common": "^1.14.11",
+    "@typedorm/core": "^1.14.11",
     "amazon-cognito-identity-js": "^5.2.9",
     "apn": "^2.2.0",
     "aws-sdk": "^2.640.0",
@@ -27,6 +29,7 @@
     "lodash": "^4.17.21",
     "mysql": "^2.16.0",
     "node-fetch": "^2.6.0",
+    "reflect-metadata": "^0.1.13",
     "uuid": "^7.0.2"
   },
   "devDependencies": {
