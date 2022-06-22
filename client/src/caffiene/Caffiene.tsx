@@ -1,16 +1,18 @@
 import React from 'react'
 
-import { Account } from './auth/Account'
-import Login from './auth/Login'
-import Signup from './auth/Signup'
-import Status from './auth/Status'
+import { Auth } from './auth'
+import Login from './components/auth/Login'
+import Signup from './components/auth/Signup'
+import Status from './components/auth/Status'
+import DoseTable from './components/DoseTable'
 
 export default function Caffiene() {
   return (
-    <Account>
+    <Auth>
       <Status />
       <Signup />
       <Login />
-    </Account>
+      <DoseTable />
+    </Auth>
   )
 }

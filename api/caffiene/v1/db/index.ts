@@ -45,4 +45,8 @@ export class DB {
     }
     return await entityManager.create<Dose>(doseEntity)
   }
+
+  static async delete(id: string) {
+    return await entityManager.delete<Dose>(Dose, { id })
+  }
 }

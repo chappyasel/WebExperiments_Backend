@@ -1,4 +1,3 @@
-import React, { createContext } from 'react'
 import {
   CognitoUser,
   AuthenticationDetails,
@@ -7,19 +6,12 @@ import {
   CognitoUserAttribute,
 } from 'amazon-cognito-identity-js'
 import UserPool from '@shared/auth/UserPool'
+import { IAuthManager } from './index'
 
-interface IAccountContext {
-  authenticate: (email: string, password: string) => Promise<CognitoUserSession>
-  getSession: () => Promise<CognitoUserSession>
-  getAttributes: () => Promise<CognitoUserAttribute[]>
-  signUp: (email: string, password: string) => Promise<ISignUpResult>
-  logOut: () => Promise<void>
-}
+export class AuthManager implements IAuthManager {
+  static shared = new AuthManager()
 
-const AccountContext = createContext<IAccountContext>(undefined!)
-
-function Account(props: any) {
-  async function authenticate(email: string, password: string): Promise<CognitoUserSession> {
+  async authenticate(email: string, password: string): Promise<CognitoUserSession> {
     return await new Promise((resolve, reject) => {
       const user = new CognitoUser({
         Username: email,
@@ -39,7 +31,7 @@ function Account(props: any) {
     })
   }
 
-  async function getSession(): Promise<CognitoUserSession> {
+  async getSession(): Promise<CognitoUserSession> {
     return await new Promise((resolve, reject) => {
       const user = UserPool.getCurrentUser()
       if (user == null) {
@@ -56,7 +48,16 @@ function Account(props: any) {
     })
   }
 
-  async function getAttributes(): Promise<CognitoUserAttribute[]> {
+  async getToken(): Promise<string> {
+    return await new Promise((resolve, reject) => {
+      this.getSession()
+        .then(session => session.getIdToken())
+        .then(token => resolve(token.getJwtToken()))
+        .catch(err => reject(err))
+    })
+  }
+
+  async getAttributes(): Promise<CognitoUserAttribute[]> {
     return await new Promise((resolve, reject) => {
       const user = UserPool.getCurrentUser()
       if (user == null) {
@@ -73,7 +74,7 @@ function Account(props: any) {
     })
   }
 
-  async function signUp(email: string, password: string): Promise<ISignUpResult> {
+  async signUp(email: string, password: string): Promise<ISignUpResult> {
     return await new Promise((resolve, reject) => {
       UserPool.signUp(email, password, [], [], (err: any, result: ISignUpResult | undefined) => {
         if (err || result == null) {
@@ -85,7 +86,7 @@ function Account(props: any) {
     })
   }
 
-  async function logOut(): Promise<void> {
+  async logOut(): Promise<void> {
     return await new Promise((resolve, reject) => {
       const user = UserPool.getCurrentUser()
       if (user == null) {
@@ -97,12 +98,4 @@ function Account(props: any) {
       })
     })
   }
-
-  return (
-    <AccountContext.Provider value={{ authenticate, getSession, getAttributes, signUp, logOut }}>
-      {props.children}
-    </AccountContext.Provider>
-  )
 }
-
-export { AccountContext, Account }

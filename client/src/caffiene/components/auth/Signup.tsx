@@ -1,17 +1,15 @@
 import React, { useContext, useState } from 'react'
-import { AccountContext } from './Account'
+import { AuthContext } from '../../auth'
 
-export default function Login() {
+export default function Signup() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const account = useContext(AccountContext)
+  const account = useContext(AuthContext)
 
   async function onSubmit(e: any) {
     e.preventDefault()
-
     try {
-      await account.authenticate(email, password)
-      alert(`Logged in with email: ${email}`)
+      await account.signUp(email, password)
     } catch (err) {
       alert(err)
     }
@@ -22,7 +20,7 @@ export default function Login() {
       <form onSubmit={onSubmit}>
         <input type="email" value={email} onChange={e => setEmail(e.target.value)} />
         <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
-        <button type="submit">Log In</button>
+        <button type="submit">Sign Up</button>
       </form>
     </div>
   )
