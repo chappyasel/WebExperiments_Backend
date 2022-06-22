@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { AuthContext } from '../../auth'
-import { DB, ICreateDose, DOSE_TYPE } from '../../db'
+import { DB, IDoseCreate, DOSE_TYPE } from '../../db'
 
 export default function Status() {
   const [status, setStatus] = useState(false)
@@ -13,7 +13,7 @@ export default function Status() {
   }, [])
 
   async function create() {
-    const dose: ICreateDose = {
+    const dose: IDoseCreate = {
       timestamp: Math.floor(new Date().getTime() / 1000),
       consumedInterval: 600,
       name: 'Total War',

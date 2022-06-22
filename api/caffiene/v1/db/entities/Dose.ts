@@ -5,7 +5,7 @@ import {
   Entity,
 } from '@typedorm/common'
 
-import { DOSE_TYPE } from '@shared/caffiene'
+import { IDose, DOSE_TYPE } from '@shared/caffiene'
 
 @Entity({
   name: 'Dose',
@@ -14,7 +14,7 @@ import { DOSE_TYPE } from '@shared/caffiene'
     sortKey: 'TIMESTAMP.{{timestamp}}',
   },
 })
-export class Dose {
+export class Dose implements IDose {
   @AutoGenerateAttribute({
     strategy: AUTO_GENERATE_ATTRIBUTE_STRATEGY.UUID4,
   })

@@ -27,13 +27,28 @@ caffiene.post(
   '/create',
   util.wrap(async (req: any, res: any) => {
     const { email } = JWTDecode(req.headers.authorization)
-    console.log(req.body)
-    const result = await DB.create({
-      email, // force email to verified JWT token email
+    const result = await DB.create(email, {
       timestamp: util.require.body(req, 'timestamp'),
       consumedInterval: util.require.body(req, 'consumedInterval'),
       name: util.require.body(req, 'name'),
       type: util.require.body(req, 'type'),
+    })
+    res.json({ dose: result })
+  })
+)
+
+/**
+ * @api {delete} /delete
+ * @apiGroup Caffiene
+ * @apiDescription Delete a caffiene dose
+ */
+caffiene.delete(
+  '/delete',
+  util.wrap(async (req: any, res: any) => {
+    const { email } = JWTDecode(req.headers.authorization)
+    const result = await DB.delete(email, {
+      id: util.require.body(req, 'id'),
+      timestamp: util.require.body(req, 'timestamp'),
     })
     res.json({ dose: result })
   })

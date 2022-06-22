@@ -1,10 +1,10 @@
 import { AuthManager } from '../auth'
-import { ICreateDose } from '@shared/caffiene'
+import { IDoseCreate, IDoseDelete } from '@shared/caffiene'
 
 export * from '@shared/caffiene'
 
 export class DB {
-  static async create(dose: ICreateDose): Promise<any> {
+  static async create(dose: IDoseCreate): Promise<any> {
     const options = await this.fetchOptions('POST', dose)
     return await fetch('/api/caffiene/v1/create', options).then(res => res.json())
   }
@@ -12,6 +12,11 @@ export class DB {
   static async get(): Promise<any> {
     const options = await this.fetchOptions()
     return await fetch('/api/caffiene/v1/', options).then(res => res.json())
+  }
+
+  static async delete(dose: IDoseDelete): Promise<any> {
+    const options = await this.fetchOptions('DELETE', dose)
+    return await fetch('/api/caffiene/v1/delete', options).then(res => res.json())
   }
 
   // MARK: - Private

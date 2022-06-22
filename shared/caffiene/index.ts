@@ -1,3 +1,14 @@
+export interface IDose {
+  id?: string
+  email?: string
+  timestamp?: number
+  consumedInterval?: number
+  name?: string
+  type?: DOSE_TYPE
+  createdAt?: Date
+  updatedAt?: Date
+}
+
 export enum DOSE_TYPE {
   COFFEE = 'COFFEE',
   TEA = 'TEA',
@@ -8,10 +19,16 @@ export enum DOSE_TYPE {
   OTHER = 'OTHER',
 }
 
-export interface ICreateDose {
-  email?: string
-  timestamp?: number
-  consumedInterval?: number
-  name?: string
-  type?: DOSE_TYPE
+// MARK: Operation-specific types
+
+export interface IDoseCreate extends IDose {
+  timestamp: number
+  consumedInterval: number
+  name: string
+  type: DOSE_TYPE
+}
+
+export interface IDoseDelete extends IDose {
+  id: string
+  timestamp: number
 }
