@@ -5,12 +5,12 @@ const JWTDecode = require('jwt-decode')
 import { DB } from './db'
 
 /**
- * @api {get} /
+ * @api {get} /doses
  * @apiGroup Caffiene
  * @apiDescription Get caffiene doses for user
  */
 caffiene.get(
-  '/',
+  '/doses',
   util.wrap(async (req: any, res: any) => {
     const { email } = JWTDecode(req.headers.authorization)
     const result = await DB.get(email)
@@ -19,12 +19,12 @@ caffiene.get(
 )
 
 /**
- * @api {post} /create
+ * @api {put} /doses
  * @apiGroup Caffiene
  * @apiDescription Create a new caffiene dose
  */
-caffiene.post(
-  '/create',
+caffiene.put(
+  '/doses',
   util.wrap(async (req: any, res: any) => {
     const { email } = JWTDecode(req.headers.authorization)
     const result = await DB.create(email, {
@@ -38,16 +38,16 @@ caffiene.post(
 )
 
 /**
- * @api {delete} /delete
+ * @api {delete} /doses/:id
  * @apiGroup Caffiene
  * @apiDescription Delete a caffiene dose
  */
 caffiene.delete(
-  '/delete',
+  '/doses/:id',
   util.wrap(async (req: any, res: any) => {
     const { email } = JWTDecode(req.headers.authorization)
     const result = await DB.delete(email, {
-      id: util.require.body(req, 'id'),
+      id: util.require.param(req, 'id'),
       timestamp: util.require.body(req, 'timestamp'),
     })
     res.json({ dose: result })

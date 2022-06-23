@@ -5,18 +5,18 @@ export * from '@shared/caffiene'
 
 export class DB {
   static async create(dose: IDoseCreate): Promise<any> {
-    const options = await this.fetchOptions('POST', dose)
-    return await fetch('/api/caffiene/v1/create', options).then(res => res.json())
+    const options = await this.fetchOptions('PUT', dose)
+    return await fetch('/api/caffiene/v1/doses', options).then(res => res.json())
   }
 
   static async get(): Promise<any> {
     const options = await this.fetchOptions()
-    return await fetch('/api/caffiene/v1/', options).then(res => res.json())
+    return await fetch('/api/caffiene/v1/doses', options).then(res => res.json())
   }
 
   static async delete(dose: IDoseDelete): Promise<any> {
     const options = await this.fetchOptions('DELETE', dose)
-    return await fetch('/api/caffiene/v1/delete', options).then(res => res.json())
+    return await fetch(`/api/caffiene/v1/doses/${dose.id}`, options).then(res => res.json())
   }
 
   // MARK: - Private
