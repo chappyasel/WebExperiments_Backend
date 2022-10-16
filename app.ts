@@ -18,6 +18,9 @@ server.listen(process.env.PORT, () => {
 // Static files
 app.use(express.static('client/build'))
 
+// Assets routes
+app.use('/asset/', require('./api/assets/'))
+
 // Weightlifting app routes
 app.use('/api/weightliftingapp/v1', require('./api/weightliftingapp/v1/controllers'))
 
