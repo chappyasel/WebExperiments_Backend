@@ -69,13 +69,13 @@ export const DATA: Data = {
     [Homework App](https://apps.apple.com/us/app/id1097438761)
     and
     [Weightlifting App](https://apps.apple.com/us/app/id1266077653),
-    to the iOS App Store which have a combined 360k+ installs. Homework App
+    to the iOS App Store which have a combined 400k+ installs. Homework App
     was acquired in early 2019 by a private investor with which I negotiated
     the terms personally.
     <br/><br/>
-    For more details on each project, feel free to click on its respective link.
-    If you have any further questions regarding my past work experience or
-    credentials please feel free to check out my
+    For more details on each project, feel free to click on each of their
+    respective links. If you have any further questions regarding my past work
+    experience or credentials please feel free to read through my
     [LinkedIn](https://www.linkedin.com/in/chappyasel/)
     or
     [reach out](mailto:chappyasel@gmail.com)
@@ -90,7 +90,7 @@ export const DATA: Data = {
     },
     {
       name: 'Github',
-      link: 'https://github.com/ChappyA12',
+      link: 'https://github.com/chappyasel',
       image: 'github.png',
     },
     {
