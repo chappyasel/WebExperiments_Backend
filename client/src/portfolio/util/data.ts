@@ -40,29 +40,31 @@ export const DATA: Data = {
     __html: `
     Hi, I'm Chappy Asel 👋
     <br/><br/>
-    I'm a self-driven full stack developer eager to try new things and continue
-    to expand on my areas of knowledge. I recently graduated from the
-    University of Washington with a degree in computer science and a minor in
-    entrepreneurship. In September 2021 I joined the TDG Software team at
+    I'm a self-driven software engineer eager to branch out and continue to
+    expand on my breadth of knowledge and experience. I graduated from the
+    University of Washington with a BS in Computer Science and a minor in
+    Entrepreneurship. In September 2021 I joined the TDG Software team at
     [Apple](https://www.apple.com) as a full-time AR/VR software engineer and
-    am based in Mountain View, California.
+    am based in Palo Alto, California.
     <br/><br/>
-    In the past, I have had the privilege of interning for a variety of
+    In the past, I have had the privilege of working for a variety of
     companies, including
     [Apple](https://www.apple.com),
-    [Meta](https://about.facebook.com/),
+    [Meta](https://about.meta.com/),
     [Lime](https://www.li.me),
     [Xevo](https://www.xevo.com),
     [Suplari](https://www.suplari.com),
     among many others. While working at each of these companies, I have gained
-    valuable insights into how both established companies and startups scale and
-    function as well as how effective leaders and cutting-edge products are
-    forged from positive, electric work environments.
+    valuable insight into how all classes of companies function, from
+    world-class established corporations maintaining efficient operation and
+    market dominance to the behavior and scaling of stealth startups. Time and
+    time again, I have witnessed firsthand how effective leaders and
+    cutting-edge products are forged from positive, electric work environments.
     <br/><br/>
-    Beyond developing products that solving real-world problems to improve
-    people's lives, I enjoy challenging myself physically via weightlifting,
-    organized endurance events, and hiking. I also enjoy spending time with my
-    family and friends whenever I can find the time.
+    Beyond developing products that solve real-world problems to improve
+    people's lives, I enjoy challenging myself physically through weightlifting,
+    organized endurance events, and the occasional hike. I also enjoy spending
+    time with family and friends whenever I can find the time.
     <br/><br/>
     Below is a list of some of my recent personal projects. I have published two
     of these projects,
@@ -74,8 +76,8 @@ export const DATA: Data = {
     the terms personally.
     <br/><br/>
     For more details on each project, feel free to click on each of their
-    respective links. If you have any further questions regarding my past work
-    experience or credentials please feel free to read through my
+    respective links below. If you have any further questions regarding my past
+    work experience or credentials please feel free to read through my
     [LinkedIn](https://www.linkedin.com/in/chappyasel/)
     or
     [reach out](mailto:chappyasel@gmail.com)
@@ -136,25 +138,25 @@ export const DATA: Data = {
       },
       {
         name: 'Web Experiments',
-        link: 'https://github.com/ChappyA12/WebExperiments_Backend',
+        link: 'https://github.com/chappyasel/WebExperiments_Backend',
         image: 'web-exp.jpg',
         languages: ['HTML', 'CSS', 'JavaScript', 'Node.js'],
       },
       {
         name: 'Fantasy Basketball',
-        link: 'https://github.com/ChappyA12/FantasyBasketball_iOS',
+        link: 'https://github.com/chappyasel/FantasyBasketball_iOS',
         image: 'fantasy.jpg',
         languages: ['Objective C'],
       },
       {
         name: 'Weightlifting App ML',
-        link: 'https://github.com/ChappyA12/WeightliftingAppML_Python',
+        link: 'https://github.com/chappyasel/WeightliftingAppML_Python',
         image: 'weightlifting-ml.jpg',
         languages: ['Python'],
       },
       {
         name: 'Rotoworld ML',
-        link: 'https://github.com/ChappyA12/RotoworldML_Python',
+        link: 'https://github.com/chappyasel/RotoworldML_Python',
         image: 'rotoworld-ml.jpg',
         languages: ['Python'],
       },
