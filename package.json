@@ -23,6 +23,7 @@
     "compare-versions": "^3.6.0",
     "dotenv": "^8.2.0",
     "express": "^4.16.4",
+    "glitch-canvas": "^1.1.12",
     "helmet": "^3.16.0",
     "http": "0.0.0",
     "jwt-decode": "^3.1.2",
