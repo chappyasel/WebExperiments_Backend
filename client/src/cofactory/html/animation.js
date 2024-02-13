@@ -1,12 +1,16 @@
+const NUM_ROWS = 80
+const NUM_COLS = 80
+
 document.addEventListener('DOMContentLoaded', function () {
   const canvas = document.querySelector('canvas')
   const ctx = canvas.getContext('2d')
-  let rows = 0
-  let columns = 0
-  const gridScale = 0.5
-  const gridSize = 40 * gridScale
-  const gridSpacing = 12 * gridScale
-  const font = 'bold ' + (gridSize - gridSpacing) + 'px Cofactory'
+  let gridScale = 1
+  let gridSize = 40 * gridScale
+  let gridSpacing = 12 * gridScale
+  let font = 'bold ' + (gridSize - gridSpacing) + 'px Cofactory'
+  let offsetX = 0
+  let offsetY = 0
+
   const letters = [
     ['C', 'O', 'F'],
     ['A', 'C', 'T'],
@@ -27,19 +31,29 @@ document.addEventListener('DOMContentLoaded', function () {
   const RULE = 30
   const KERNEL = new Array(8).fill(0).map((_, i) => (RULE >> i) & 1)
 
-  function updateCanvasDimensions() {
+  function viewportResized() {
     canvas.width = window.innerWidth
     canvas.height = window.innerHeight
-    rows = Math.ceil(canvas.height / gridSize) + 1
-    columns = Math.ceil(canvas.width / gridSize) + 1
+    const initialGridSize = 40
+    const initialGridSpacing = 12
+    const scaleX = canvas.width / ((NUM_COLS - 1) * initialGridSize)
+    const scaleY = canvas.height / ((NUM_ROWS - 1) * initialGridSize)
+    gridScale = Math.max(scaleX, scaleY)
+
+    gridSize = initialGridSize * gridScale
+    gridSpacing = initialGridSpacing * gridScale
+    font = 'bold ' + (gridSize - gridSpacing) + 'px Cofactory'
+
+    offsetX = (canvas.width - gridSize * NUM_COLS) / 2
+    offsetY = canvas.height - gridSize * NUM_ROWS
   }
 
   function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
-    for (let r = 0; r < rows; r++) {
-      for (let c = 0; c < columns; c++) {
-        const x = c * gridSize
-        const y = r * gridSize
+    for (let r = 0; r < NUM_ROWS; r++) {
+      for (let c = 0; c < NUM_COLS; c++) {
+        const x = c * gridSize + offsetX
+        const y = r * gridSize + offsetY
 
         ctx.font = font
         if (matrix[r][c] === 1) {
@@ -57,41 +71,52 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function updateMatrix() {
-    const currentRow = matrix[rows - 1]
+    const currentRow = matrix[NUM_ROWS - 1]
     const nextRow = []
 
-    for (let c = 0; c < columns; c++) {
-      const left = currentRow[(c - 1 + columns) % columns] || 0
+    for (let c = 0; c < NUM_COLS; c++) {
+      const left = currentRow[(c - 1 + NUM_COLS) % NUM_COLS] || 0
       const center = currentRow[c]
-      const right = currentRow[(c + 1) % columns] || 0
+      const right = currentRow[(c + 1) % NUM_COLS] || 0
       nextRow[c] = KERNEL[left * 4 + center * 2 + right]
     }
 
-    for (let r = 0; r < rows - 1; r++) {
+    for (let r = 0; r < NUM_ROWS - 1; r++) {
       matrix[r] = matrix[r + 1]
     }
-    matrix[rows - 1] = nextRow
+    matrix[NUM_ROWS - 1] = nextRow
+  }
+
+  function countNumNeighbors(row, col) {
+    let numNeighbors = 0
+    for (let rOffset = -1; rOffset <= 1; rOffset++) {
+      for (let cOffset = -1; cOffset <= 1; cOffset++) {
+        if (rOffset === 0 && cOffset === 0) return
+        const r = (row + rOffset + NUM_ROWS) % NUM_ROWS
+        const c = (col + cOffset + NUM_COLS) % NUM_COLS
+        numNeighbors += matrix[r][c]
+      }
+    }
+    return numNeighbors
   }
 
   function initializeMatrix() {
     const matrix = []
-    for (let r = 0; r < rows; r++) {
+    for (let r = 0; r < NUM_ROWS; r++) {
       matrix[r] = []
-      for (let c = 0; c < columns; c++) {
+      for (let c = 0; c < NUM_COLS; c++) {
         matrix[r][c] = 0
       }
     }
-    if (rows !== 0 && columns !== 0) matrix[rows - 1][Math.floor(columns / 2)] = 1
+    if (NUM_ROWS !== 0 && NUM_COLS !== 0) matrix[NUM_ROWS - 1][Math.floor(NUM_COLS / 2)] = 1
     return matrix
   }
 
-  updateCanvasDimensions()
+  viewportResized()
   let matrix = initializeMatrix()
   window.addEventListener('resize', () => {
-    updateCanvasDimensions()
-    matrix = initializeMatrix()
+    viewportResized()
   })
 
   setInterval(draw, 1000 / 10)
-  draw()
 })
