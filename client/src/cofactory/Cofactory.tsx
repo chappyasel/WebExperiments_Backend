@@ -30,6 +30,8 @@ const Animation = () => {
     ['#303030', '#202020', '#303030'],
   ]
 
+  let offset = 0
+
   useEffect(() => {
     const canvas = canvasRef.current
     if (!canvas) return
@@ -65,14 +67,16 @@ const Animation = () => {
           const x = c * gridSize
           const y = r * gridSize
 
-          ctx.globalAlpha = matrix[r][c] * 0.5
           if (matrix[r][c] === 1) {
-            ctx.fillStyle = colors[r % 3][c % 3]
+            ctx.fillStyle = colors[(r + offset) % 3][c % 3]
+            ctx.globalAlpha = 0.5
           } else {
             ctx.fillStyle = grayscale[r % 3][c % 3]
+            ctx.globalAlpha = 1
           }
+          // ctx.globalAlpha = matrix[r][c]
           ctx.font = font
-          ctx.fillText(letters[r % 3][c % 3], x, y)
+          ctx.fillText(letters[(r + offset) % 3][c % 3], x, y)
         }
       }
 
@@ -104,6 +108,8 @@ const Animation = () => {
       //     matrix[r][c] = 1
       //   }
       // }
+
+      // offset += 1
     }
 
     const interval = setInterval(draw, 1000 / 10)
@@ -120,7 +126,7 @@ const Animation = () => {
       <GlobalStyle />
       <div id="content">
         <p className="title">What happens after AI drives the cost of software to zero?</p>
-        <a href="mailto:hello@cofactory.ai" className="subtitle">
+        <a href="mailto:chappy@cofactory.ai" className="cta">
           Work with us and find out
         </a>
         <img src={logo} alt="Cofactory logo" />
@@ -152,45 +158,53 @@ const GlobalStyle = createGlobalStyle`
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .title {
+    background: black;
+    color: white;
+    padding: 12px 24px;
+    font-size: 22px;
+    font-family: 'Cofactory';
+    text-align: center;
+    //border: 3px solid white;
+  }
+  // center vertical red text with red border
+  .cta {
+    background: black;
+    color: red;
+    padding: 12px 24px;
+    font-size: 12px;
+    font-family: 'Cofactory';
+    user-select: none;
+    text-align: center;
+    border: 3px solid red;
+    margin: 32px 0;
+  }
+  .cta:link {
+    color: red;
+    text-decoration: none;
   }
   #content img {
-    display: block;
-    margin: 0 auto;
     width: 100px;
   }
   #footer {
     position: fixed;
     bottom: 0;
-    left: 0;
-    background: black;
-    color: white;
-    padding: 12px;
-    font-size: 15px;
-    font-family: 'Cofactory';
-    user-select: none;
-  }
-  .title {
-    background: black;
-    color: white;
-    padding: 12px;
-    font-size: 15px;
-    font-family: 'Cofactory';
-    user-select: none;
+    left: 50%;
+    transform: translateX(-50%);
     text-align: center;
-    border: 3px solid white;
+    background: black;
+    color: white;
+    padding: 12px;
+    font-size: 12px;
+    font-family: 'Cofactory';
+    user-select: none;
     margin-bottom: 32px;
   }
-  // center vertical red text with red border
-  .subtitle {
-    background: black;
-    color: red;
-    padding: 12px;
-    font-size: 15px;
-    font-family: 'Cofactory';
-    user-select: none;
-    text-align: center;
-    border: 3px solid red;
-  }
+
   @font-face {
     font-family: 'Cofactory';
     src: url('./Cofactory.ttf');

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cofactory Animation</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        background: black;
+        text-align: center;
+        font-family: 'Cofactory';
+        line-height: 1.8;
+      }
+      canvas {
+        display: block;
+      }
+      main {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      h1 {
+        background: black;
+        color: white;
+        padding: 12px 24px;
+        font-size: clamp(12px, 2vw, 24px);
+        width: clamp(300px, 85%, 1000px);
+      }
+      main a {
+        background: black;
+        color: red;
+        border: 3px solid red;
+        padding: 12px 24px;
+        font-size: clamp(8px, 1.2vw, 14px);
+        width: auto;
+        margin: 32px auto;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: block;
+      }
+      main a:link {
+        color: red;
+        text-decoration: none;
+      }
+      main img {
+        width: 100px;
+      }
+      footer {
+        position: fixed;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        background: black;
+        color: white;
+        padding: 12px;
+        font-size: clamp(8px, 1.2vw, 14px);
+        user-select: none;
+        margin-bottom: 32px;
+      }
+      @font-face {
+        font-family: 'Cofactory';
+        src: url('./Cofactory.ttf');
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>What happens after AI drives the cost of software to zero?</h1>
+      <a href="mailto:gca@cofactory.ai">Work with us and find out</a>
+      <img src="logo.png" alt="Cofactory" />
+    </main>
+    <footer>
+      <p>Neo • Madrona • AI Grant • Stanford • GenAI Collective</p>
+    </footer>
+    <canvas></canvas>
+    <script src="animation.js"></script>
+  </body>
+</html>
