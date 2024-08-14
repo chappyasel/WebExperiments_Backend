@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#000000" />
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png" />
+    <link rel="manifest" href="favicon/site.webmanifest" />
+    <title>Cofactory</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        text-decoration: none;
+      }
+      body {
+        background: black;
+        color: white;
+        text-align: center;
+        font-family: 'Cofactory', monospace;
+        line-height: 1.8;
+      }
+      canvas {
+        background: black;
+        display: block;
+        position: fixed;
+        image-rendering: pixelated;
+      }
+      main {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      h1 {
+        background: rgba(0, 0, 0, 0.6);
+        -webkit-backdrop-filter: blur(4px);
+        backdrop-filter: blur(4px);
+        color: white;
+        padding: 12px 24px;
+        font-size: clamp(12px, 2vw, 24px);
+        width: clamp(300px, 85%, 1000px);
+      }
+      main a {
+        background: rgba(0, 0, 0, 0.6);
+        -webkit-backdrop-filter: blur(4px);
+        backdrop-filter: blur(4px);
+        color: red;
+        border: 3px solid red;
+        font-size: clamp(8px, 1.2vw, 16px);
+        display: inline-block;
+        width: auto;
+        padding: 12px 24px;
+        margin: 32px auto;
+        transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+      main a:hover {
+        transform: scale(1.1);
+        background: rgba(0, 0, 0, 0.4);
+        -webkit-backdrop-filter: blur(8px);
+        backdrop-filter: blur(8px);
+      }
+      main a:link {
+        color: red;
+      }
+      main img {
+        width: 132px;
+      }
+      @media (max-width: 500px) {
+        main img {
+          width: 66px;
+        }
+      }
+      footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: 32px;
+        display: flex;
+        justify-content: center;
+      }
+      footer p {
+        font-size: clamp(8px, 1vw, 12px);
+        width: auto;
+        padding: 12px 24px;
+        background: rgba(0, 0, 0, 0.6);
+        -webkit-backdrop-filter: blur(4px);
+        backdrop-filter: blur(4px);
+      }
+      footer a {
+        color: white;
+      }
+      @font-face {
+        font-family: 'Cofactory';
+        src: url('assets/Cofactory.ttf') format('truetype');
+      }
+    </style>
+  </head>
+  <body>
+    <canvas></canvas>
+    <main>
+      <h1>What happens after AI drives the cost of software to zero?</h1>
+      <a href="mailto:hello@cofactory.ai">Join us and find out</a>
+      <img src="assets/logo.png" alt="Cofactory" />
+    </main>
+    <footer>
+      <p>
+        <a href="https://www.aigrant.com" target="_blank">AI Grant</a> _
+        <a href="https://www.neo.com/" target="_blank">Neo</a> _
+        <a href="https://www.madrona.com/" target="_blank">Madrona</a> _
+        <a href="https://www.stanford.edu" target="_blank">Stanford</a> _
+        <a href="https://www.genaicollective.ai" target="_blank">GenAI Collective</a>
+      </p>
+    </footer>
+    <script src="index.js"></script>
+  </body>
+</html>
