@@ -1,7 +1,7 @@
-import express = require('express')
+import express from 'express'
 const liarsdice = express.Router()
 import * as LiarsDice from '@shared/liarsdice/liarsdice'
-import util = require('#util')
+import util from '#util'
 
 /**
  * @api {post} /play
@@ -23,4 +23,4 @@ liarsdice.post(
   })
 )
 
-export = liarsdice
+export default liarsdice

@@ -1,10 +1,15 @@
-const express = require('express')
-const http = require('http')
-const path = require('path')
+import express from 'express'
+import http from 'http'
+import path from 'path'
+import helmet from 'helmet'
+import boom from 'boom'
+import weightliftingAppRoutes from './api/weightliftingapp/v1/controllers'
+import caffieneRoutes from './api/caffiene/v1'
+import fantasyRoutes from './api/fantasy/v1'
+import liarsDiceRoutes from './api/liarsdice/v1'
+
 const app = express()
 const server = new http.Server(app)
-const helmet = require('helmet')
-const boom = require('boom')
 
 // Setup
 app.use(helmet())
@@ -18,17 +23,11 @@ server.listen(process.env.PORT, () => {
 // Static files
 app.use(express.static('client/build'))
 
-// Weightlifting app routes
-app.use('/api/weightliftingapp/v1', require('./api/weightliftingapp/v1/controllers'))
-
-// Caffiene routes
-app.use('/api/caffiene/v1/', require('./api/caffiene/v1/'))
-
-// Fantasy routes
-app.use('/api/fantasy/v1/', require('./api/fantasy/v1/'))
-
-// Liar's Dice routes
-app.use('/api/liarsdice/v1/', require('./api/liarsdice/v1/'))
+// API routes
+app.use('/api/weightliftingapp/v1', weightliftingAppRoutes)
+app.use('/api/caffiene/v1/', caffieneRoutes)
+app.use('/api/fantasy/v1/', fantasyRoutes)
+app.use('/api/liarsdice/v1/', liarsDiceRoutes)
 
 // Public routes
 app.get('*', (_: any, res: any) => res.sendFile(path.resolve('client', 'build', 'index.html')))

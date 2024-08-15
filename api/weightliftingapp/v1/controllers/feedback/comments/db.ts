@@ -1,4 +1,4 @@
-import util = require('../../../../../util')
+import util from '../../../../../util'
 import * as t from './types'
 
 const COMMENT_TABLE = 'benchTrackerFeedbackComments'
@@ -14,7 +14,7 @@ async function putCommentItem(comment: t.Comment) {
   return await util.aws.dynamodb.put(COMMENT_TABLE, comment)
 }
 
-export = {
+export default {
   queryCommentItems,
   putCommentItem,
 }

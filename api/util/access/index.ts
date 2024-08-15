@@ -1,20 +1,16 @@
-import boom = require('boom')
-import keys = require('./keys')
-import compareVersions = require('compare-versions')
+import boom from 'boom'
+import keys from './keys'
+import compareVersions from 'compare-versions'
 
 function deviceID(req: any): string {
   if (req.header(keys.HEADERS.DEVICE_ID) === undefined)
-    throw boom.preconditionRequired(
-      'endpoint device id check failed: missing header'
-    )
+    throw boom.preconditionRequired('endpoint device id check failed: missing header')
   return req.header(keys.HEADERS.DEVICE_ID)
 }
 
 function appVersion(req: any): string {
   if (req.header(keys.HEADERS.APP_VERSION) === undefined)
-    throw boom.preconditionRequired(
-      'endpoint app version check failed: missing header'
-    )
+    throw boom.preconditionRequired('endpoint app version check failed: missing header')
   return req.header(keys.HEADERS.APP_VERSION)
 }
 
@@ -22,17 +18,14 @@ function enforceAppVersion(req: any, enforceV: string): boolean {
   const version = appVersion(req)
   if (compareVersions(version, enforceV) >= 0) return true
   throw boom.preconditionFailed(
-    `endpoint enforced app version check failed. ` +
-      `${version} (given) < ${enforceV} (expected)`
+    `endpoint enforced app version check failed. ` + `${version} (given) < ${enforceV} (expected)`
   )
 }
 
 function isInternalUser(req: any): boolean {
   if (req.header(keys.HEADERS.INTERNAL) === undefined) return false
   const internal_did = req.header(keys.HEADERS.DEVICE_ID)
-  return (
-    internal_did !== undefined && keys.INTERNAL_DEVICE_IDS.has(internal_did)
-  )
+  return internal_did !== undefined && keys.INTERNAL_DEVICE_IDS.has(internal_did)
 }
 
 function enforceInternalUser(req: any): boolean {
@@ -40,7 +33,7 @@ function enforceInternalUser(req: any): boolean {
   throw boom.preconditionFailed('endpoint enforced internal user check failed')
 }
 
-export = {
+export default {
   deviceID,
   appVersion,
   enforceAppVersion,

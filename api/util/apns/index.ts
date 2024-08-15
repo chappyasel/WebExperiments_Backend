@@ -1,6 +1,6 @@
-import apn = require('apn')
-import boom = require('boom')
-import keys = require('./keys')
+import apn from 'apn'
+import boom from 'boom'
+import keys from './keys'
 import * as t from './types'
 
 const options = {
@@ -40,6 +40,6 @@ async function sendInternalNotifToDevs(
   }
 }
 
-export = {
+export default {
   sendInternalNotifToDevs,
 }

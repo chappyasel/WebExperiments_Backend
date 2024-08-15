@@ -37,7 +37,7 @@ export function play(input: Input): Output {
 
   for (let diceNumber = 1; diceNumber <= 6; diceNumber++) {
     const includeOnes = countOnes && diceNumber !== 1
-    const alreadyHave = (includeOnes ? myDice[0] : 0) + myDice[diceNumber - 1]
+    const alreadyHave = (includeOnes ? myDice[0] : 0) + (myDice[diceNumber - 1] ?? 0)
 
     let currentProbability = 1.0
     const scenarios: DiceScenario[] = []

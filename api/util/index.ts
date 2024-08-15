@@ -1,11 +1,11 @@
-import boom = require('boom')
+import boom from 'boom'
 
 // MARK - public imports
-import access = require('./access')
-import apns = require('./apns')
-import aws = require('./aws')
-import reqRequire = require('./require')
-const { v4: uuid } = require('uuid')
+import access from './access'
+import apns from './apns'
+import aws from './aws'
+import reqRequire from './require'
+import { v4 as uuid } from 'uuid'
 
 const wrap = (fn: any) => async (req: any, res: any, next: any) => {
   try {
@@ -19,7 +19,7 @@ const wrap = (fn: any) => async (req: any, res: any, next: any) => {
 
 const timestamp = () => Math.floor(new Date().getTime() / 1000)
 
-export = {
+export default {
   access,
   apns,
   aws,

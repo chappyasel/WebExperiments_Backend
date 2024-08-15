@@ -1,5 +1,5 @@
-import dynamodb = require('./dynamodb')
+import dynamodb from './dynamodb'
 
-export = {
+export default {
   dynamodb,
 }

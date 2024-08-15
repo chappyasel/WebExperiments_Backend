@@ -1,7 +1,7 @@
-import express = require('express')
+import express from 'express'
 const feedbackComments = express.Router()
-import util = require('../../../../../util')
-import db = require('./db')
+import util from '../../../../../util'
+import * as db from './db'
 import * as t from './types'
 
 feedbackComments.get(
@@ -22,4 +22,4 @@ feedbackComments.post(
   })
 )
 
-export = feedbackComments
+export default feedbackComments

@@ -1,7 +1,7 @@
-import boom = require('boom')
-import AWS = require('aws-sdk')
+import boom from 'boom'
+import AWS from 'aws-sdk'
 import * as t from './types'
-import keys = require('@shared/auth/keys')
+import * as keys from '@shared/auth/keys'
 AWS.config.update(keys.AWS_CONFIG.remote)
 const db = new AWS.DynamoDB.DocumentClient()
 
@@ -84,7 +84,7 @@ async function updateItem(
       updated: true,
       item: Attributes ? Attributes : null,
     }
-  } catch (err) {
+  } catch (err: any) {
     if (err.code === 'ConditionalCheckFailedException') {
       return {
         updated: false,
@@ -113,7 +113,7 @@ async function deleteItem(
     return {
       deleted: dbRes.Attributes !== undefined,
     }
-  } catch (err) {
+  } catch (err: any) {
     if (err.code === 'ConditionalCheckFailedException') {
       return {
         deleted: false,
@@ -127,7 +127,7 @@ function stringSet(arr: string[]): t.DynamoDbSet {
   return db.createSet(arr)
 }
 
-export = {
+export default {
   query: queryItems,
   get: getItem,
   put: putItem,

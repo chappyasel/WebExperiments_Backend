@@ -14,7 +14,7 @@
 // ))
 // res.json(x)
 
-export = {
+export default {
   '0': {
     id: 0,
     abbrev: 'PA',

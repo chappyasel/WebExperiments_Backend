@@ -1,6 +1,6 @@
-import express = require('express')
+import express from 'express'
 const faq = express.Router()
-import util = require('../../../../util')
+import util from '../../../../util'
 import data from './data'
 
 /**
@@ -14,9 +14,9 @@ faq.get(
   '/',
   util.wrap((req: any, res: any) => {
     res.json({
-      items: data.items ?? []
+      items: data.items ?? [],
     })
   })
 )
 
-export = faq
+export default faq

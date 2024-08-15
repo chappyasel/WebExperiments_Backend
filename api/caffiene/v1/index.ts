@@ -1,7 +1,7 @@
-import express = require('express')
+import express from 'express'
 const caffiene = express.Router()
-import util = require('#util')
-const JWTDecode = require('jwt-decode')
+import util from '#util'
+import JWTDecode from 'jwt-decode'
 import { DB } from './db'
 
 /**
@@ -12,7 +12,7 @@ import { DB } from './db'
 caffiene.get(
   '/doses',
   util.wrap(async (req: any, res: any) => {
-    const { email } = JWTDecode(req.headers.authorization)
+    const { email } = JWTDecode(req.headers.authorization) as any
     const result = await DB.get(email)
     res.json({ doses: result })
   })
@@ -26,7 +26,7 @@ caffiene.get(
 caffiene.put(
   '/doses',
   util.wrap(async (req: any, res: any) => {
-    const { email } = JWTDecode(req.headers.authorization)
+    const { email } = JWTDecode(req.headers.authorization) as any
     const result = await DB.create(email, {
       timestamp: util.require.body(req, 'timestamp'),
       consumedInterval: util.require.body(req, 'consumedInterval'),
@@ -45,7 +45,7 @@ caffiene.put(
 caffiene.delete(
   '/doses/:id',
   util.wrap(async (req: any, res: any) => {
-    const { email } = JWTDecode(req.headers.authorization)
+    const { email } = JWTDecode(req.headers.authorization) as any
     const result = await DB.delete(email, {
       id: util.require.param(req, 'id'),
       timestamp: util.require.body(req, 'timestamp'),
@@ -54,4 +54,4 @@ caffiene.delete(
   })
 )
 
-export = caffiene
+export default caffiene

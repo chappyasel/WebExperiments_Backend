@@ -1,4 +1,4 @@
-import boom = require('boom')
+import boom from 'boom'
 
 /**
  * @description Enforces the given param is in the request, returns its value
@@ -73,7 +73,7 @@ function requireField<Type>(
   return req[fieldType][field]
 }
 
-export = {
+export default {
   param: requireParam,
   body: requireBody,
   header: requireHeader,

@@ -1,7 +1,7 @@
-import express = require('express')
+import express from 'express'
 const fantasy = express.Router()
-const fetch = require('node-fetch')
-const statMap = require('./statMap')
+import fetch from 'node-fetch'
+import statMap from './statMap'
 
 const BASE_URL = 'https://fantasy.espn.com/apis/v3/games/ffl'
 
@@ -40,7 +40,7 @@ fantasy.get('/projections', async (req: any, res: any, next: any) => {
 
     const projDict: any = projs
       .filter(p => p)
-      .reduce(function(obj: any, item: any) {
+      .reduce(function (obj: any, item: any) {
         obj[item.id] = item
         return obj
       }, {})
@@ -156,4 +156,4 @@ function processPlayerProjections(ps: any) {
   }
 }
 
-export = fantasy
+export default fantasy

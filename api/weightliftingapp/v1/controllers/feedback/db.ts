@@ -1,5 +1,5 @@
-import boom = require('boom')
-import util = require('#util')
+import boom from 'boom'
+import util from '#util'
 import * as t from './types'
 
 const FEEDBACK_TABLE = 'benchTrackerFeedback'
@@ -94,7 +94,7 @@ function toStringSet(arr: string[]): t.DynamoDbStringSet {
   return <t.DynamoDbStringSet>util.aws.dynamodb.stringSet(arr)
 }
 
-export = {
+export default {
   queryFeedbackItems,
   getFeedbackItem,
   putFeedbackItem,

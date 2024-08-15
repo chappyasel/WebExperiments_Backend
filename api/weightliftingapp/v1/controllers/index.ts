@@ -1,9 +1,13 @@
-import express = require('express')
+import express from 'express'
+import feedbackRouter from './feedback'
+import usersRouter from './users'
+import faqRouter from './faq'
+
 const weightliftingApp = express.Router()
 
 // MARK - child routes
-weightliftingApp.use('/feedback', require('./feedback'))
-weightliftingApp.use('/users', require('./users'))
-weightliftingApp.use('/faq', require('./faq'))
+weightliftingApp.use('/feedback', feedbackRouter)
+weightliftingApp.use('/users', usersRouter)
+weightliftingApp.use('/faq', faqRouter)
 
-export = weightliftingApp
+export default weightliftingApp

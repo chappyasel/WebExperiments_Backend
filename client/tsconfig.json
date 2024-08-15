@@ -1,17 +1,11 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "target": "es5",
+    "module": "ESNext",
+    "target": "es2022",
     "jsx": "react",
     "moduleResolution": "node",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "types": [
-      "node"
-    ],
+    "lib": ["es2022", "dom", "dom.iterable"],
+    "types": ["node"],
     "baseUrl": ".",
     "paths": {
       "@shared/*": ["src/shared/*"]
@@ -30,7 +24,5 @@
     "noImplicitReturns": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": [
-    "src"
-  ]
+  "include": ["src"]
 }

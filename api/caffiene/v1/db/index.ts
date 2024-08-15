@@ -5,7 +5,7 @@ import { Dose } from './entities/Dose'
 import { IDose, IDoseCreate, IDoseDelete } from '@shared/caffiene'
 
 export { Dose } from './entities/Dose'
-export { IDose, DOSE_TYPE } from '@shared/caffiene'
+export type { IDose, IDoseCreate, IDoseDelete } from '@shared/caffiene'
 
 const doseTable = new Table({
   name: 'webexperiments-caffiene',

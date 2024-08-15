@@ -1,8 +1,8 @@
-import express = require('express')
+import * as express from 'express'
 const feedback = express.Router()
-import util = require('#util')
-import db = require('./db')
-import notif = require('./notif')
+import util from '#util'
+import db from './db'
+import notif from './notif'
 import * as t from './types'
 
 // MARK - child routes
@@ -202,4 +202,4 @@ feedback.post(
   })
 )
 
-export = feedback
+export default feedback

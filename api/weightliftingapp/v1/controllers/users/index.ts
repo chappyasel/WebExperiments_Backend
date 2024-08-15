@@ -1,6 +1,6 @@
-import express = require('express')
+import express from 'express'
 const users = express.Router()
-import util = require('../../../../util')
+import util from '../../../../util'
 
 /**
  * @api {post} /users
@@ -64,4 +64,4 @@ users.post(
   })
 )
 
-export = users
+export default users

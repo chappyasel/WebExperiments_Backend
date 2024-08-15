@@ -1,14 +1,30 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "target": "es5",
-    "moduleResolution": "node",
-    "typeRoots": ["node_modules/@types"],
-    "outDir": ".build",
+    // Language and Module Settings
+    "target": "es2022",
+    "module": "ESNext",
+    "moduleResolution": "Node",
     "esModuleInterop": true,
-    "sourceMap": true,
-    "allowJs": false,
+    "moduleDetection": "force",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "lib": ["es2022", "dom", "dom.iterable"],
 
+    // Strict Type-Checking Options
+    "strict": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noUncheckedIndexedAccess": true,
+    "checkJs": true,
+
+    // Additional Compiler Options
+    "skipLibCheck": true,
+    "allowJs": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+
+    // Output and Path Configuration
+    "outDir": ".build",
     "baseUrl": ".",
     "paths": {
       "#util": ["api/util/index"],
@@ -19,18 +35,8 @@
       {
         "transform": "typescript-transform-paths"
       }
-    ],
-
-    "strict": true,
-    "noImplicitAny": true,
-    "noImplicitReturns": true,
-
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
+    ]
   },
-  "include": [
-    "api",
-    "shared",
-    "app.ts"
-  ]
+  "include": ["api", "shared", "app.ts"],
+  "exclude": ["node_modules"]
 }
